@@ -1,7 +1,20 @@
-//
-   Created by yejing on 14-1-7.
+﻿//Created by yejing on 14-1-7.
 
-extends layout
+extends ../layout
 block content
-    h1= title
-    p Welcome to #{title}
+	h1= title
+	p Welcome to #{title}
+	form(method='post',action='/user/reg')
+		label 用户名：
+		input(name='name',value='name')
+		br
+		label 密码：
+		input(type='text',name='password',value='')
+		br
+		label 确认密码：
+		input(type='text',name='password_re',value='')
+		br
+		label 邮箱：
+		input(type='text',name='email',value='')
+		br
+		input(type='submit')

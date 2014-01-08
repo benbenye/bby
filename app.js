@@ -4,8 +4,8 @@
  */
 
 var express = require('express'),
-    routes = require('./routes'),
-    user = require('./routes/user'),
+    routes = require('./routes/index'),
+   // user = require('./routes/user'),
     http = require('http'),
     path = require('path'),
     MongoStore = require('connect-mongo')(express),
@@ -24,7 +24,7 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser);
+app.use(express.cookieParser());
 app.use(express.session({
     secret:settings.cookieSecret,//防止篡改cookies
     key:settings.db,

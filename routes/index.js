@@ -8,15 +8,16 @@ var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使
 module.exports = function(app){
     app.get('/',function(req, res){
         res.render('index',{
-            title:'主页'
+            title:'主页',
+            success:req.flash('success').toString(),
+            user:req.session.user
         });
     });
-    app.get('/me',function(req,res){
-        res.render('hello');
-    });
     app.get('/user/reg',function(req, res){
-        res.render('/user/reg',{
-            title:'注册'
+        res.render('user/reg',{
+            title:'注册',
+            success:req.flash('success').toString(),
+            username:req.session.user
         });
     });
     app.post('/user/reg',function(req, res){
