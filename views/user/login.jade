@@ -1,0 +1,12 @@
+﻿extends ../layout
+block content
+	h1=title
+	p Welcom to #{title}
+	form(method='post',action='')
+		label 用户名：
+		input(type='text',name='name')
+		br
+		label 密码：
+		input(type='password',name='password')
+		br
+		input(type='submit')

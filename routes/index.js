@@ -13,13 +13,35 @@ module.exports = function(app){
             user:req.session.user
         });
     });
+    //登录页面
+    app.get('/user/login', function(req, res){
+        res.render('user/login',{
+            title:'登录'
+        });
+    });
+    app.post('/user/login',function(req, res){
+        
+        var md5 = crypto.createHash('md5'),
+            password = req.body.password,
+            password = md5.update(password).digest('hex');
+       
+        User.get(req.body.name,function(err,user){
+            if(err){
+                return callback(err);
+            }
+            req.session.user;
+            req.flash('success_log','登录成功');
+            res.redirect('/');
+        });
+    });
+    //注册页面
     app.get('/user/reg',function(req, res){
         res.render('user/reg',{
             title:'注册',
             success:req.flash('success').toString(),
             username:req.session.user
         });
-    });
+    }); 
     app.post('/user/reg',function(req, res){
        var name = req.body.name,
            password = req.body.password,

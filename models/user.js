@@ -1,6 +1,6 @@
 var mongodb = require('./db');
 
-function User (user) {
+function User(user) {
 	this.name = user.name;
 	this.password = user.password;
 	this.email = user.email;
@@ -43,7 +43,7 @@ User.prototype.save = function(callback){
 //读取用户信息
 User.get = function(name,callback){
 	//打开数据库
-	mongodb.open(function(err,db){
+	mongodb.open(function(err,user){
 		if(err){
 			return callback(err);
 		}
