@@ -35,13 +35,16 @@ module.exports = function(app){
         });
     });
     //注册页面
+    app.get('/user/reg',checkLogin);
     app.get('/user/reg',function(req, res){
         res.render('user/reg',{
             title:'注册',
             success:req.flash('success').toString(),
-            username:req.session.user
+            user:req.session.user
         });
     }); 
+
+    app.post('/user/reg',checkLogin);
     app.post('/user/reg',function(req, res){
        var name = req.body.name,
            password = req.body.password,
@@ -76,4 +79,20 @@ module.exports = function(app){
             });
         });
     });
+    //过滤器
+    function checkNotLogin(req, res, next){
+        if(!req.session.user){
+            res.flash('error','您还未登录');
+            res.redirect('back');
+        }
+        next();
+    }
+
+    function checkLogin(req, res, next){
+        if(req.session.user){
+            res.flash('error','您已经登录了');
+            res.redirect('back');
+        }
+        next();
+    }
 };
