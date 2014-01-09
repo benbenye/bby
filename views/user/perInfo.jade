@@ -1,0 +1,17 @@
+﻿//Created by yejing on 14-1-7.
+
+extends ../layout
+block content
+	h1= title
+	p Welcome to #{title}
+	form(method='post',action='/user/reg')
+		label 用户名：
+		input(name='name',value='name')
+		br
+		label 邮箱：
+		input(type='text',name='email',value='')
+		br
+		label 性别：
+		input(type='text',name='email',value='')
+		br
+		input(type='submit')

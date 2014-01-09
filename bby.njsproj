@@ -37,6 +37,9 @@
     <Content Include="README.md" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
+    <Content Include="views\user\perInfo.jade" />
+    <Content Include="views\user\login.jade" />
+    <Content Include="views\user\reg.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
@@ -45,6 +48,7 @@
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
+    <Folder Include="views\user\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
   <ProjectExtensions>

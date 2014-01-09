@@ -9,16 +9,22 @@ module.exports = function(app){
     app.get('/',function(req, res){
         res.render('index',{
             title:'主页',
-            success:req.flash('success').toString(),
-            user:req.session.user
+            success_reg:req.flash('success').toString(),
+            success_log:req.flash('success_log').toString(),
+            user:req.session.user,
+            error:req.flash('error').toString()
         });
     });
+
     //登录页面
+    app.get('/user/reg',checkLogin);
     app.get('/user/login', function(req, res){
         res.render('user/login',{
             title:'登录'
         });
     });
+    
+    app.get('/user/reg',checkLogin);
     app.post('/user/login',function(req, res){
         
         var md5 = crypto.createHash('md5'),
@@ -29,11 +35,12 @@ module.exports = function(app){
             if(err){
                 return callback(err);
             }
-            req.session.user;
+            req.session.user = user;
             req.flash('success_log','登录成功');
             res.redirect('/');
         });
     });
+
     //注册页面
     app.get('/user/reg',checkLogin);
     app.get('/user/reg',function(req, res){
@@ -74,15 +81,24 @@ module.exports = function(app){
                     return res.redirect('/user/reg');
                 }
                 req.session.user = user;
-                req.flash('success','注册成功');
+                req.flash('success_reg','注册成功');
                 res.redirect('/');
             });
         });
     });
+
+    //个人中心
+    app.get('/user/perInfo',checkNotLogin);
+    app.get('/user/perInfo',function(req, res){
+        res.render('user/perInfo',{
+            title:'个人中心'
+        });
+    });
+
     //过滤器
     function checkNotLogin(req, res, next){
         if(!req.session.user){
-            res.flash('error','您还未登录');
+            req.flash('error','您还未登录');
             res.redirect('back');
         }
         next();
@@ -90,7 +106,7 @@ module.exports = function(app){
 
     function checkLogin(req, res, next){
         if(req.session.user){
-            res.flash('error','您已经登录了');
+            req.flash('error','您已经登录了');
             res.redirect('back');
         }
         next();
