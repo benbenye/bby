@@ -4,14 +4,17 @@ extends ../layout
 block content
 	h1= title
 	p Welcome to #{title}
-	form(method='post',action='/user/reg')
+	form(method='post',action='/user/perInfo')
 		label 用户名：
-		input(name='name',value='name')
+			input(name='name',value='#{user.name}')
 		br
 		label 邮箱：
-		input(type='text',name='email',value='')
+			input(type='text',name='email',value='#{user.email}')
 		br
 		label 性别：
-		input(type='text',name='email',value='')
+			input(type='radio',name='sex',value='#{user.sex}')
+			|男
+			input(type='radio',name='sex',value='#{user.sex}')
+			|女
 		br
 		input(type='submit')
