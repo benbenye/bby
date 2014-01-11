@@ -2,6 +2,8 @@
 block content
 	h1=title
 	p Welcom to #{title}
+	-if(error)
+		h1=error
 	form(method='post',action='')
 		label 用户名：
 		input(type='text',name='name')

@@ -5,4 +5,17 @@ html
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
 	body
+		ul
+			li
+				a(href='/') 首页
+			-if(user)
+				li
+					a(href='/user/perInfo') 个人中心
+				li
+					a(href='/user/logout') 退出
+			-else
+				li
+					a(href='/user/login') 登录
+				li
+					a(href='/user/reg') 注册
 		block content

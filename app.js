@@ -4,7 +4,7 @@
 
 var express = require('express'),
     routes = require('./routes/index'),
-   // user = require('./routes/user'),
+    //user = require('./routes/user'),
     http = require('http'),
     path = require('path'),
     mongodb = require('mongodb'),
@@ -27,7 +27,7 @@ app.use(express.cookieParser());
 app.use(express.session({
     secret:'bby',//防止篡改cookies
     //key:settings.db,
-    cookie :{maxAge:1000*60*60*24*30},
+    cookie :{maxAge:15000},
     store:new MongoStore({
         db:'session',//把会话存储到数据库中避免丢失
         url:'mongodb://127.0.0.1:27017/session'

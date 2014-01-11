@@ -25,12 +25,9 @@ function User(user) {
 	this.name = user.name;
 	this.password = user.password;
 	this.email = user.email;
+    this.sex = user.sex;
 };//User 构造函数，对新创建的对象进行初始化 
-function PerInfo(perInfo){
-    this.name = perInfo.name;
-    this.email = perInfo.email;
-    this.sex = perInfo.sex;//个人信息
-}
+
 //module.exports = User;
 
 //存储用户信息
@@ -58,25 +55,17 @@ User.get = function(name,callback){
         if(err){
             return callback(err);
         }
+        console.log(user);
         callback(null, user);
     });
 };
-
-PerInfo.prototype.save = function(callback){
-    var perInfo = {
-        name:this.name,
-        email:this.email,
-        sex:this.sex
-    };
-
-    var newperInfo = new perInfoModel(perInfo);
-    newperInfo.update(function(err, perInfo){
+//修改信息
+User.edit = function(name, perInfo, callback){
+    userModel.update({name:name},{email:perInfo.email},function(err, perInfo){
         if(err){
             return callback(err);
         }
         callback(null, perInfo);
     });
 };
-
 module.exports = User;
-module.exports = PerInfo;

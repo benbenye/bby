@@ -3,17 +3,17 @@
  * GET home page.
  */
 var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
-    User = require('../models/user.js'),
-    PerInfo = require('../models/user.js');
+    User = require('../models/user.js');
 
 module.exports = function(app){
     app.get('/',function(req, res){
         res.render('index',{
             title:'主页',
-            success_reg:req.flash('success').toString(),
+            user:req.session.user,
+            success:req.flash('success').toString(),
+            success_reg:req.flash('success_reg').toString(),
             success_log:req.flash('success_log').toString(),
             success_perInfo:req.flash('success_perInfo').toString(),
-            user:req.session.user,
             error:req.flash('error').toString()
         });
     });
@@ -22,7 +22,8 @@ module.exports = function(app){
     app.get('/user/login',checkLogin);
     app.get('/user/login', function(req, res){
         res.render('user/login',{
-            title:'登录'
+            title:'登录',
+            error:req.flash('error').toString()
         });
     });
     
@@ -35,6 +36,13 @@ module.exports = function(app){
             if(err){
                 return callback(err);
             }
+            if(user == null){
+                req.flash('error','用户名错误');
+                return res.redirect('/user/login');
+            } else if( user.password != password){
+                req.flash('error','密码错误');
+                return res.redirect('/user/login');
+            }           
             req.session.user = user;
             req.flash('success_log','登录成功');
             res.redirect('/');
@@ -85,30 +93,40 @@ module.exports = function(app){
             });
         });
     });
+    
+    //退出
+    app.get('/user/logout', checkNotLogin);
+    app.get('/user/logout', function (req, res) {
+    req.session.user = null;
+    req.flash('success', '登出成功!');
+    res.redirect('/');//登出成功后跳转到主页
+  });
 
     //个人中心
     app.get('/user/perInfo',checkNotLogin);
     app.get('/user/perInfo',function(req, res){
         res.render('user/perInfo',{
             title:'个人中心',
-            user:req.session.user
+            user:req.session.user,
+            error:req.flash('error').toString()
         });
     });
 
     app.post('/user/perInfo',checkNotLogin);
     app.post('/user/perInfo',function(req, res){
-        var newperInfo = new PerInfo({
+        var newperInfo = new User({
             name:req.body.name,
-            email:req.body.email,
-            sex:req.body.sex
+            email:req.body.email
         });
-        newperInfo.save(function(err, newperInfo){
+        User.edit(newperInfo.name, newperInfo, function(err, perInfo){
             if(err){
-                req.flash('error', err);
+                req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
                 return res.redirect('/user/perInfo');
             }
-            req.flash('secces_perInfo','修改成功');
+            req.session.user = newperInfo;
+            req.flash('succes', '修改成功');
             res.redirect('/');
+
         });
     });
 
