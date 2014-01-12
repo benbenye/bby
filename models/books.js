@@ -1,12 +1,36 @@
 //var mongodb = require('./db');
 
-function Post(name, title, post) {
-	this.name = name;
-	this.title = title;
-	this.post = post;
+var mongoose = require('mongoose');
+if (mongoose.readyState === 0) {
+    mongoose.connect('mongodb://localhost/bby', function(err){
+        if(!err){
+            console.log('connected to mongoDB');
+        }else{
+            throw err;
+        }
+    });
 }
 
-module.exports = Post;
+var userSchema = mongoose.Schema;
+var ObjectId = userSchema.ObjectId;
+
+var userSchema = new userSchema({
+  name: String,
+  password:String,
+  email:String,
+  sex:String
+},{
+    collection:'users'
+});
+
+var userModel = mongoose.model('User', userSchema);// all environments
+function User(user) {
+	this.name = user.name;
+	this.password = user.password;
+	this.email = user.email;
+    this.sex = user.sex;
+};//User 构造函数，对新创建的对象进行初始化 
+
 
 ////存储一篇文章及其相关信息
 //Post.prototype.save = function(callback) {

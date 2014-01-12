@@ -1,0 +1,15 @@
+﻿extends ../layout
+block content
+	h1=title
+	p welcome to #{title}
+	form(method='post',action='/books/upbooks')
+		label 书名：
+			input(type='text')
+		br
+		label 章节：
+			input(type='text')
+		br
+		label 内容：
+			textarea(rows='10',cols='20') 请在这里填写您相对应章节下的文章内容
+		br
+		input(type='submit')

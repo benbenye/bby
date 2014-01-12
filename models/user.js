@@ -1,13 +1,16 @@
 //var mongodb = require('./db');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/bby', function(err){
-if(!err){
-    console.log('connected to mongoDB');
-}else{
-    throw err;
+if (mongoose.readyState === 0) {
+    mongoose.connect('mongodb://localhost/bby', function(err){
+        if(!err){
+            console.log('connected to mongoDB');
+        }else{
+            throw err;
+        }
+    });
 }
-});
+
 var userSchema = mongoose.Schema;
 var ObjectId = userSchema.ObjectId;
 
