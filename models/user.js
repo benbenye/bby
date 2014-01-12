@@ -55,16 +55,16 @@ User.get = function(name,callback){
         if(err){
             return callback(err);
         }
-        console.log(user);
         callback(null, user);
     });
 };
 //修改信息
 User.edit = function(name, perInfo, callback){
-    userModel.update({name:name},{email:perInfo.email},function(err, perInfo){
+    userModel.update({name:name},{email:perInfo.email,sex:perInfo.sex},function(err, perInfo){
         if(err){
             return callback(err);
         }
+        console.log(perInfo.sex);
         callback(null, perInfo);
     });
 };

@@ -105,18 +105,25 @@ module.exports = function(app){
     //个人中心
     app.get('/user/perInfo',checkNotLogin);
     app.get('/user/perInfo',function(req, res){
-        res.render('user/perInfo',{
-            title:'个人中心',
-            user:req.session.user,
-            error:req.flash('error').toString()
-        });
+        User.get(req.session.user.name,function(err, user){
+            if(err){
+                res.flash();
+                return callback(err);
+            }
+            res.render('user/perInfo',{
+                title:'个人中心',
+                user:user,
+                error:req.flash('error').toString()
+            });
+         });        
     });
 
     app.post('/user/perInfo',checkNotLogin);
     app.post('/user/perInfo',function(req, res){
         var newperInfo = new User({
             name:req.body.name,
-            email:req.body.email
+            email:req.body.email,
+            sex:req.body.sex
         });
         User.edit(newperInfo.name, newperInfo, function(err, perInfo){
             if(err){

@@ -14,9 +14,26 @@ block content
 			input(type='text',name='email',value='#{user.email}')
 		br
 		label 性别：
-			input(type='radio',name='sex',value='#{user.sex}')
-			|男
-			input(type='radio',name='sex',value='#{user.sex}')
-			|女
+			-if(user.sex === '1')
+				input(type='radio',name='sex',value='0')
+				|男
+				input(type='radio',name='sex',value='1' checked='#{user.sex}')
+				|女
+				input(type='radio',name='sex')
+				|保密
+			-else if(user.sex === '0')
+				input(type='radio',name='sex',value='0' checked='checked')
+				|男
+				input(type='radio',name='sex',value='1')
+				|女
+				input(type='radio',name='sex')
+				|保密
+			-else
+				input(type='radio',name='sex',value='0')
+				|男
+				input(type='radio',name='sex',value='1')
+				|女
+				input(type='radio',name='sex' checked = 'checked')
+				|保密
 		br
 		input(type='submit')

@@ -27,7 +27,7 @@ app.use(express.cookieParser());
 app.use(express.session({
     secret:'bby',//防止篡改cookies
     //key:settings.db,
-    cookie :{maxAge:15000},
+    cookie :{maxAge:1000*60*6024*30},
     store:new MongoStore({
         db:'session',//把会话存储到数据库中避免丢失
         url:'mongodb://127.0.0.1:27017/session'
