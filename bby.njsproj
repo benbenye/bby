@@ -31,15 +31,16 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="models\db.js" />
-    <Compile Include="models\books.js" />
+    <Compile Include="models\book.js" />
     <Compile Include="models\user.js" />
+    <Compile Include="routes\book.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\user.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
-    <Content Include="views\books\books.jade" />
-    <Content Include="views\books\upbooks.jade" />
+    <Content Include="views\book\book.jade" />
+    <Content Include="views\book\upbook.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\user\perInfo.jade" />
@@ -55,7 +56,7 @@
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
-    <Folder Include="views\books\" />
+    <Folder Include="views\book\" />
     <Folder Include="views\user\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

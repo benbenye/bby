@@ -1,15 +1,15 @@
-
+ï»¿
 /*
  * GET users listing.
  */
-var crypto = require('crypto'),//crypto ÊÇnodeµÄÒ»¸öºËĞÄÄ£¿é£¬ÎÒÃÇÊ¹ÓÃËûÉú³ÉÉ¢ÁĞÖµ¼ÓÃÜÃÜÂë
+var crypto = require('crypto'),//crypto æ˜¯nodeçš„ä¸€ä¸ªæ ¸å¿ƒæ¨¡å—ï¼Œæˆ‘ä»¬ä½¿ç”¨ä»–ç”Ÿæˆæ•£åˆ—å€¼åŠ å¯†å¯†ç 
     User = require('../models/user.js');
 
 module.exports = function(app){
 
     app.get('/',function(req, res){
         res.render('index',{
-            title:'Ö÷Ò³',
+            title:'ä¸»é¡µ',
             user:req.session.user,
             success:req.flash('success').toString(),
             success_reg:req.flash('success_reg').toString(),
@@ -19,11 +19,11 @@ module.exports = function(app){
         });
     });
 
-    //µÇÂ¼Ò³Ãæ
+    //ç™»å½•é¡µé¢
     app.get('/user/login',checkLogin);
     app.get('/user/login', function(req, res){
         res.render('user/login',{
-            title:'µÇÂ¼',
+            title:'ç™»å½•',
             error:req.flash('error').toString()
         });
     });
@@ -38,23 +38,23 @@ module.exports = function(app){
                 return callback(err);
             }
             if(user == null){
-                req.flash('error','ÓÃ»§Ãû´íÎó');
+                req.flash('error','ç”¨æˆ·åé”™è¯¯');
                 return res.redirect('/user/login');
             } else if( user.password != password){
-                req.flash('error','ÃÜÂë´íÎó');
+                req.flash('error','å¯†ç é”™è¯¯');
                 return res.redirect('/user/login');
             }           
             req.session.user = user;
-            req.flash('success_log','µÇÂ¼³É¹¦');
+            req.flash('success_log','ç™»å½•æˆåŠŸ');
             res.redirect('/');
         });
     });
 
-    //×¢²áÒ³Ãæ
+    //æ³¨å†Œé¡µé¢
     app.get('/user/reg',checkLogin);
     app.get('/user/reg',function(req, res){
         res.render('user/reg',{
-            title:'×¢²á',
+            title:'æ³¨å†Œ',
             success:req.flash('success_reg').toString(),
             user:req.session.user
         });
@@ -65,7 +65,7 @@ module.exports = function(app){
        var password = req.body.password,
            password_re = req.body.password_re;
        if(password != password_re){
-           req.flash('error','Á½´ÎÃÜÂë²»Ò»ÖÂ');
+           req.flash('error','ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´');
            return res.redirect('/user/reg');
        }
        //md5
@@ -80,7 +80,7 @@ module.exports = function(app){
        //check the user is exist?
         User.get(newUser.name,function(err,user){
             if(user){
-                req.flash('error','ÓÃ»§ÒÑ¾­´æÔÚ');
+                req.flash('error','ç”¨æˆ·å·²ç»å­˜åœ¨');
                 return res.redirect('/user/reg');
             }
             newUser.save(function(err,user){
@@ -89,21 +89,21 @@ module.exports = function(app){
                     return res.redirect('/user/reg');
                 }
                 req.session.user = user;
-                req.flash('success_reg','×¢²á³É¹¦');
+                req.flash('success_reg','æ³¨å†ŒæˆåŠŸ');
                 res.redirect('/');
             });
         });
     });
     
-    //ÍË³ö
+    //é€€å‡º
     app.get('/user/logout', checkNotLogin);
     app.get('/user/logout', function (req, res) {
     req.session.user = null;
-    req.flash('success', 'µÇ³ö³É¹¦!');
-    res.redirect('/');//µÇ³ö³É¹¦ºóÌø×ªµ½Ö÷Ò³
+    req.flash('success', 'ç™»å‡ºæˆåŠŸ!');
+    res.redirect('/');//ç™»å‡ºæˆåŠŸåè·³è½¬åˆ°ä¸»é¡µ
   });
 
-    //¸öÈËÖĞĞÄ
+    //ä¸ªäººä¸­å¿ƒ
     app.get('/user/perInfo',checkNotLogin);
     app.get('/user/perInfo',function(req, res){
         User.get(req.session.user.name,function(err, user){
@@ -112,7 +112,7 @@ module.exports = function(app){
                 return callback(err);
             }
             res.render('user/perInfo',{
-                title:'¸öÈËÖĞĞÄ',
+                title:'ä¸ªäººä¸­å¿ƒ',
                 user:user,
                 error:req.flash('error').toString()
             });
@@ -132,38 +132,23 @@ module.exports = function(app){
                 return res.redirect('/user/perInfo');
             }
             req.session.user = newperInfo;
-            req.flash('succes', 'ĞŞ¸Ä³É¹¦');
+            req.flash('succes', 'ä¿®æ”¹æˆåŠŸ');
             res.redirect('/');
 
         });
     });
 
-    //Êé¼®Ò³Ãæ
-    app.get('/books/books',function(req, res){
-        res.render('books/books',{
-            title:'Êé¼®Ò³Ãæ'
-        });
-    });
-
-    //ÉÏ´«Êé¼®
-    app.get('/books/upbooks',checkNotLogin);
-    app.get('/books/upbooks',function(req, res){
-        res.render('books/upbooks',{
-            title:'ÉÏ´«Êé¼®'
-        });
-    });
-
-    //¹ıÂËÆ÷
+    //è¿‡æ»¤å™¨
     function checkNotLogin(req, res, next){
         if(!req.session.user){
-            req.flash('error','Äú»¹Î´µÇÂ¼');
+            req.flash('error','æ‚¨è¿˜æœªç™»å½•');
             return res.redirect('back');
         }
         next();
     }
     function checkLogin(req, res, next){
         if(req.session.user){
-            req.flash('error','ÄúÒÑ¾­µÇÂ¼ÁË');
+            req.flash('error','æ‚¨å·²ç»ç™»å½•äº†');
             return res.redirect('back');
             //res.redirect('back');
         }

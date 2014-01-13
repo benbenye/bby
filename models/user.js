@@ -1,7 +1,7 @@
 //var mongodb = require('./db');
 
 var mongoose = require('mongoose');
-if (mongoose.readyState === 0) {
+if (mongoose.readyState === 0 || mongoose.readyState === undefined) {
     mongoose.connect('mongodb://localhost/bby', function(err){
         if(!err){
             console.log('connected to mongoDB');
