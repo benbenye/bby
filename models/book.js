@@ -37,10 +37,10 @@ Book.prototype.save = function(callback) {
 	//要存入数据库的文档
 	var book = {
 		name_zh : this.name_zh,
-		time : time,
-		ISBN : this.ISBN,
-		author : this.author,
-        tags:this.tags
+		time : time
+		//ISBN : this.ISBN,
+		//author : this.author,
+        //tags:this.tags
 	};
     var newBook = new bookModel(book);
 	
@@ -81,3 +81,4 @@ Book.prototype.save = function(callback) {
 //		});
 //	});
 //};
+module.exports = Book;

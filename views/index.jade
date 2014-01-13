@@ -3,11 +3,9 @@
 block content
 	h1= title
 	p Welcome to #{title}
-	-if(success_log)
-		p=success_log
+	-if(success)
+		p=success
 		p 你好，
-			a(href='user/perInfo') #{user.name}
-	-else if(success_perInfo)
-		p=success_perInfo
-	-else if(error)
+			a(href='user/perInfo') #{user.name}	
+	-if(error)
 		p=error

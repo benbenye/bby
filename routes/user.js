@@ -12,9 +12,6 @@ module.exports = function(app){
             title:'主页',
             user:req.session.user,
             success:req.flash('success').toString(),
-            success_reg:req.flash('success_reg').toString(),
-            success_log:req.flash('success_log').toString(),
-            success_perInfo:req.flash('success_perInfo').toString(),
             error:req.flash('error').toString()
         });
     });
@@ -28,7 +25,7 @@ module.exports = function(app){
         });
     });
     
-    app.get('/user/login',checkLogin);
+    app.post('/user/login',checkLogin);
     app.post('/user/login',function(req, res){
         
         var password = crypto.createHash('md5').update(req.body.password).digest('hex');
@@ -45,7 +42,7 @@ module.exports = function(app){
                 return res.redirect('/user/login');
             }           
             req.session.user = user;
-            req.flash('success_log','登录成功');
+            req.flash('success','登录成功');
             res.redirect('/');
         });
     });
@@ -55,7 +52,7 @@ module.exports = function(app){
     app.get('/user/reg',function(req, res){
         res.render('user/reg',{
             title:'注册',
-            success:req.flash('success_reg').toString(),
+            success:req.flash('success').toString(),
             user:req.session.user
         });
     }); 
@@ -89,7 +86,7 @@ module.exports = function(app){
                     return res.redirect('/user/reg');
                 }
                 req.session.user = user;
-                req.flash('success_reg','注册成功');
+                req.flash('success','注册成功');
                 res.redirect('/');
             });
         });
