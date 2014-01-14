@@ -67,8 +67,8 @@ User.edit = function(name, perInfo, callback){
         if(err){
             return callback(err);
         }
-        console.log(perInfo.sex);
         callback(null, perInfo);
+        console.log(perInfo);//?
     });
 };
 module.exports = User;

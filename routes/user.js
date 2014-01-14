@@ -12,6 +12,7 @@ module.exports = function(app){
             title:'主页',
             user:req.session.user,
             success:req.flash('success').toString(),
+            success_out:req.flash('success_out').toString(),
             error:req.flash('error').toString()
         });
     });
@@ -95,9 +96,9 @@ module.exports = function(app){
     //退出
     app.get('/user/logout', checkNotLogin);
     app.get('/user/logout', function (req, res) {
-    req.session.user = null;
-    req.flash('success', '登出成功!');
-    res.redirect('/');//登出成功后跳转到主页
+        req.session.user = null;
+        req.flash('success_out', '登出成功!');
+        res.redirect('/');//登出成功后跳转到主页
   });
 
     //个人中心
@@ -105,7 +106,7 @@ module.exports = function(app){
     app.get('/user/perInfo',function(req, res){
         User.get(req.session.user.name,function(err, user){
             if(err){
-                res.flash();
+                res.flash();//丰富一下
                 return callback(err);
             }
             res.render('user/perInfo',{
@@ -128,8 +129,9 @@ module.exports = function(app){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
                 return res.redirect('/user/perInfo');
             }
-            req.session.user = newperInfo;
-            req.flash('succes', '修改成功');
+            //req.session.user = perInfo;
+            console.log(perInfo.sex);
+            req.flash('success', '修改成功');
             res.redirect('/');
 
         });

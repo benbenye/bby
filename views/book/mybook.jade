@@ -1,0 +1,14 @@
+﻿extends ../layout
+block content
+	h1=title
+	p welcome to #{title}
+	p 我上传过的书：	
+	ul
+		- for(var index = 0;index<book.length;index++)
+			li
+				a(href='/book/'+'#{book[index].name_zh}',title='#{book[index].name_zh}') #{book[index].name_zh}
+	ul
+		-each val,index in book
+			li=index+1 +':' + val.name_zh
+	p
+		a(href='/book/upbook') 上传书籍

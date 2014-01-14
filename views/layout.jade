@@ -1,20 +1,21 @@
 doctype html
 html
 	head
-		title= title
+		title=title
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+		script(src='/javascripts/page.js')
 	body
-		ul
+		ul.nav
 			li
 				a(href='/') 首页
 			li
-				a(href='/book/book') 读书
+				a(href='/book/mybook') 读书
 			-if(user)
 				li
 					a(href='/user/perInfo') 个人中心
 				li
-					a(href='/user/logout') 退出
+					a.logout(href='/user/logout') 退出
 			-else
 				li
 					a(href='/user/login') 登录

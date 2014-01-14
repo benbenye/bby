@@ -7,5 +7,7 @@ block content
 		p=success
 		p 你好，
 			a(href='user/perInfo') #{user.name}	
+	-else if(success_out)
+		p=success_out
 	-if(error)
 		p=error

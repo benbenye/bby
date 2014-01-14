@@ -5,5 +5,5 @@ body {
 a {
   color: #00b7ff;
 }
-ul{display:block; height:45px;}
-ul li{display:block; float:left; width:45px;}
+ul.nav{display:block; height:45px;}
+ul.nav li{display:block; float:left; width:45px;}

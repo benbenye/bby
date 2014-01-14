@@ -6,6 +6,7 @@ var bookSchema = mongoose.Schema;
 var ObjectId = bookSchema.ObjectId;
 
 var bookSchema = new bookSchema({
+  publisher:String,
   name_zh: String,
   ISBN:String,
   author:String,
@@ -16,6 +17,7 @@ var bookSchema = new bookSchema({
 
 var bookModel = mongoose.model('Book', bookSchema);// all environments
 function Book(book) {
+    this.publisher = book.publisher;
 	this.name_zh = book.name_zh;
 	this.ISBN = book.ISBN;
 	this.author = book.author;
@@ -36,8 +38,10 @@ Book.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var book = {
+        publisher:this.publisher,
 		name_zh : this.name_zh,
-		time : time
+		time : time,
+        tags:this.tags
 		//ISBN : this.ISBN,
 		//author : this.author,
         //tags:this.tags
@@ -51,34 +55,13 @@ Book.prototype.save = function(callback) {
         callback(null, book);
     });
 };
-////读取文章及其相关信息
-//Post.get = function(name, callback){
-//	//打开数据库
-//	mongodb.open(function(err,db){
-//		if(err){
-//			return callback(err);
-//		}
-//		//读取 posts 集合
-//		db.collection('posts',function(err, collection){
-//			if(err){
-//				mongodb.close();
-//				return callback(err);
-//			}
-//			var query = {};
-//			if(name){
-//				query.name = name;
-//			}
-//			//根据query 对象查询文章
-//			collection.find(query).sort({
-//				time : -1
-//			}).toArray(function(err,docs){
-//				mongodb.close();
-//				if(err){
-//					return callback(err);
-//				}
-//				callback(null, docs);//成功！以数组形式返回查询结果
-//			});
-//		});
-//	});
-//};
+//读取文章及其相关信息
+Book.get = function(name, callback){
+	bookModel.find({publisher:name},function(err,book){
+        if(err){
+            return callback(err);
+        }
+        callback(null, book);
+    });
+};
 module.exports = Book;

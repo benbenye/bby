@@ -30,9 +30,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="models\bookContent.js" />
     <Compile Include="models\db.js" />
     <Compile Include="models\book.js" />
     <Compile Include="models\user.js" />
+    <Compile Include="public\javascripts\page.js" />
     <Compile Include="routes\book.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\user.js" />
@@ -40,6 +42,7 @@
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\book\book.jade" />
+    <Content Include="views\book\mybook.jade" />
     <Content Include="views\book\upbook.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
