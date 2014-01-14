@@ -1,4 +1,4 @@
-//var mongodb = require('./db');
+﻿//var mongodb = require('./db');
 
 var mongoose = require('mongoose');
 
@@ -63,5 +63,8 @@ Book.get = function(name, callback){
         }
         callback(null, book);
     });
+};
+Book.edit = function(name, callback){
+    bookModel.update({publisher:name},{$set:},function(){});
 };
 module.exports = Book;
