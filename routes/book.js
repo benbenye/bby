@@ -82,7 +82,7 @@ module.exports = function(app){
             if(err){
                 return callback(err);
             }
-            req.flash('success','上传成功');
+            req.flash('success','上传成功');//上传之前加一个验证，此用户下的书是否已经存在相同名字的书
             res.redirect('/book/mybook');
         });
     });
@@ -90,7 +90,7 @@ module.exports = function(app){
     //查看书籍内容
     app.get('/book/upbookContent', checkNotLogin);
     app.get('/book/upbookContent', function(req, res){
-         BookContent.get(req.session.user.name,function(err,bookContent){
+         BookContent.getOne(req.session.user.name,function(err,bookContent){
             if(err){
                 res.flash();
                 return callback(err);
