@@ -1,0 +1,12 @@
+﻿extends ../layout
+block content
+	h1=title
+	p welcome to #{title}
+	form(method='post',action='/book/upbookContent')
+		h2=name_zh
+		h3=tags
+		br
+		label 内容：
+			textarea(rows='10',cols='20',name='content') 请在这里填写您相对应章节下的文章内容
+		br
+		input(type='submit')

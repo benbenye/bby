@@ -11,7 +11,7 @@ module.exports = function(app){
     //书籍页面
     app.get('/book/mybook', checkNotLogin);
     app.get('/book/mybook',function(req, res){
-        Book.get(req.session.user.name,function(err,book){
+        Book.getList(req.session.user.name,function(err,book){
             if(err){
                 res.flash();
                 return callback(err);
@@ -25,46 +25,106 @@ module.exports = function(app){
         });       
     });
 
-    //上传书籍
-    app.get('/book/upbook',checkNotLogin);
-    app.get('/book/upbook',function(req, res){        
-        res.render('book/upbook',{
-            title:'上传书籍',
-            user:req.session.user
-        });        
+    //查看\修改书籍描述
+    app.get('/book/upbookDescribe/:uaerName/:bookName',checkNotLogin);
+    app.get('/book/upbookDescribe/:uaerName/:bookName',function(req, res){ 
+        Book.getOne(req.params.uaerName, req.params.bookName, function(err,book){
+            if(err){
+                res.flash();
+                return callback(err);
+            }
+            var book = book;
+            console.log(book.name_zh);
+            res.render('book/upbookDescribe',{
+                title:'上传书籍描述',
+                user:req.session.user,
+                book:book
+            });
+        });       
+    });
+    
+    //修改书籍描述
+    app.post('/book/upbookDescribe/:uaerName/:bookName',checkNotLogin);
+    app.post('/book/upbookDescribe/:uaerName/:bookName',function(req, res){       
+        var name = {
+            userName:req.params.userName,
+            bookName:req.params.bookName
+        };
+        var books = {
+            name_zh:req.body.name_zh,
+            tags:req.body.tags
+        }
+        Book.edit(name,books,function(err, numeffect){
+            if(err){
+                return callback(err);
+            }            
+            req.flash('success','修改成功');
+            res.redirect('/book/mybook');
+        });
     });
 
-    app.post('/book/upbook',checkNotLogin);
-    app.post('/book/upbook',function(req, res){
+    app.get('/book/upbookDescribe',checkNotLogin);
+    app.get('/book/upbookDescribe',function(req, res){ 
+        res.render('book/upbookDescribe',{
+            title:'上传书籍描述'
+        });       
+    });
+    
+    //上传书籍描述
+    app.post('/book/upbookDescribe',checkNotLogin);
+    app.post('/book/upbookDescribe',function(req, res){
         var newBook = new Book({
             publisher:res.req.session.user.name,
             name_zh:req.body.name_zh,
             tags:req.body.tags.split("；")
-        });
-        var newBookContent = new BookContent({
-            name:req.body.name_zh,
-            content:req.body.content
         });
         newBook.save(function(err, book){
             if(err){
                 return callback(err);
             }
             req.flash('success','上传成功');
-            //res.redirect('/');
+            res.redirect('/book/mybook');
+        });
+    });
+
+    //查看书籍内容
+    app.get('/book/upbookContent', checkNotLogin);
+    app.get('/book/upbookContent', function(req, res){
+         BookContent.get(req.session.user.name,function(err,bookContent){
+            if(err){
+                res.flash();
+                return callback(err);
+            }
+            var book = book;
+            res.render('book/upbookContent',{
+                title:'书籍内容',
+                user:req.session.user,
+                bookContent:bookContent
+            });
+        }); 
+    });
+    
+    //上传书籍内容
+    app.post('/book/upbookContent/:userName/:bookName',checkNotLogin);
+    app.post('/book/upbookContent/:userName/:bookName',function(req, res){       
+        var newBookContent = new BookContent({
+            publisher:userName,
+            name_zh:bookName,
+            content:req.body.content
         });
         newBookContent.save(function(err, bookContent){
             if(err){
                 return callback(err);
             }
-            req.flash('','');
-            res.redirect('/');
+            req.flash('success','上传成功');
+            res.redirect('/book/mybook');
         });
     });
 
     //查看书籍
     app.get('/book/:name', checkNotLogin);
     app.get('/book/:name',function(req, res){
-        BookContent.get(req.params.name,function(err, bookContent){
+        BookContent.getOne(req.params.name, name, function(err, bookContent){
             if(err){
                 return callback(err);
             }
@@ -75,6 +135,11 @@ module.exports = function(app){
                 bookContent:bookContent.content
             });
         });
+    });
+
+    app.post('/book/:name',checkNotLogin);
+    app.post('/book/:name',function(req, res){
+
     });
 
     //过滤器

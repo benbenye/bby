@@ -46,8 +46,17 @@ BookContent.prototype.save = function(callback) {
     });
 };
 //读取文章及其相关信息
-BookContent.get = function(name, callback){
+BookContent.getList = function(name, callback){
 	bookContentModel.findOne({name:name},function(err,bookContent){
+        if(err){
+            return callback(err);
+        }
+        callback(null, bookContent);
+    });
+};
+//读取一篇文章内容
+BookContent.getOne = function(userName, bookName, callback){
+	bookContentModel.findOne({name:bookName,publisher:userName},function(err,bookContent){
         if(err){
             return callback(err);
         }

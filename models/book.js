@@ -22,6 +22,7 @@ function Book(book) {
 	this.ISBN = book.ISBN;
 	this.author = book.author;
     this.tags = book.tags;
+    this.time = book.time;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -56,15 +57,29 @@ Book.prototype.save = function(callback) {
     });
 };
 //读取文章及其相关信息
-Book.get = function(name, callback){
+Book.getList = function(name, callback){
 	bookModel.find({publisher:name},function(err,book){
+        if(err){
+            return callback(err);
+        }
+        callback(null, book);//book数组
+    });
+};
+//读取文章及其相关信息
+Book.getOne = function(name, name_zh, callback){
+	bookModel.findOne({publisher:name,name_zh:name_zh},function(err,book){
         if(err){
             return callback(err);
         }
         callback(null, book);
     });
 };
-Book.edit = function(name, callback){
-    bookModel.update({publisher:name},{$set:},function(){});
+Book.edit = function(name, books, callback){
+    bookModel.update({publisher:name.userName,name_zh:name.bookName},{$set:{name_zh:books.name_zh,}},function(err, numeffect){
+        if(err){
+            return callback(err);
+        }
+        callback(null, numeffect);
+    });
 };
 module.exports = Book;

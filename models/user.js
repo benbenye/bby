@@ -63,7 +63,7 @@ User.get = function(name,callback){
 };
 //修改信息
 User.edit = function(name, perInfo, callback){
-    userModel.update({name:name},{email:perInfo.email,sex:perInfo.sex},function(err, perInfo){
+    userModel.update({name:name},{$set:{email:perInfo.email,sex:perInfo.sex}},function(err, perInfo){
         if(err){
             return callback(err);
         }
