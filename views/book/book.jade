@@ -1,12 +1,8 @@
 ﻿extends ../layout
 block content
 	h2=name
-	p=bookContent
-	form(method='post',action='book')
-		label 书名：
-			input(type='text',name='name',value='#{name}')
-		br
-		label 内容：
-			textarea(type='text',name='bookContent')=bookContent
-		br
-		input(type='submit')
+	-if(bookContent)
+		p=bookContent
+	-else if(error)
+		p=error
+	

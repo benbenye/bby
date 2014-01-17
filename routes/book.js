@@ -20,15 +20,16 @@ module.exports = function(app){
             res.render('book/mybook',{
                 title:'书籍页面',
                 user:req.session.user,
-                book:book
+                book:book,
+                success:req.flash('success').toString()
             });
         });       
     });
 
     //查看\修改书籍描述
-    app.get('/book/upbookDescribe/:uaerName/:bookName',checkNotLogin);
-    app.get('/book/upbookDescribe/:uaerName/:bookName',function(req, res){ 
-        Book.getOne(req.params.uaerName, req.params.bookName, function(err,book){
+    app.get('/book/upbookDescribe/:userName/:bookName',checkNotLogin);
+    app.get('/book/upbookDescribe/:userName/:bookName',function(req, res){ 
+        Book.getOne(req.params.userName, req.params.bookName, function(err,book){
             if(err){
                 res.flash();
                 return callback(err);
@@ -44,8 +45,8 @@ module.exports = function(app){
     });
     
     //修改书籍描述
-    app.post('/book/upbookDescribe/:uaerName/:bookName',checkNotLogin);
-    app.post('/book/upbookDescribe/:uaerName/:bookName',function(req, res){       
+    app.post('/book/upbookDescribe/:userName/:bookName',checkNotLogin);
+    app.post('/book/upbookDescribe/:userName/:bookName',function(req, res){       
         var name = {
             userName:req.params.userName,
             bookName:req.params.bookName
@@ -63,13 +64,6 @@ module.exports = function(app){
         });
     });
 
-    app.get('/book/upbookDescribe',checkNotLogin);
-    app.get('/book/upbookDescribe',function(req, res){ 
-        res.render('book/upbookDescribe',{
-            title:'上传书籍描述'
-        });       
-    });
-    
     //上传书籍描述
     app.post('/book/upbookDescribe',checkNotLogin);
     app.post('/book/upbookDescribe',function(req, res){
@@ -87,6 +81,14 @@ module.exports = function(app){
         });
     });
 
+    app.get('/book/upbookDescribe',checkNotLogin);
+    app.get('/book/upbookDescribe',function(req, res){ 
+        res.render('book/upbookDescribe',{
+            title:'上传书籍描述',
+            user:req.session.user
+        });       
+    });
+    
     //查看书籍内容
     app.get('/book/upbookContent', checkNotLogin);
     app.get('/book/upbookContent', function(req, res){
@@ -124,16 +126,26 @@ module.exports = function(app){
     //查看书籍
     app.get('/book/:name', checkNotLogin);
     app.get('/book/:name',function(req, res){
-        BookContent.getOne(req.params.name, name, function(err, bookContent){
+        BookContent.getOne(req.params.name, req.session.user.name, function(err, bookContent){
             if(err){
                 return callback(err);
             }
-            res.render('book/book',{
-                title:req.params.name,
-                user:req.session.user,
-                name:req.params.name,
-                bookContent:bookContent.content
-            });
+            if(bookContent === null){
+                res.render('book/book',{
+                    title:req.params.name,
+                    user:req.session.user,
+                    name:req.params.name,
+                    error:'您还没有上传内容'
+                });
+            }
+            else{
+                res.render('book/book',{
+                    title:req.params.name,
+                    user:req.session.user,
+                    name:req.params.name,
+                    bookContent:bookContent.content
+                });
+            }
         });
     });
 
