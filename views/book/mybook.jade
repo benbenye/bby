@@ -8,9 +8,9 @@ block content
 	ul
 		- for(var index = 0;index<book.length;index++)
 			li.mt10
-				a.mr10(href='/book/'+'#{book[index].name_zh}',title='#{book[index].name_zh}') #{book[index].name_zh}
-				a.mr10(href='/book/upbookDescribe/' + '#{book[index].publisher}/' + '#{book[index].name_zh}',title='修改描述') 修改描述
-				a(href='/book/upbookContent/' + '#{book[index].publisher}/' + '#{book[index].name_zh}',title='修改内容') 修改内容
+				a.mr10(href='/book/mybook#{book[index].name_zh}',title='#{book[index].name_zh}') #{book[index].name_zh}
+				a.mr10(href='/book/upbookDescribe/#{book[index].publisher}/#{book[index].name_zh}',title='修改描述') 修改描述
+				a(href='/book/upbookContent/#{book[index].publisher}/#{book[index].name_zh}',title='修改内容') 修改内容
 	ul
 		-each val,index in book
 			li=index+1 +':' + val.name_zh

@@ -3,9 +3,9 @@ block content
 	p welcome to #{title}
 	form(method='post',action='/book/upbookDescribe')
 		label 书名：
-			input(type='text',name='name_zh',value='#{book.name_zh}')
+			input(type='text',name='name_zh')
 		br
 		label 标签：
-			input(type='text',name='tags',value='#{book.tags}')
+			input(type='text',name='tags')
 		br
 		input(type='submit')
