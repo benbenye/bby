@@ -65,12 +65,20 @@ module.exports = function(app){
     });
 
     //上传书籍描述
+    app.get('/book/upbookDescribe',checkNotLogin);
+    app.get('/book/upbookDescribe',function(req, res){ 
+        res.render('book/upbookDescribe',{
+            title:'上传书籍描述',
+            user:req.session.user
+        });       
+    });
+    
     app.post('/book/upbookDescribe',checkNotLogin);
     app.post('/book/upbookDescribe',function(req, res){
         var newBook = new Book({
             publisher:res.req.session.user.name,
             name_zh:req.body.name_zh,
-            tags:req.body.tags.split("；")
+            tags:req.body.tags.split(",")
         });
         newBook.save(function(err, book){
             if(err){
@@ -81,28 +89,28 @@ module.exports = function(app){
         });
     });
 
-    app.get('/book/upbookDescribe',checkNotLogin);
-    app.get('/book/upbookDescribe',function(req, res){ 
-        res.render('book/upbookDescribe',{
-            title:'上传书籍描述',
-            user:req.session.user
-        });       
-    });
-    
     //查看书籍内容
-    app.get('/book/upbookContent', checkNotLogin);
-    app.get('/book/upbookContent', function(req, res){
-         BookContent.getOne(req.session.user.name,function(err,bookContent){
+    app.get('/book/upbookContent/:userName/:bookName', checkNotLogin);
+    app.get('/book/upbookContent/:userName/:bookName', function(req, res){
+        BookContent.getOne(req.params.userName, req.params.bookName, function(err,bookContent){
             if(err){
                 res.flash();
                 return callback(err);
             }
-            var book = book;
-            res.render('book/upbookContent',{
-                title:'书籍内容',
-                user:req.session.user,
-                bookContent:bookContent
-            });
+            if(bookContent === null){
+                res.render('book/upbookContent',{
+                    title:req.params.bookName,
+                    user:req.session.user,
+                    error:'您还没有上传内容'
+                });
+            }
+            else{
+                res.render('book/upbookContent',{
+                    title:req.params.bookName,
+                    user:req.session.user,
+                    bookContent:bookContent.content
+                });
+            }
         }); 
     });
     
@@ -110,8 +118,8 @@ module.exports = function(app){
     app.post('/book/upbookContent/:userName/:bookName',checkNotLogin);
     app.post('/book/upbookContent/:userName/:bookName',function(req, res){       
         var newBookContent = new BookContent({
-            publisher:userName,
-            name_zh:bookName,
+            publisher:req.params.userName,
+            name_zh:req.params.bookName,
             content:req.body.content
         });
         newBookContent.save(function(err, bookContent){
@@ -122,11 +130,28 @@ module.exports = function(app){
             res.redirect('/book/mybook');
         });
     });
+    
+    ////修改书籍内容
+    //app.post('/book/upbookContent/:userName/:bookName',checkNotLogin);
+    //app.post('/book/upbookContent/:userName/:bookName',function(req, res){       
+    //    var newBookContent = new BookContent({
+    //        publisher:req.params.userName,
+    //        name_zh:req.params.bookName,
+    //        content:req.body.content
+    //    });
+    //    newBookContent.edit(function(err, bookContent){
+    //        if(err){
+    //            return callback(err);
+    //        }
+    //        req.flash('success','修改成功');
+    //        res.redirect('/book/mybook');
+    //    });
+    //});路由冲突，暂时先缓一下
 
     //查看书籍
     app.get('/book/:name', checkNotLogin);
     app.get('/book/:name',function(req, res){
-        BookContent.getOne(req.params.name, req.session.user.name, function(err, bookContent){
+        BookContent.getOne(req.session.user.name, req.params.name, function(err, bookContent){
             if(err){
                 return callback(err);
             }
@@ -162,6 +187,7 @@ module.exports = function(app){
         }
         next();
     }
+   
     function checkLogin(req, res, next){
         if(req.session.user){
             req.flash('error','您已经登录了');

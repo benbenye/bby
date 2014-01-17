@@ -2,11 +2,10 @@ extends ../layout
 block content
 	h1=title
 	p welcome to #{title}
-	form(method='post',action='/book/upbookContent')
-		h2=name_zh
-		h3=tags
-		br
+	-if(error)
+		h3=error
+	form(method='post',action='/book/upbookContent/' + '#{user.name}/' + '#{title}')
 		label 内容：
-			textarea(rows='10',cols='20',name='content')=book
+			textarea(rows='10',cols='20',name='content')=bookContent
 		br
 		input(type='submit')

@@ -7,19 +7,19 @@ html
 		script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
 		script(src='/javascripts/page.js')
 	body
-		ul.nav
-			li
-				a(href='/') 首页
-			li
-				a(href='/book/mybook') 读书
+		ul.nav.db.h50
+			li.mr10.w60.fl.tc
+				a.no_unl(href='/') 首页
+			li.mr10.w60.fl.tc
+				a.no_unl(href='/book/mybook') 读书
 			-if(user)
-				li
-					a(href='/user/perInfo') 个人中心
-				li
-					a.logout(href='/user/logout') 退出
+				li.mr10.w60.fl.tc
+					a.no_unl(href='/user/perInfo') 个人中心
+				li.mr10.w60.fl.tc
+					a.no_unl.logout(href='/user/logout') 退出
 			-else
-				li
-					a(href='/user/login') 登录
-				li
-					a(href='/user/reg') 注册
+				li.mr10.w60.fl.tc
+					a.no_unl(href='/user/login') 登录
+				li.mr10.w60.fl.tc
+					a.no_unl(href='/user/reg') 注册
 		block content

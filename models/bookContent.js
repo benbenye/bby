@@ -6,7 +6,8 @@ var bookContentSchema = mongoose.Schema;
 var ObjectId = bookContentSchema.ObjectId;
 
 var bookContentSchema = new bookContentSchema({
-  name:String,
+  publisher:String,
+  name_zh:String,
   content:String
 },{
     collection:'bookContents'
@@ -14,7 +15,8 @@ var bookContentSchema = new bookContentSchema({
 
 var bookContentModel = mongoose.model('BookContent', bookContentSchema);// all environments
 function BookContent(bookContent) {
-    this.name = bookContent.name;
+    this.publisher = bookContent.publisher
+    this.name_zh = bookContent.name_zh;
     this.content = bookContent.content;
 };//Book 构造函数，对新创建的对象进行初始化 
 
@@ -32,7 +34,8 @@ BookContent.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var bookContent = {
-        name:this.name,
+        publisher:this.publisher,
+        name_zh:this.name_zh,
         content:this.content,
 		time : time
 	};
@@ -45,22 +48,24 @@ BookContent.prototype.save = function(callback) {
         callback(null, bookContent);
     });
 };
-//读取文章及其相关信息
-//BookContent.getList = function(name, callback){
-//	bookContentModel.findOne({name:name},function(err,bookContent){
-//        if(err){
-//            return callback(err);
-//        }
-//        callback(null, bookContent);
-//    });
-//};
+
 //读取一篇文章内容
 BookContent.getOne = function(userName, bookName, callback){
-	bookContentModel.findOne({name:bookName,publisher:userName},function(err,bookContent){
+	bookContentModel.findOne({name_zh:bookName,publisher:userName},function(err,bookContent){
         if(err){
             return callback(err);
         }
         callback(null, bookContent);
+    });
+};
+
+//修改一篇文章的内容
+BookContent.edit = function(name, bookContent, callback){
+    bookModel.update({publisher:name.userName,name_zh:name.bookName},{$set:{content:bookContent}},function(err, numeffect){
+        if(err){
+            return callback(err);
+        }
+        callback(null, numeffect);
     });
 };
 module.exports = BookContent;

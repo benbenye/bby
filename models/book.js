@@ -75,7 +75,7 @@ Book.getOne = function(name, name_zh, callback){
     });
 };
 Book.edit = function(name, books, callback){
-    bookModel.update({publisher:name.userName,name_zh:name.bookName},{$set:{name_zh:books.name_zh,}},function(err, numeffect){
+    bookModel.update({publisher:name.userName,name_zh:name.bookName},{$set:{name_zh:books.name_zh,tags:books.tags.split(',')}},function(err, numeffect){
         if(err){
             return callback(err);
         }
