@@ -7,15 +7,6 @@ var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使
 
 module.exports = function(app){
 
-    app.get('/',function(req, res){
-        res.render('index',{
-            title:'主页',
-            user:req.session.user,
-            success:req.flash('success').toString(),
-            success_out:req.flash('success_out').toString(),
-            error:req.flash('error').toString()
-        });
-    });
 
     //登录页面
     app.get('/user/login',checkLogin);

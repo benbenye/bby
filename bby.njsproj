@@ -48,6 +48,7 @@
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\book\book.jade" />
+    <Content Include="views\book\bookContent.jade" />
     <Content Include="views\book\mybook.jade" />
     <Content Include="views\book\upbookDescribe.jade" />
     <Content Include="views\book\upbook.jade" />

@@ -6,7 +6,7 @@ block content
 	p welcome to #{title}
 	p 我上传过的书：	
 	ul
-		- for(var index = 0;index<book.length;index++)
+		- for(var index = book.length - 1;index >= 0; --index)
 			li.mt10
 				a.mr10(href='/book/mybook#{book[index].name_zh}',title='#{book[index].name_zh}') #{book[index].name_zh}
 				a.mr10(href='/book/upbookDescribe/#{book[index].publisher}/#{book[index].name_zh}',title='修改描述') 修改描述

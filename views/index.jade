@@ -11,9 +11,11 @@ block content
 		p=success_out
 	-if(error)
 		p=error
-	section.ebook
+	section.book_express
 		div.hd
-			h2 电子图书
+			h2 新书速递
 		div.bd
 			ul
-				
+				-for(var index = books.length - 1; index >= 0; --index)
+					li.fl.w100.mr10
+						a.no_unl(href='book/#{books[index].name_zh}',target='_blank') #{books[index].name_zh}

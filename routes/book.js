@@ -8,16 +8,42 @@ var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使
 
 module.exports = function(app){
     
-    //书籍页面
-    app.get('/book/book', checkNotLogin);
-    app.get('/book/book',function(req, res){
+    app.get('/',function(req, res){
         Book.getList(req.session.user.name,function(err,book){
             if(err){
                 res.flash();
                 return callback(err);
             }
-            var book = book;
-            res.render('book/book',{
+            res.render('index',{
+                title:'主页',
+                user:req.session.user,
+                books:book,
+                success:req.flash('success').toString(),
+                success_out:req.flash('success_out').toString(),
+                error:req.flash('error').toString()
+            });
+        });
+    });
+
+    //书籍页面
+    app.get('/book/book', checkNotLogin);
+    app.get('/book/book',function(req, res){        
+        res.render('book/book',{
+            title:'书籍页面',
+            user:req.session.user,
+            success:req.flash('success').toString()
+        });   
+    });
+
+    //我的书籍页面
+    app.get('/book/mybook', checkNotLogin);
+    app.get('/book/mybook',function(req, res){
+        Book.getList(req.session.user.name,function(err,book){
+            if(err){
+                res.flash();
+                return callback(err);
+            }
+            res.render('book/mybook',{
                 title:'书籍页面',
                 user:req.session.user,
                 book:book,
