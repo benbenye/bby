@@ -61,11 +61,12 @@ BookContent.getOne = function(userName, bookName, callback){
 
 //修改一篇文章的内容
 BookContent.edit = function(name, bookContent, callback){
-    bookModel.update({publisher:name.userName,name_zh:name.bookName},{$set:{content:bookContent}},function(err, numeffect){
+    bookContentModel.update({publisher:name.publisher,name_zh:name.name_zh},{$set:{content:bookContent.content}},{upsert:true},function(err, numeffect){
         if(err){
             return callback(err);
         }
         callback(null, numeffect);
     });
 };
+
 module.exports = BookContent;

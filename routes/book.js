@@ -148,7 +148,7 @@ module.exports = function(app){
             name_zh:req.params.bookName,
             content:req.body.content
         });
-        newBookContent.save(function(err, bookContent){
+        BookContent.edit(newBookContent,newBookContent, function(err, bookContent){
             if(err){
                 return callback(err);
             }
