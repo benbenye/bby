@@ -140,7 +140,7 @@ module.exports = function(app){
         }); 
     });
     
-    //上传书籍内容
+    //上传/修改书籍内容
     app.post('/book/upbookContent/:userName/:bookName',checkNotLogin);
     app.post('/book/upbookContent/:userName/:bookName',function(req, res){       
         var newBookContent = new BookContent({
@@ -157,23 +157,6 @@ module.exports = function(app){
         });
     });
     
-    ////修改书籍内容
-    //app.post('/book/upbookContent/:userName/:bookName',checkNotLogin);
-    //app.post('/book/upbookContent/:userName/:bookName',function(req, res){       
-    //    var newBookContent = new BookContent({
-    //        publisher:req.params.userName,
-    //        name_zh:req.params.bookName,
-    //        content:req.body.content
-    //    });
-    //    newBookContent.edit(function(err, bookContent){
-    //        if(err){
-    //            return callback(err);
-    //        }
-    //        req.flash('success','修改成功');
-    //        res.redirect('/book/mybook');
-    //    });
-    //});路由冲突，暂时先缓一下
-
     //查看书籍
     app.get('/book/mybook/:name', checkNotLogin);
     app.get('/book/mybook/:name',function(req, res){
