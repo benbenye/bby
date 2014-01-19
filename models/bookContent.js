@@ -50,8 +50,8 @@ BookContent.prototype.save = function(callback) {
 };
 
 //读取一篇文章内容
-BookContent.getOne = function(userName, bookName, callback){
-	bookContentModel.findOne({name_zh:bookName,publisher:userName},function(err,bookContent){
+BookContent.getOne = function(id, callback){
+	bookContentModel.findOne({_id:id},function(err,bookContent){
         if(err){
             return callback(err);
         }
@@ -60,12 +60,12 @@ BookContent.getOne = function(userName, bookName, callback){
 };
 
 //修改一篇文章的内容
-BookContent.edit = function(name, bookContent, callback){
-    bookContentModel.update({publisher:name.publisher,name_zh:name.name_zh},{$set:{content:bookContent.content}},{upsert:true},function(err, numeffect){
+BookContent.edit = function(id, bookContent, callback){
+    bookContentModel.update({_id:id},{$set:{content:bookContent.content}},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }
-        callback(null, numeffect);
+        callback(null, numeffect,raw);
     });
 };
 
