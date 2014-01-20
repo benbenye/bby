@@ -63,11 +63,11 @@ BookContent.getOne = function(id, callback){
 BookContent.edit = function(id, bookContent, callback){
     console.log(typeof id);
     console.log(id);
-    bookContentModel.Update({_id:mongoose.Schema.Types.ObjectId(id)},{content:bookContent},{upsert:true},function(err, numeffect, raw){
+    bookContentModel.update({_id:id},{$set:{content:bookContent}},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }
-        console.log(numeffect + 'dd' + raw);
+        //console.log(numeffect + 'dd' + raw);
         callback(null, numeffect,raw);
     });
 };

@@ -121,14 +121,14 @@ module.exports = function(app){
             }
             if(bookContent === null){
                 res.render('book/upbookContent',{
-                    title:req.params.bookName,
+                    id:req.params.id,
                     user:req.session.user,
                     error:'您还没有上传内容'
                 });
             }
             else{
                 res.render('book/upbookContent',{
-                    title:req.params.bookName,
+                    id:req.params.id,
                     user:req.session.user,
                     bookContent:bookContent.content
                 });
@@ -137,10 +137,10 @@ module.exports = function(app){
     });
     
     //上传/修改书籍内容
-    app.post('/book/upbookContent/:userName/:ids',checkNotLogin);
-    app.post('/book/upbookContent/:userName/:ids',function(req, res){  
-        Console.log(req.params.ids);     
-        BookContent.edit(req.params.ids, req.body.content, function(err, bookContent, raw){
+    app.post('/book/upbookContent/:userName/:id',checkNotLogin);
+    app.post('/book/upbookContent/:userName/:id',function(req, res){  
+        console.log(req.params.id);     
+        BookContent.edit(req.params.id, req.body.content, function(err, bookContent, raw){
             if(err){
                 return callback(err);
             }
