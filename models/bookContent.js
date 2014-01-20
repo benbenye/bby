@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 var bookContentSchema = mongoose.Schema;
-var ObjectId = bookContentSchema.ObjectId;
+var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
   publisher:String,
@@ -51,7 +51,7 @@ BookContent.prototype.save = function(callback) {
 
 //读取一篇文章内容
 BookContent.getOne = function(id, callback){
-	bookContentModel.findOne({_id:id},function(err,bookContent){
+	bookContentModel.findOne({_id:id.toString()},function(err,bookContent){
         if(err){
             return callback(err);
         }
@@ -61,10 +61,12 @@ BookContent.getOne = function(id, callback){
 
 //修改一篇文章的内容
 BookContent.edit = function(id, bookContent, callback){
-    bookContentModel.update({_id:id},{$set:{content:bookContent.content}},{upsert:true},function(err, numeffect, raw){
+    console.log(typeof id);
+    bookContentModel.findByIdAndUpdate({_id:id},{content:bookContent},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }
+        console.log(numeffect + 'dd' + raw);
         callback(null, numeffect,raw);
     });
 };

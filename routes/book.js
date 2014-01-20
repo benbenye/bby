@@ -60,7 +60,6 @@ module.exports = function(app){
                 res.flash();
                 return callback(err);
             }
-            console.log(book.name_zh);
             res.render('book/upbookDescribe',{
                 title:'上传书籍描述',
                 user:req.session.user,
@@ -140,12 +139,7 @@ module.exports = function(app){
     //上传/修改书籍内容
     app.post('/book/upbookContent/:userName/:id',checkNotLogin);
     app.post('/book/upbookContent/:userName/:id',function(req, res){       
-        var newBookContent = new BookContent({
-            publisher:req.params.userName,
-            name_zh:req.params.bookName,
-            content:req.body.content
-        });
-        BookContent.edit(req.params.id, newBookContent, function(err, bookContent){
+        BookContent.edit(req.params.id.toString(), req.body.content, function(err, bookContent, raw){
             if(err){
                 return callback(err);
             }

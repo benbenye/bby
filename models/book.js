@@ -66,20 +66,20 @@ Book.getList = function(name, callback){
     });
 };
 //读取文章及其相关信息
-Book.getOne = function(name, name_zh, callback){
-	bookModel.findOne({publisher:name,name_zh:name_zh},function(err,book){
+Book.getOne = function(id, callback){
+	bookModel.findOne({_id:id.toString()},function(err,book){
         if(err){
             return callback(err);
         }
         callback(null, book);
     });
 };
-Book.edit = function(name, books, callback){
-    bookModel.update({publisher:name.userName,name_zh:name.bookName},{$set:{name_zh:books.name_zh,tags:books.tags.split(',')}},function(err, numeffect){
+Book.edit = function(id, books, callback){
+    bookModel.update({_id:id.toString()},{$set:{name_zh:books.name_zh,tags:books.tags.split(',')}},function(err, numeffect,raw){
         if(err){
             return callback(err);
         }
-        callback(null, numeffect);
+        callback(null, numeffect, raw);
     });
 };
 module.exports = Book;

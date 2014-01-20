@@ -3,14 +3,18 @@ block content
 	h1=title
 	-if(success)
 		h2.f18.fb=success
+	-else if(numeffect)
+		h2.f18.fb.fe7=numeffect
+	-else if(raw)
+		h2.f18.fb.fe7=raw
 	p welcome to #{title}
 	p 我上传过的书：	
 	ul
 		- for(var index = book.length - 1;index >= 0; --index)
 			li.mt10
-				a.mr10(href='/book/mybook/#{book[index].name_zh}',title='#{book[index].name_zh}') #{book[index].name_zh} ， #{book[index]._id}
-				a.mr10(href='/book/upbookDescribe/#{book[index].publisher}/#{book[index].name_zh}',title='修改描述') 修改描述
-				a(href='/book/upbookContent/#{book[index].publisher}/#{book[index].name_zh}',title='修改内容') 修改内容
+				a.mr10(href='/book/mybook/#{book[index].publisher}/#{book[index]._id}',title='#{book[index].name_zh}') #{book[index].name_zh}
+				a.mr10(href='/book/upbookDescribe/#{book[index].publisher}/#{book[index]._id}',title='修改描述') 修改描述
+				a(href='/book/upbookContent/#{book[index].publisher}/#{book[index]._id}',title='修改内容') 修改内容
 	ul
 		-each val,index in book
 			li=index+1 +':' + val.name_zh
