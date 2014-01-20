@@ -62,7 +62,8 @@ BookContent.getOne = function(id, callback){
 //修改一篇文章的内容
 BookContent.edit = function(id, bookContent, callback){
     console.log(typeof id);
-    bookContentModel.findByIdAndUpdate({_id:id},{content:bookContent},{upsert:true},function(err, numeffect, raw){
+    console.log(id);
+    bookContentModel.Update({_id:mongoose.Schema.Types.ObjectId(id)},{content:bookContent},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }

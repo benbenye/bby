@@ -137,9 +137,10 @@ module.exports = function(app){
     });
     
     //上传/修改书籍内容
-    app.post('/book/upbookContent/:userName/:id',checkNotLogin);
-    app.post('/book/upbookContent/:userName/:id',function(req, res){       
-        BookContent.edit(req.params.id.toString(), req.body.content, function(err, bookContent, raw){
+    app.post('/book/upbookContent/:userName/:ids',checkNotLogin);
+    app.post('/book/upbookContent/:userName/:ids',function(req, res){  
+        Console.log(req.params.ids);     
+        BookContent.edit(req.params.ids, req.body.content, function(err, bookContent, raw){
             if(err){
                 return callback(err);
             }
