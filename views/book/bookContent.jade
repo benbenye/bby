@@ -2,7 +2,7 @@
 block content
 	h2=name
 	-if(bookContent)
-		p=bookContent
+		p=bookContent.content
 	-else if(error)
 		p=error
 	

@@ -4,7 +4,7 @@ block content
 	p welcome to #{title}
 	-if(error)
 		h3=error
-	form(method='post',action='/book/upbookContent/' + '#{user.name}/' + '#{id}')
+	form(method='post',action='/book/upbookContent/#{id}')
 		label 内容：
 			textarea(rows='10',cols='20',name='content')=bookContent
 		br

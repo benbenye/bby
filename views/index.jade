@@ -18,4 +18,4 @@ block content
 			ul
 				-for(var index = books.length - 1; index >= 0; --index)
 					li.fl.w100.mr10
-						a.no_unl(href='book/#{books[index].name_zh}',target='_blank') #{books[index].name_zh}
+						a.no_unl(href='book/#{books[index]._id}',target='_blank') #{books[index].name_zh}

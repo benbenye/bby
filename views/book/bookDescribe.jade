@@ -2,7 +2,7 @@
 block content
 	h2=name
 	-if(book)
-		h2=book.name_zh
+		h2.fb.f18=book.name_zh
 		p=book.tags
 		a(href='/book/bookContent/#{book._id}') 阅读
 	-else if(error)
