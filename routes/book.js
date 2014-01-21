@@ -48,7 +48,7 @@ module.exports = function(app){
                 title:'书籍页面',
                 user:req.session.user,
                 book:book,
-                success:req.flash('success').toString()
+                error:req.flash('error').toString()
             });
         });       
     });
@@ -193,20 +193,6 @@ module.exports = function(app){
             res.redirect('/book/mybook');
         });
     });
-    
-    //查看书籍(无需登录验证)
-    app.get('/book/:id',function(req, res){
-        Book.getOne(req.params.id,function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/bookDescribe',{
-                title:'书籍页面',
-                book:book,
-            });
-        });       
-    });
      
     //查看书籍内容(无需登录验证)
     app.get('/book/bookContent/:id',function(req, res){
@@ -218,6 +204,22 @@ module.exports = function(app){
             res.render('book/bookContent',{
                 title:'书籍内容',
                 bookContent:bookContent,
+                user:req.session.user
+            });
+        });       
+    });
+    
+    //查看书籍(无需登录验证)
+    app.get('/book/:id',function(req, res){
+        Book.getOne(req.params.id,function(err,book){
+            if(err){
+                res.flash();
+                return callback(err);
+            }
+            res.render('book/bookDescribe',{
+                title:'书籍页面',
+                book:book,
+                user:req.session.user
             });
         });       
     });
