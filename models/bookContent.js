@@ -72,4 +72,14 @@ BookContent.edit = function(id, bookContent, callback){
     });
 };
 
+//清空书籍内容
+BookContent.remove = function(id, callback){
+    bookContentModel.findByIdAndRemove(id, function(err){
+        if(err){
+            return callback(err);
+        }
+        callback(null);
+    });
+};
+
 module.exports = BookContent;

@@ -57,6 +57,15 @@ Book.prototype.save = function(callback) {
     });
 };
 //读取文章及其相关信息
+Book.getAllList = function(callback){
+	bookModel.find(function(err,book){
+        if(err){
+            return callback(err);
+        }
+        callback(null, book);//book数组
+    });
+};
+//读取文章及其相关信息
 Book.getList = function(name, callback){
 	bookModel.find({publisher:name},function(err,book){
         if(err){
@@ -82,4 +91,14 @@ Book.edit = function(id, books, callback){
         callback(null, numeffect, raw);
     });
 };
+//清空书籍内容
+Book.remove = function(id, callback){
+    bookModel.findByIdAndRemove(id, function(err){
+        if(err){
+            return callback(err);
+        }
+        callback(null);
+    });
+};
+
 module.exports = Book;

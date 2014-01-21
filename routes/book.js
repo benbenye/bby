@@ -8,8 +8,9 @@ var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使
 
 module.exports = function(app){
     
+    //进入首页
     app.get('/',function(req, res){
-        Book.getList(req.session.user.name,function(err,book){
+        Book.getAllList(function(err,book){
             if(err){
                 res.flash();
                 return callback(err);
@@ -51,6 +52,31 @@ module.exports = function(app){
             });
         });       
     });
+    
+    //新建书籍描述
+    app.get('/book/upbook',checkNotLogin);
+    app.get('/book/upbook',function(req, res){ 
+        res.render('book/upbook',{
+            title:'上传书籍描述',
+            user:req.session.user
+        });       
+    });
+    
+    app.post('/book/upbook',checkNotLogin);
+    app.post('/book/upbook',function(req, res){
+        var newBook = new Book({
+            publisher:res.req.session.user.name,
+            name_zh:req.body.name_zh,
+            tags:req.body.tags.split(",")
+        });
+        newBook.save(function(err, book){
+            if(err){
+                return callback(err);
+            }
+            req.flash('success','上传成功');//上传之前加一个验证，此用户下的书是否已经存在相同名字的书
+            res.redirect('/book/mybook');
+        });
+    });
 
     //查看\修改书籍描述
     app.get('/book/upbookDescribe/:userName/:id',checkNotLogin);
@@ -86,27 +112,19 @@ module.exports = function(app){
         });
     });
 
-    //上传书籍描述
-    app.get('/book/upbookDescribe',checkNotLogin);
-    app.get('/book/upbookDescribe',function(req, res){ 
-        res.render('book/upbookDescribe',{
-            title:'上传书籍描述',
-            user:req.session.user
-        });       
-    });
-    
-    app.post('/book/upbookDescribe',checkNotLogin);
-    app.post('/book/upbookDescribe',function(req, res){
-        var newBook = new Book({
-            publisher:res.req.session.user.name,
-            name_zh:req.body.name_zh,
-            tags:req.body.tags.split(",")
-        });
-        newBook.save(function(err, book){
+    //清空书籍描述
+    app.get('/book/bookDescribe/delete/:userName/:id', checkNotLogin);
+    app.get('/book/bookDescribe/delete/:userName/:id', function(req, res){
+        Book.remove(req.params.id,function(err){
             if(err){
                 return callback(err);
             }
-            req.flash('success','上传成功');//上传之前加一个验证，此用户下的书是否已经存在相同名字的书
+        });
+        BookContent.remove(req.params.id,function(err){
+            if(err){
+                return callback(err);
+            }
+            req.flash('success','删除成功');
             res.redirect('/book/mybook');
         });
     });
@@ -148,38 +166,19 @@ module.exports = function(app){
             res.redirect('/book/mybook');
         });
     });
-    
-    //查看书籍
-    app.get('/book/mybook/:id', checkNotLogin);
-    app.get('/book/mybook/:id',function(req, res){
-        BookContent.getOne(req.params.id, function(err, bookContent){
+
+    //清空书籍内容
+    app.get('/book/bookContent/delete/:userName/:id', checkNotLogin);
+    app.get('/book/bookContent/delete/:userName/:id', function(req, res){
+        BookContent.remove(req.params.id,function(err){
             if(err){
                 return callback(err);
             }
-            if(bookContent === null){
-                res.render('book/bookContent',{
-                    title:req.params.name,
-                    user:req.session.user,
-                    name:req.params.name,
-                    error:'您还没有上传内容'
-                });
-            }
-            else{
-                res.render('book/bookContent',{
-                    title:req.params.name,
-                    user:req.session.user,
-                    name:req.params.name,
-                    bookContent:bookContent.content
-                });
-            }
+            req.flash('success','内容成功清除');
+            res.redirect('/book/mybook');
         });
     });
-
-    app.post('/book/:name',checkNotLogin);
-    app.post('/book/:name',function(req, res){
-
-    });
-
+        
     //过滤器
     function checkNotLogin(req, res, next){
         if(!req.session.user){
