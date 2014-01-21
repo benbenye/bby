@@ -4,6 +4,10 @@ block content
 	-if(book)
 		h2.fb.f18=book.name_zh
 		p=book.tags
+		p
+			a.mr10.no_unl(href) 想看(添加一个数组字段，放线看的书的ID，方便后面查看)
+			a.mr10.no_unl(href) 看过
+			a.mr10.no_unl(href) 正看
 		a(href='/book/bookContent/#{book._id}') 阅读
 	-else if(error)
 		p=error
