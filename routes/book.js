@@ -114,7 +114,7 @@ module.exports = function(app){
     //修改书籍描述
     app.post('/book/upbookDescribe/:id',checkNotLogin);
     app.post('/book/upbookDescribe/:id',function(req, res){       
-        var books = {
+        var book = {
             name_zh:req.body.name_zh,
             tags:req.body.tags
         }

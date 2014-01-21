@@ -1,7 +1,7 @@
 ﻿extends ../layout
 block content
 	p welcome to #{title}
-		form(method='post',action='/bookes/upbookDescribe/#{book._id}')
+		form(method='post',action='/book/upbookDescribe/#{book._id}')
 			label 书名：
 				input(type='text',name='name_zh',value='#{book.name_zh}')
 			br
