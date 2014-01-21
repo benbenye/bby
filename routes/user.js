@@ -128,6 +128,18 @@ module.exports = function(app){
         });
     });
 
+    //
+    app.get('/user/wantread', checkNotLogin);
+    app.get('/user/wantread', function(req, res){
+        var bookId = req.query.bookId,
+            userName =req.session.user.name;
+        if(bookId != null && userName != null){
+            res.send({'ok':'ok'});
+        }else{
+            res.send({no:'no'});
+        }
+    });
+
     //过滤器
     function checkNotLogin(req, res, next){
         if(!req.session.user){

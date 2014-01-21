@@ -204,7 +204,8 @@ module.exports = function(app){
             res.render('book/bookContent',{
                 title:'书籍内容',
                 bookContent:bookContent,
-                user:req.session.user
+                user:req.session.user,
+                error:req.flash('error').toString()
             });
         });       
     });
@@ -223,7 +224,7 @@ module.exports = function(app){
             });
         });       
     });
-            
+
     //过滤器
     function checkNotLogin(req, res, next){
         if(!req.session.user){

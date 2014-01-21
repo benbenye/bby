@@ -7,8 +7,8 @@ block content
 	-else if(user === null)
 		p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
 		a(href='') 提醒TA上传
-	-else if(error)
-		p=error
 	-else
-		p 您还没有上传书籍内容
+		p 这本书还没有内容
+	-if(error)
+		p=error
 	
