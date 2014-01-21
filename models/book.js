@@ -83,8 +83,8 @@ Book.getOne = function(id, callback){
         callback(null, book);
     });
 };
-Book.edit = function(id, books, callback){
-    bookModel.update({_id:id.toString()},{$set:{name_zh:books.name_zh,tags:books.tags.split(',')}},function(err, numeffect,raw){
+Book.edit = function(id, book, callback){
+    bookModel.update({_id:id.toString()},{$set:{name_zh:book.name_zh,tags:book.tags.split(',')}},function(err, numeffect,raw){
         if(err){
             return callback(err);
         }

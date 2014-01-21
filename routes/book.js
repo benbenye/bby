@@ -79,8 +79,8 @@ module.exports = function(app){
     });
 
     //查看\修改书籍描述
-    app.get('/book/upbookDescribe/:userName/:id',checkNotLogin);
-    app.get('/book/upbookDescribe/:userName/:id',function(req, res){ 
+    app.get('/book/bookDescribe/:id',checkNotLogin);
+    app.get('/book/bookDescribe/:id',function(req, res){ 
         Book.getOne(req.params.id, function(err,book){
             if(err){
                 res.flash();
@@ -95,26 +95,24 @@ module.exports = function(app){
     });
     
     //修改书籍描述
-    app.post('/book/upbookDescribe/:userName/:id',checkNotLogin);
-    app.post('/book/upbookDescribe/:userName/:id',function(req, res){       
+    app.post('/book/upbookDescribe/:id',checkNotLogin);
+    app.post('/book/upbookDescribe/:id',function(req, res){       
         var books = {
             name_zh:req.body.name_zh,
             tags:req.body.tags
         }
-        Book.edit(req.params.id,books,function(err, numeffect, raw){
+        Book.edit(req.params.id,book,function(err, numeffect, raw){
             if(err){
                 return callback(err);
             }            
             req.flash('success', '修改成功');
-            req.flash('numeffect', numeffect);
-            req.flash('raw', raw);
             res.redirect('/book/mybook');
         });
     });
 
     //清空书籍描述
-    app.get('/book/bookDescribe/delete/:userName/:id', checkNotLogin);
-    app.get('/book/bookDescribe/delete/:userName/:id', function(req, res){
+    app.get('/book/bookDescribe/delete/:id', checkNotLogin);
+    app.get('/book/bookDescribe/delete/:id', function(req, res){
         Book.remove(req.params.id,function(err){
             if(err){
                 return callback(err);
@@ -130,8 +128,8 @@ module.exports = function(app){
     });
 
     //查看书籍内容
-    app.get('/book/upbookContent/:userName/:id', checkNotLogin);
-    app.get('/book/upbookContent/:userName/:id', function(req, res){
+    app.get('/book/upbookContent/:id', checkNotLogin);
+    app.get('/book/upbookContent/:id', function(req, res){
         BookContent.getOne(req.params.id, function(err,bookContent){
             if(err){
                 res.flash();
@@ -155,8 +153,8 @@ module.exports = function(app){
     });
     
     //上传/修改书籍内容
-    app.post('/book/upbookContent/:userName/:id',checkNotLogin);
-    app.post('/book/upbookContent/:userName/:id',function(req, res){  
+    app.post('/book/upbookContent/:id',checkNotLogin);
+    app.post('/book/upbookContent/:id',function(req, res){  
         console.log(req.params.id);     
         BookContent.edit(req.params.id, req.body.content, function(err, bookContent, raw){
             if(err){
@@ -168,8 +166,8 @@ module.exports = function(app){
     });
 
     //清空书籍内容
-    app.get('/book/bookContent/delete/:userName/:id', checkNotLogin);
-    app.get('/book/bookContent/delete/:userName/:id', function(req, res){
+    app.get('/book/bookContent/delete/:id', checkNotLogin);
+    app.get('/book/bookContent/delete/:id', function(req, res){
         BookContent.remove(req.params.id,function(err){
             if(err){
                 return callback(err);
