@@ -139,7 +139,11 @@ module.exports = function(app){
                 return res.redirect('/');
                 res.send({ok:0});
             }
-            res.send({ok:1});            
+            if(numeffect === 1){
+                res.send({ok:1});//插入成功
+            }else if(numeffect === 0){
+                res.send({ok:'no'});//有重复没有插入
+                }
             });
     });
 
