@@ -74,23 +74,23 @@ User.edit = function(name, perInfo, callback){
         console.log(perInfo);//perInfo == numeffect
     });
 };
-//修改用户想看书的信息
+//添加用户想看书的信息
 User.addwish = function(name, bookId, callback){
-    userModel.findOne({name:name,wish:bookId}, function(err, user){
+    userModel.update({name : name}, {$addToSet:{wish:bookId}}, function(err, numeffect){
         if(err){
-            return callback(err);
+            return callback(err)
         }
-        callback(null, user);
-        if(user){
-            return callback(null, 0);//查重,有重复的就返回，不再插入并有相关提示
-        }else{
-            userModel.update({name : name}, {$push:{wish:bookId}}, function(err, numeffect){
-                if(err){
-                    return callback(err)
-                }
-                callback(null, numeffect);
-            });
+        callback(null, numeffect);
+    });
+};
+
+//取消用户想看书的信息
+User.pullwish = function(name, bookId, callback){
+    userModel.update({name : name}, {$pull:{wish:bookId}}, function(err, numeffect){
+        if(err){
+            return callback(err)
         }
+        callback(null, numeffect);
     });
 };
 module.exports = User;

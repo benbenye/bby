@@ -9,4 +9,14 @@
                 }
         });
     });
+    $('.pullwish').click(function(){
+        var bookId = $(this).attr('bookId');
+        $.get('/user/pullwantread',{bookId:bookId}, function(data){
+            if(data.ok === 1){
+                alert('取消成功');
+            }else if(data.ok != 1){
+                alert('sorry');
+            }
+        })
+    });
 });

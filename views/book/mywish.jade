@@ -5,4 +5,5 @@ block content
 		- for(var index = mywishBook.length - 1;index >= 0; --index)
 			li.mt10
 				a.mr10(href='/book/#{mywishBook[index]._id}',title='#{mywishBook[index].name_zh}') #{mywishBook[index].name_zh}
-				a.mr10(href='javascript:void(0)',title='取消想读？') 取消想读？
+				a.mr10.pullwish(href='javascript:void(0)',title='取消想读？',booKId='#{mywishBook[index]._id}') 取消想读？
+	script(src='/javascripts/page/collect_page.js')

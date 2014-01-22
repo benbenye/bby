@@ -141,11 +141,26 @@ module.exports = function(app){
             }
             if(numeffect === 1){
                 res.send({ok:1});//插入成功
-            }else if(numeffect === 0){
-                res.send({ok:'no'});//有重复没有插入
-                }
+            }
             });
     });
+
+    //pull
+    app.get('/user/pullwantread', checkNotLogin);
+    app.get('/user/pullwantread', function(req, res){
+        var pullwish = new User({
+            name: req.session.user,
+            wish:req.query.bookId
+            });
+        User.pullwish(pullwish.name, pullwish.wish, function(err, numeffect){
+            if(err){
+                return res.redirect('/');
+                }
+            if(numeffect === 1){
+                res.send({ok:1});
+                }
+            });
+        });
 
     //过滤器
     function checkNotLogin(req, res, next){
