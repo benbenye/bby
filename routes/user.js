@@ -115,7 +115,7 @@ module.exports = function(app){
             email:req.body.email,
             sex:req.body.sex
         });
-        User.edit(newperInfo.name, newperInfo, function(err, perInfo){//修改逻辑有问题
+        User.edit(req.session.name, newperInfo, function(err, perInfo){//修改逻辑有问题
             if(err){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
                 return res.redirect('/user/perInfo');
@@ -149,7 +149,7 @@ module.exports = function(app){
     app.get('/user/pullwantread', checkNotLogin);
     app.get('/user/pullwantread', function(req, res){
         var pullwish = new User({
-            name: req.session.user,
+            name: req.session.user.name,
             wish:req.query.bookId
             });
         User.pullwish(pullwish.name, pullwish.wish, function(err, numeffect){
