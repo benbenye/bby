@@ -51,6 +51,7 @@
     <Content Include="views\book\book.jade" />
     <Content Include="views\book\bookDescribe.jade" />
     <Content Include="views\book\bookContent.jade" />
+    <Content Include="views\book\mywish.jade" />
     <Content Include="views\book\mybook.jade" />
     <Content Include="views\book\upbookDescribe.jade" />
     <Content Include="views\book\upbook.jade" />

@@ -3,6 +3,7 @@
  * GET users listing.
  */
 var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
+    User = require('../models/user.js'),
     Book = require('../models/book.js'),
     BookContent = require('../models/bookContent.js');
 
@@ -52,6 +53,23 @@ module.exports = function(app){
             });
         });       
     });
+    
+    //我想读的书
+    app.get('/book/mywish', checkNotLogin);
+    app.get('/book/mywish', function(req, res){
+        User.get(req.session.user.name,function(err, user){
+            if(err){
+                return callback(err);
+            }
+            Book.getMywish(user.wish,function(err, mywishBook){                
+                res.render('book/mywish',{
+                    title:'我想看的书',
+                    user:req.session.user,
+                    mywishBook : mywishBook
+                    });
+                });
+            });
+        });
     
     //新建书籍描述
     app.get('/book/upbook',checkNotLogin);

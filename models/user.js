@@ -83,8 +83,7 @@ User.addwish = function(name, bookId, callback){
         callback(null, user);
         if(user){
             return callback(null, 0);//查重,有重复的就返回，不再插入并有相关提示
-        }
-        if(!user){
+        }else{
             userModel.update({name : name}, {$push:{wish:bookId}}, function(err, numeffect){
                 if(err){
                     return callback(err)

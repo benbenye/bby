@@ -75,6 +75,15 @@ Book.getList = function(name, callback){
         callback(null, book);//book数组
     });
 };
+//读取我想看的书
+Book.getMywish= function(mywishBook, callback){
+	bookModel.find({_id:{$in:mywishBook}},function(err,book){
+        if(err){
+            return callback(err);
+        }
+        callback(null, book);//book数组
+    });
+};
 //读取文章及其相关信息
 Book.getOne = function(id, callback){
 	bookModel.findOne({_id:id.toString()},function(err,book){
