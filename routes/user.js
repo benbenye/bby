@@ -115,13 +115,12 @@ module.exports = function(app){
             email:req.body.email,
             sex:req.body.sex
         });
-        User.edit(newperInfo.name, newperInfo, function(err, perInfo){
+        User.edit(newperInfo.name, newperInfo, function(err, perInfo){//修改逻辑有问题
             if(err){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
                 return res.redirect('/user/perInfo');
             }
             //req.session.user = perInfo;
-            console.log(perInfo.sex);
             req.flash('success', '修改成功');
             res.redirect('/');
 
@@ -131,13 +130,17 @@ module.exports = function(app){
     //
     app.get('/user/wantread', checkNotLogin);
     app.get('/user/wantread', function(req, res){
-        var bookId = req.query.bookId,
-            userName =req.session.user.name;
-        if(bookId != null && userName != null){
-            res.send({'ok':'ok'});
-        }else{
-            res.send({no:'no'});
-        }
+        var newwish = new User({
+            name : req.session.user.name,
+            wish : req.query.bookId
+            });
+        User.addwish(newwish.name, newwish.wish, function(err, numeffect){
+            if(err){
+                return res.redirect('/');
+                res.send({ok:0});
+            }
+            res.send({ok:1});            
+            });
     });
 
     //过滤器

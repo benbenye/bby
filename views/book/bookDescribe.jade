@@ -5,10 +5,10 @@ block content
 		h2.fb.f18(bookId='#{book._id}')=book.name_zh
 		p=book.tags
 		p
-			a.mr10.no_unl#want(href='javascript:void(0)') 想看
+			a.mr10.no_unl#wish(href='javascript:void(0)') 想看
 			a.mr10.no_unl(href) 看过
 			a.mr10.no_unl(href) 正看
 		a(href='/book/bookContent/#{book._id}') 阅读
 	-else if(error)
 		p=error
-	
+	script(src='/javascripts/page/collect_page.js')

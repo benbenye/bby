@@ -39,7 +39,8 @@
     <Compile Include="models\db.js" />
     <Compile Include="models\book.js" />
     <Compile Include="models\user.js" />
-    <Compile Include="public\javascripts\page.js" />
+    <Compile Include="public\javascripts\page\collect_page.js" />
+    <Compile Include="public\javascripts\page\confirm_page.js" />
     <Compile Include="routes\book.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\user.js" />
@@ -54,6 +55,7 @@
     <Content Include="views\book\upbookDescribe.jade" />
     <Content Include="views\book\upbook.jade" />
     <Content Include="views\book\upbookContent.jade" />
+    <Content Include="views\head.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\user\perInfo.jade" />
@@ -66,6 +68,9 @@
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
+    <Folder Include="public\javascripts\common\" />
+    <Folder Include="public\javascripts\base\" />
+    <Folder Include="public\javascripts\page\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="public\stylesheets\base\" />
     <Folder Include="routes\" />

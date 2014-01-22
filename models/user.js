@@ -18,7 +18,8 @@ var userSchema = new userSchema({
   name: String,
   password:String,
   email:String,
-  sex:String
+  sex:String,
+  wish:[]
 },{
     collection:'users'
 });
@@ -29,6 +30,7 @@ function User(user) {
 	this.password = user.password;
 	this.email = user.email;
     this.sex = user.sex;
+    this.wish = user.wish;
 };//User 构造函数，对新创建的对象进行初始化 
 
 //module.exports = User;
@@ -40,7 +42,8 @@ User.prototype.save = function(callback){
 	var user = {
 		name : this.name,
 		password : this.password,
-		email : this.email
+		email : this.email,
+        wish : this.wish
 	};
 
     var newUser = new userModel(user);
@@ -61,14 +64,23 @@ User.get = function(name,callback){
         callback(null, user);
     });
 };
-//修改信息
+//修改用户个人信息
 User.edit = function(name, perInfo, callback){
     userModel.update({name:name},{$set:{email:perInfo.email,sex:perInfo.sex}},function(err, perInfo){
         if(err){
             return callback(err);
         }
         callback(null, perInfo);
-        console.log(perInfo);//?
+        console.log(perInfo);//perInfo == numeffect
+    });
+};
+//修改用户想看书的信息
+User.addwish = function(name, bookId, callback){
+    userModel.update({name : name}, {$push:{wish:bookId}}, function(err, numeffect){
+        if(err){
+            return callback(err)
+        }
+        callback(null, numeffect);
     });
 };
 module.exports = User;

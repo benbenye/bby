@@ -10,7 +10,8 @@ var bookSchema = new bookSchema({
   name_zh: String,
   ISBN:String,
   author:String,
-  tags:[]
+  tags:[],
+  time:String
 },{
     collection:'books'
 });
