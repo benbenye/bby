@@ -2,8 +2,7 @@
 /*
  * GET users listing.
  */
-var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
-    BookController = require('../controllers/bookController.js'),
+var BookController = require('../controllers/bookController.js'),
     CheckController = require('../controllers/checkController.js');
 
 module.exports = function(app){

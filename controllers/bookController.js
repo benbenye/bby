@@ -1,4 +1,5 @@
 ﻿var BookController = new  BookController(),
+    crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码    
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
     BookContent = require('../models/bookContent.js');
