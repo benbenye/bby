@@ -3,241 +3,65 @@
  * GET users listing.
  */
 var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
-    BookController = require('../controllers/bookController.js'),
-    User = require('../models/user.js'),
-    Book = require('../models/book.js'),
-    BookContent = require('../models/bookContent.js');
-    var BookController = new  BookController();
+    BookController = require('../controllers/bookController.js');
 
 module.exports = function(app){
     
     //进入首页
-    app.get('/',function(req, res){
-        Book.getAllList(function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('index',{
-                title:'主页',
-                user:req.session.user,
-                books:book,
-                success:req.flash('success').toString(),
-                success_out:req.flash('success_out').toString(),
-                error:req.flash('error').toString()
-            });
-        });
-    });
+    app.get('/', BookController.getindex);
 
     //书籍页面
     app.get('/book/book', checkNotLogin);
-    app.get('/book/book',BookController.getmybook);
+    app.get('/book/book',BookController.getbook);
 
     //我的书籍页面
     app.get('/book/mybook', checkNotLogin);
-    app.get('/book/mybook',function(req, res){
-        Book.getList(req.session.user.name,function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/mybook',{
-                title:'书籍页面',
-                user:req.session.user,
-                book:book,
-                error:req.flash('error').toString()
-            });
-        });       
-    });
+    app.get('/book/mybook',BookController.getmybook);
     
     //我想读的书
     app.get('/book/mywish', checkNotLogin);
-    app.get('/book/mywish', function(req, res){
-        User.get(req.session.user.name,function(err, user){
-            if(err){
-                return callback(err);
-            }
-            Book.getMywish(user.wish,function(err, mywishBook){                
-                res.render('book/mywish',{
-                    title:'我想看的书',
-                    user:req.session.user,
-                    mywishBook : mywishBook
-                    });
-                });
-            });
-        });
+    app.get('/book/mywish', BookController.getmywish);
     
     //新建书籍描述
     app.get('/book/upbook',checkNotLogin);
-    app.get('/book/upbook',function(req, res){ 
-        res.render('book/upbook',{
-            title:'上传书籍描述',
-            user:req.session.user
-        });       
-    });
+    app.get('/book/upbook', BookController.getupbook);
     
     app.post('/book/upbook',checkNotLogin);
-    app.post('/book/upbook',function(req, res){
-        var newBook = new Book({
-            publisher:res.req.session.user.name,
-            name_zh:req.body.name_zh,
-            tags:req.body.tags.split(",")
-        });
-        newBook.save(function(err, book){
-            if(err){
-                return callback(err);
-            }
-            req.flash('success','上传成功');//上传之前加一个验证，此用户下的书是否已经存在相同名字的书
-            res.redirect('/book/mybook');
-        });
-    });
+    app.post('/book/upbook', BookController.postupbook);
     
     //查看我的书籍
     app.get('/book/mybook/:id', checkNotLogin);
-    app.get('/book/mybook/:id',function(req, res){
-        Book.getOne(req.params.id, function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/bookDescribe',{
-                title:'书籍页面',
-                user:req.session.user,
-                book:book,
-                success:req.flash('success').toString()
-            });
-        });       
-    });
+    app.get('/book/mybook/:id', BookController.postmybookByid);
     
     //查看\修改书籍描述
     app.get('/book/upbookDescribe/:id',checkNotLogin);
-    app.get('/book/upbookDescribe/:id',function(req, res){ 
-        Book.getOne(req.params.id, function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/upbookDescribe',{
-                title:'上传书籍描述',
-                user:req.session.user,
-                book:book
-            });
-        });       
-    });
+    app.get('/book/upbookDescribe/:id', BookController.getupbookDecribeByid);
     
     //修改书籍描述
     app.post('/book/upbookDescribe/:id',checkNotLogin);
-    app.post('/book/upbookDescribe/:id',function(req, res){       
-        var book = {
-            name_zh:req.body.name_zh,
-            tags:req.body.tags
-        }
-        Book.edit(req.params.id,book,function(err, numeffect, raw){
-            if(err){
-                return callback(err);
-            }            
-            req.flash('success', '修改成功');
-            res.redirect('/book/mybook');
-        });
-    });
+    app.post('/book/upbookDescribe/:id', BookController.postupbookDecribeByid);
 
     //清空书籍描述
     app.get('/book/bookDescribe/delete/:id', checkNotLogin);
-    app.get('/book/bookDescribe/delete/:id', function(req, res){
-        Book.remove(req.params.id,function(err){
-            if(err){
-                return callback(err);
-            }
-        });
-        BookContent.remove(req.params.id,function(err){
-            if(err){
-                return callback(err);
-            }
-            req.flash('success','删除成功');
-            res.redirect('/book/mybook');
-        });
-    });
+    app.get('/book/bookDescribe/delete/:id', BookController.getbookDescribeDeleteByid);
 
     //查看书籍内容
     app.get('/book/upbookContent/:id', checkNotLogin);
-    app.get('/book/upbookContent/:id', function(req, res){
-        BookContent.getOne(req.params.id, function(err,bookContent){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            if(bookContent === null){
-                res.render('book/upbookContent',{
-                    id:req.params.id,
-                    user:req.session.user,
-                    error:'您还没有上传内容'
-                });
-            }
-            else{
-                res.render('book/upbookContent',{
-                    id:req.params.id,
-                    user:req.session.user,
-                    bookContent:bookContent.content
-                });
-            }
-        }); 
-    });
+    app.get('/book/upbookContent/:id', BookController.getupbookContentByid);
     
     //上传/修改书籍内容
     app.post('/book/upbookContent/:id',checkNotLogin);
-    app.post('/book/upbookContent/:id',function(req, res){  
-        console.log(req.params.id);     
-        BookContent.edit(req.params.id, req.body.content, function(err, bookContent, raw){
-            if(err){
-                return callback(err);
-            }
-            req.flash('success','上传成功');
-            res.redirect('/book/mybook');
-        });
-    });
+    app.post('/book/upbookContent/:id', BookController.postupbookContentById);
 
     //清空书籍内容
     app.get('/book/bookContent/delete/:id', checkNotLogin);
-    app.get('/book/bookContent/delete/:id', function(req, res){
-        BookContent.remove(req.params.id,function(err){
-            if(err){
-                return callback(err);
-            }
-            req.flash('success','内容成功清除');
-            res.redirect('/book/mybook');
-        });
-    });
+    app.get('/book/bookContent/delete/:id', BookController.getbookContentDeleteByid);
      
     //查看书籍内容(无需登录验证)
-    app.get('/book/bookContent/:id',function(req, res){
-        BookContent.getOne(req.params.id,function(err,bookContent){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/bookContent',{
-                title:'书籍内容',
-                bookContent:bookContent,
-                user:req.session.user,
-                error:req.flash('error').toString()
-            });
-        });       
-    });
+    app.get('/book/bookContent/:id', BookController.getbookContentByid);
     
     //查看书籍(无需登录验证)
-    app.get('/book/:id',function(req, res){
-        Book.getOne(req.params.id,function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/bookDescribe',{
-                title:'书籍页面',
-                book:book,
-                user:req.session.user
-            });
-        });       
-    });
+    app.get('/book/:id', BookController.getByid);
 
     //过滤器
     function checkNotLogin(req, res, next){
