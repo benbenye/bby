@@ -35,6 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="controllers\bookController.js" />
+    <Compile Include="controllers\checkController.js" />
+    <Compile Include="controllers\userController.js" />
     <Compile Include="models\bookContent.js" />
     <Compile Include="models\db.js" />
     <Compile Include="models\book.js" />
