@@ -3,9 +3,11 @@
  * GET users listing.
  */
 var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
+    BookController = require('../controllers/bookController.js'),
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
     BookContent = require('../models/bookContent.js');
+    var BookController = new  BookController();
 
 module.exports = function(app){
     
@@ -29,13 +31,7 @@ module.exports = function(app){
 
     //书籍页面
     app.get('/book/book', checkNotLogin);
-    app.get('/book/book',function(req, res){        
-        res.render('book/book',{
-            title:'书籍页面',
-            user:req.session.user,
-            success:req.flash('success').toString()
-        });   
-    });
+    app.get('/book/book',BookController.getmybook);
 
     //我的书籍页面
     app.get('/book/mybook', checkNotLogin);
