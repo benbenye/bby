@@ -1,12 +1,14 @@
 ﻿//var mongodb = require('./db');
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    fs = require('fs');
 
 var bookSchema = mongoose.Schema;
 var ObjectId = bookSchema.ObjectId;
 
 var bookSchema = new bookSchema({
   publisher:String,
+  cover:{ data: Buffer, contentType: String },
   name_zh: String,
   ISBN:String,
   author:String,
@@ -19,6 +21,7 @@ var bookSchema = new bookSchema({
 var bookModel = mongoose.model('Book', bookSchema);// all environments
 function Book(book) {
     this.publisher = book.publisher;
+    this.cover = book.cover;
 	this.name_zh = book.name_zh;
 	this.ISBN = book.ISBN;
 	this.author = book.author;
@@ -41,6 +44,7 @@ Book.prototype.save = function(callback) {
 	//要存入数据库的文档
 	var book = {
         publisher:this.publisher,
+        cover : this.cover,
 		name_zh : this.name_zh,
 		time : time,
         tags:this.tags

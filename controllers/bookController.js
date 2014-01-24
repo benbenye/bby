@@ -71,6 +71,7 @@ function BookController(){
         var newBook = new Book({
             publisher:res.req.session.user.name,
             name_zh:req.body.name_zh,
+            cover:req.body.cover,
             tags:req.body.tags.split(",")
         });
         newBook.save(function(err, book){

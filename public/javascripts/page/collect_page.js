@@ -10,10 +10,12 @@
         });
     });
     $('.pullwish').click(function(){
-        var bookId = $(this).attr('bookId');
+        var bookId = $(this).attr('bookId'),
+            bookLi = $(this).parent('li');
         $.get('/user/pullwantread',{bookId:bookId}, function(data){
             if(data.ok === 1){
                 alert('取消成功');
+                bookLi.detach();
             }else if(data.ok != 1){
                 alert('sorry');
             }
