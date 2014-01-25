@@ -68,10 +68,12 @@ function BookController(){
     };
 
     this.postupbook = function(req, res){
+        var fs = require('fs');
         var newBook = new Book({
             publisher:res.req.session.user.name,
             name_zh:req.body.name_zh,
-            cover:req.body.cover,
+            cover: {data: fs.readFileSync(req.files.cover.path),
+                contentType : req.files.cover.type},
             tags:req.body.tags.split(",")
         });
         newBook.save(function(err, book){
@@ -212,6 +214,12 @@ function BookController(){
                 user:req.session.user
             });
         });       
+    };
+
+    this.getbookimageByid = function(req, res){
+        Book.getOne(req.params.id, function(image){
+            res.render('book/mybook');
+        });
     };
 }
 module.exports = BookController;

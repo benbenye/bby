@@ -72,6 +72,7 @@
     <Folder Include="controllers\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
+    <Folder Include="public\images\books\" />
     <Folder Include="public\javascripts\" />
     <Folder Include="public\javascripts\common\" />
     <Folder Include="public\javascripts\base\" />

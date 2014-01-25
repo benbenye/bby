@@ -13,10 +13,12 @@ var express = require('express'),
     flash = require('connect-flash');
 
 var app = express();
+app.use(express.bodyParser());
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));//设置views文件夹为存放试图文件的目录，_dirname为全局变量，存储当前正在执行的脚本所在的目录
 app.set('view engine', 'jade');
+
 app.use(flash());
 app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.logger('dev'));
@@ -33,8 +35,8 @@ app.use(express.session({
         url:'mongodb://127.0.0.1:27017/session'
     })
 }));
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(app.router);
 
 // development only
 if ('development' == app.get('env')) {

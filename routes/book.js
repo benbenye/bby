@@ -7,7 +7,9 @@ var BookController = require('../controllers/bookController.js'),
 
 module.exports = function(app){
     
-    //进入首页
+    /**
+     * 进入首页
+     */
     app.get('/', BookController.getindex);
 
     //书籍页面
@@ -62,4 +64,7 @@ module.exports = function(app){
     
     //查看书籍(无需登录验证)
     app.get('/book/:id', BookController.getByid);
+
+    //请求图书封皮
+    app.get('/images/books/:id', BookController.getbookimageByid);
 };
