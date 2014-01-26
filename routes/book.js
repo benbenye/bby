@@ -31,10 +31,6 @@ module.exports = function(app){
     app.post('/book/upbook', CheckController.checkNotLogin);
     app.post('/book/upbook', BookController.postupbook);
     
-    //查看我的书籍
-    app.get('/book/mybook/:id',  CheckController.checkNotLogin);
-    app.get('/book/mybook/:id', BookController.getmybookByid);
-    
     //查看\修改书籍描述
     app.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
     app.get('/book/upbookDescribe/:id', BookController.getupbookDecribeByid);
@@ -62,7 +58,7 @@ module.exports = function(app){
     //查看书籍内容(无需登录验证)
     app.get('/book/bookContent/:id', BookController.getbookContentByid);
     
-    //查看书籍(无需登录验证)
+    //查看书籍描述(无需登录验证)
     app.get('/book/:id', BookController.getByid);
 
     //请求图书封皮

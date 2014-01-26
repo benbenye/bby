@@ -85,21 +85,6 @@ function BookController(){
         });
     };
 
-    this.getmybookByid = function(req, res){
-        Book.getOne(req.params.id, function(err,book){
-            if(err){
-                res.flash();
-                return callback(err);
-            }
-            res.render('book/bookDescribe',{
-                title:'书籍页面',
-                user:req.session.user,
-                book:book,
-                success:req.flash('success').toString()
-            });
-        });       
-    };
-
     this.getupbookDecribeByid = function(req, res){ 
         Book.getOne(req.params.id, function(err,book){
             if(err){
@@ -208,17 +193,20 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
-            res.render('book/bookDescribe',{
+            res.send('book/bookDescribe',{
                 title:'书籍页面',
                 book:book,
-                user:req.session.user
+                img :book.cover
             });
+            res.writeHead('200',{'Content-Type': 'image/*'});
+            res.end(img,'binary');         
         });       
-    };
-
+    };         
     this.getbookimageByid = function(req, res){
         Book.getOne(req.params.id, function(image){
-            res.render('book/mybook');
+            res.render('book/bookDescribe',{
+                data:image
+            });
         });
     };
 }

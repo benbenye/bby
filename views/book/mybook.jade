@@ -8,7 +8,7 @@ block content
 	ul
 		- for(var index = book.length - 1;index >= 0; --index)
 			li.mt10
-				a.mr10(href='/book/mybook/#{book[index]._id}',title='#{book[index].name_zh}') #{book[index].name_zh}
+				a.mr10(href='/book/#{book[index]._id}',title='#{book[index].name_zh}') #{book[index].name_zh}
 				a.mr10(href='/book/upbookDescribe/#{book[index]._id}',title='修改描述') 修改描述
 				a.mr10.deleteAll(href='/book/bookDescribe/delete/#{book[index]._id}',title='删除此书') 删除此书
 				a.mr10(href='/book/upbookContent/#{book[index]._id}',title='修改内容') 修改内容

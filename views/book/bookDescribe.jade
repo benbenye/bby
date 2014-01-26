@@ -3,7 +3,7 @@ block content
 	h2=name
 	-if(book)
 		h2.fb.f18(bookId='#{book._id}')=book.name_zh
-		img(src='#{book.cover.data}')
+		img(src='#{img}')
 		p=book.tags
 		p
 			a.mr10.no_unl#wish(href='javascript:void(0)') 想看
