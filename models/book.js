@@ -90,15 +90,25 @@ Book.getMywish= function(mywishBook, callback){
 };
 //读取文章及其相关信息
 Book.getOne = function(id, callback){
-	bookModel.findOne({_id:id.toString()},function(err,book){
+	bookModel.findOne({_id:id},function(err,book){
         if(err){
             return callback(err);
         }
         callback(null, book);
     });
 };
+// 获取图书封面
+Book.getCoverById = function(id, callback){
+	bookModel.findOne({_id:id},function(err,book){
+        if(err){
+            return callback(err);
+        }
+        callback(null, book);
+    });
+};
+
 Book.edit = function(id, book, callback){
-    bookModel.update({_id:id.toString()},{$set:{name_zh:book.name_zh,tags:book.tags.split(',')}},function(err, numeffect,raw){
+    bookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(',')}},function(err, numeffect,raw){
         if(err){
             return callback(err);
         }
