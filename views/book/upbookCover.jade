@@ -1,0 +1,11 @@
+extends ../layout
+block content
+	h1=title
+	p welcome to #{title}
+	-if(error)
+		h3=error
+	form(method='post',action='/book/upbookCover')
+		label 封面：
+			input(type='file',name='cover')
+		br
+		input(type='submit')

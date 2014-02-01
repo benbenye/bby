@@ -38,11 +38,13 @@
     <Compile Include="controllers\bookController.js" />
     <Compile Include="controllers\checkController.js" />
     <Compile Include="controllers\userController.js" />
+    <Compile Include="models\bookCover.js" />
     <Compile Include="models\bookContent.js" />
     <Compile Include="models\db.js" />
     <Compile Include="models\book.js" />
     <Compile Include="models\gridfs.js" />
     <Compile Include="models\user.js" />
+    <Compile Include="public\javascripts\page\page.js" />
     <Compile Include="public\javascripts\page\collect_page.js" />
     <Compile Include="public\javascripts\page\confirm_page.js" />
     <Compile Include="routes\book.js" />
@@ -58,6 +60,7 @@
     <Content Include="views\book\bookContent.jade" />
     <Content Include="views\book\mywish.jade" />
     <Content Include="views\book\mybook.jade" />
+    <Content Include="views\book\upbookCover.jade" />
     <Content Include="views\book\upbookDescribe.jade" />
     <Content Include="views\book\upbook.jade" />
     <Content Include="views\book\upbookContent.jade" />

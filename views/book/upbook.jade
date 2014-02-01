@@ -2,14 +2,17 @@
 block content
 	h1=title
 	p welcome to #{title}
-	form(method='post',action='/book/upbook',enctype='multipart/form-data')
+	form(method='post',action='/book/upbook')
 		label 书名：
-			input(type='text',name='name_zh')
+			input#name_zh(type='text',name='name_zh')
 		br
 		label 标签：
-			input(type='text',name='tags')
+			input#tags(type='text',name='tags')
 		br
+		input#postbook(type='submit')
+	form(method='post',action='/book/upbookCover',enctype='multipart/form-data')
 		label 封面：
-			input(type='file',name='cover')
+			input#cover(type='file',name='cover')
 		br
-		input(type='submit')
+		input#postbookCover(type='submit')
+	script(src='/javascripts/page/page.js')

@@ -31,6 +31,12 @@ module.exports = function(app){
     app.post('/book/upbook', CheckController.checkNotLogin);
     app.post('/book/upbook', BookController.postupbook);
     
+    app.get('/book/upbookCover', CheckController.checkNotLogin);
+    app.get('/book/upbookCover', BookController.getupbookCover);
+
+    app.post('/book/upbookCover', CheckController.checkNotLogin);
+    app.post('/book/upbookCover', BookController.postupbookCover);
+
     //查看\修改书籍描述
     app.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
     app.get('/book/upbookDescribe/:id', BookController.getupbookDecribeByid);
@@ -62,5 +68,5 @@ module.exports = function(app){
     app.get('/book/:id', BookController.getByid);
 
     //请求图书封皮
-    app.get('/images/books/:id', BookController.getbookimageByid);
+    app.get('/images/books/:id', BookController.getbookCoverByid);
 };

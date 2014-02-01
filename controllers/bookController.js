@@ -3,6 +3,7 @@
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
     BookContent = require('../models/bookContent.js');
+    BookCover = require('../models/bookCover.js');
 
 function BookController(){
     this.getindex = function(req, res){
@@ -67,20 +68,40 @@ function BookController(){
         });       
     };
 
-    this.postupbook = function(req, res){
-        var fs = require('fs');
+    this.postupbook = function (req, res) {
         var newBook = new Book({
             publisher:res.req.session.user.name,
-            name_zh:req.body.name_zh,
-            cover: {data: fs.readFileSync(req.files.cover.path),
-                contentType : req.files.cover.type},
-            tags:req.body.tags.split(",")
+            name_zh:req.query.name_zh,
+            tags:req.query.tags.split(",")
         });
         newBook.save(function(err, book){
             if(err){
                 return callback(err);
             }
             req.flash('success','上传成功');
+            //res.redirect('/book/mybook');
+            res.send(book);
+            console.log(book);
+        });
+    };
+
+    this.getupbookCover = function (req, res) {
+        res.render('book/upbookCover', {
+            title: '书籍封面',
+            user: req.session.user
+        });
+    };
+    this.postupbookCover = function (req, res) {
+        var fs = require('fs');
+        var newBookCover = new BookCover({
+            cover: {data: fs.readFileSync(req.files.cover.path),
+                contentType: req.files.cover.type}
+        });
+        newBookCover.save(function (err, cover) {
+            if (err) {
+                return callback(err);
+            }
+            req.flash('success', '上传成功');
             res.redirect('/book/mybook');
         });
     };
@@ -202,13 +223,10 @@ function BookController(){
             //res.end(img,'binary');         
         });       
     };         
-    this.getbookimageByid = function(req, res){
-        Book.getOne(req.params.id, function(err,image){
+    this.getbookCoverByid = function (req, res) {
+        BookCover.getOne(req.params.id, function (err, cover) {
             res.set("Content-Type", "image/jpeg");
-            res.send(image.cover.data);
-            //res.render('book/bookDescribe',{
-            //    data:image
-            //});
+            res.send(cover.cover.data);
         });
     };
 }
