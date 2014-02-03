@@ -71,17 +71,17 @@ function BookController(){
     this.postupbook = function (req, res) {
         var newBook = new Book({
             publisher:res.req.session.user.name,
-            name_zh:req.query.name_zh,
-            tags:req.query.tags.split(",")
+            name_zh:req.body.name_zh,
+            tags:req.body.tags.split(",")
         });
         newBook.save(function(err, book){
             if(err){
                 return callback(err);
             }
-            req.flash('success','上传成功');
+           // req.flash('success','上传成功');
             //res.redirect('/book/mybook');
-            res.send(book);
-            console.log(book);
+            res.send({ok:1});
+            console.log(book.publisher);
         });
     };
 
