@@ -30,9 +30,6 @@ module.exports = function(app){
     
     app.post('/book/upbook', CheckController.checkNotLogin);
     app.post('/book/upbook', BookController.postupbook);
-    
-    app.get('/book/upbookCover', CheckController.checkNotLogin);
-    app.get('/book/upbookCover', BookController.getupbookCover);
 
     app.post('/book/upbookCover', CheckController.checkNotLogin);
     app.post('/book/upbookCover', BookController.postupbookCover);

@@ -52,7 +52,7 @@ BookCover.getOne = function(id, callback){
 
 //修改一篇文章封面
 BookCover.edit = function(id, bookCover, callback){
-    bookCoverModel.update({_id:id},{$set:{cover:bookcover}},{upsert:true},function(err, numeffect){
+    bookCoverModel.update({_id:id},{$set:{cover:bookCover}},{upsert:true},function(err, numeffect){
         if(err){
             return callback(err);
         }

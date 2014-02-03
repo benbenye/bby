@@ -80,24 +80,17 @@ function BookController(){
             }
            // req.flash('success','上传成功');
             //res.redirect('/book/mybook');
-            res.send({ok:1});
+            res.send(book);
             console.log(book.publisher);
         });
     };
 
-    this.getupbookCover = function (req, res) {
-        res.render('book/upbookCover', {
-            title: '书籍封面',
-            user: req.session.user
-        });
-    };
     this.postupbookCover = function (req, res) {
-        var fs = require('fs');
-        var newBookCover = new BookCover({
-            cover: {data: fs.readFileSync(req.files.cover.path),
-                contentType: req.files.cover.type}
-        });
-        newBookCover.save(function (err, cover) {
+        var fs = require('fs'),
+            cover = {data: fs.readFileSync(req.files.cover.path),
+                    contentType: req.files.cover.type},
+            id = req.body.bookId;
+        BookCover.edit(id, cover, function (err, cover) {
             if (err) {
                 return callback(err);
             }

@@ -5,9 +5,11 @@
         $.post('/book/upbook', { 'name_zh': name_zh, 'tags' : tags},
             function(data){
                 if(data){
-                alert('ok');
-                $('#formDiscribe').hide();
-                $('#formCover').show();
+                    $('#formDiscribe').before('<div>' + name_zh + '</div>');
+                    $('#formDiscribe').hide();
+                    $('#formCover').show();
+                    $('#bookId').val(data._id);
+                    alert('ok');
                 }
            }, "json");
     });

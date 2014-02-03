@@ -10,9 +10,10 @@ block content
 			input#tags(type='text',name='tags')
 		br
 		input#postbook(type='button')
-	form(method='post',action='/book/upbookCover',enctype='multipart/form-data')
+	form#formCover.none(method='post',action='/book/upbookCover',enctype='multipart/form-data')
 		label 封面：
 			input#cover(type='file',name='cover')
+			input#bookId(type='hidden',name='bookId')
 		br
 		input#postbookCover(type='submit')
 	script(src='/javascripts/page/page.js')
