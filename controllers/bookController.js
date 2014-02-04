@@ -218,8 +218,12 @@ function BookController(){
     };         
     this.getbookCoverByid = function (req, res) {
         BookCover.getOne(req.params.id, function (err, cover) {
-            res.set("Content-Type", "image/jpeg");
-            res.send(cover.cover.data);
+            if(cover === null){
+                res.send({state:0});
+            }else{
+                res.set("Content-Type", "image/jpeg");
+                res.send(cover.cover.data);
+            }
         });
     };
 }
