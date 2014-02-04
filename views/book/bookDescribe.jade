@@ -3,8 +3,8 @@ block content
 	h2=name
 	-if(book)
 		h2.fb.f18(bookId='#{book._id}')=book.name_zh
-		img(src='/images/books/#{book._id}')
 		p=book.tags
+		img.cover(src='/images/books/#{book._id}')
 		p
 			a.mr10.no_unl#wish(href='javascript:void(0)') 想看
 			a.mr10.no_unl(href) 看过
@@ -12,4 +12,5 @@ block content
 		a(href='/book/bookContent/#{book._id}') 阅读
 	-else if(error)
 		p=error
+	link(rel='stylesheet', href='/stylesheets/common/common.css')
 	script(src='/javascripts/page/collect_page.js')

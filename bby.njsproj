@@ -38,6 +38,7 @@
     <Compile Include="controllers\bookController.js" />
     <Compile Include="controllers\checkController.js" />
     <Compile Include="controllers\userController.js" />
+    <Compile Include="models\userAvatar.js" />
     <Compile Include="models\bookCover.js" />
     <Compile Include="models\bookContent.js" />
     <Compile Include="models\db.js" />
@@ -52,6 +53,7 @@
     <Compile Include="routes\user.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\base\base.css" />
+    <Content Include="public\stylesheets\common\common.css" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
@@ -83,6 +85,7 @@
     <Folder Include="public\javascripts\page\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="public\stylesheets\base\" />
+    <Folder Include="public\stylesheets\common\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
     <Folder Include="views\book\" />

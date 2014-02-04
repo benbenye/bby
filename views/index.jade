@@ -17,5 +17,9 @@ block content
 		div.bd
 			ul
 				-for(var index = books.length - 1; index >= 0; --index)
-					li.fl.w100.mr10
-						a.no_unl(href='book/#{books[index]._id}') #{books[index].name_zh}
+					li.fl.w200.mr10
+						dl
+							dt
+								img.cover(src='/images/books/#{books[index]._id}')
+							dd
+								a.no_unl(href='book/#{books[index]._id}') #{books[index].name_zh}

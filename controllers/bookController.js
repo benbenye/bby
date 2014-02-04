@@ -78,10 +78,8 @@ function BookController(){
             if(err){
                 return callback(err);
             }
-           // req.flash('success','上传成功');
-            //res.redirect('/book/mybook');
+            req.flash('success','上传成功');
             res.send(book);
-            console.log(book.publisher);
         });
     };
 
@@ -211,9 +209,7 @@ function BookController(){
                 title:'书籍页面',
                 book:book,
                 img :book.cover
-            });
-            //res.writeHead('200',{'Content-Type': 'image/*'});
-            //res.end(img,'binary');         
+            });         
         });       
     };         
     this.getbookCoverByid = function (req, res) {
@@ -221,7 +217,7 @@ function BookController(){
             if(cover === null){
                 res.send({state:0});
             }else{
-                res.set("Content-Type", "image/jpeg");
+                res.set("Content-Type", "image/"+cover.cover.contentType);
                 res.send(cover.cover.data);
             }
         });
