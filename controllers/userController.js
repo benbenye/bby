@@ -109,6 +109,21 @@ function UserController(){
         });
     };
 
+    this.postuserAvatar = function (req, res) {
+        var fs = require('fs'),
+            userAvatar = {data: fs.readFileSync(req.files.userAvatar.path),
+                    contentType: req.files.userAvatar.type},
+            id = req.session.user._id;
+        UserAvatar.edit(id, userAvatar, function (err, numeffect) {
+            if (err) {
+                return callback(err);
+            }
+            req.flash('success', '上传成功');
+            //res.redirect('/book/mybook');
+            res.send({ok:numeffect});
+        });
+    };
+
     this.getwantread = function(req, res){
         var newwish = new User({
             name : req.session.user.name,

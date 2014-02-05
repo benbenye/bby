@@ -52,7 +52,7 @@ UserAvatar.getOne = function(id, callback){
 
 //修改一篇文章封面
 UserAvatar.edit = function(id, userAvatar, callback){
-    userAvatarModel.update({_id:id},{$set:{cover:userAvatar}},{upsert:true},function(err, numeffect){
+    userAvatarModel.update({_id:id},{$set:{avatar:userAvatar}},{upsert:true},function(err, numeffect){
         if(err){
             return callback(err);
         }

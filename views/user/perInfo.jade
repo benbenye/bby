@@ -7,9 +7,12 @@ block content
 	-if(error)
 		h1=error
 	form.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
+		progress#progressBar(value='0',max='100')
+		span#percentage
+		br
 		label 头像：
-			input#cover(type='file',name='user-avatar')
-			input#bookId(type='hidden',name='userId')
+			input#userAvatar(type='file',name='user-avatar')
+			input#userId(type='hidden',name='#{user._id}')
 		br
 		input#postuserAvatar(type='button',value='提交')
 	form.perInfo.fl(method='post',action='/user/perInfo')

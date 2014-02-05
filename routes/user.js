@@ -32,6 +32,9 @@ module.exports = function(app){
     app.post('/user/perInfo', CheckController.checkNotLogin);
     app.post('/user/perInfo', UserController.postperInfo);
 
+    app.post('/user/userAvatar', CheckController.checkNotLogin);
+    app.post('/user/userAvatar', UserController.postuserAvatar);
+
     //添加想看图书
     app.get('/user/wantread', CheckController.checkNotLogin);
     app.get('/user/wantread', UserController.getwantread);
