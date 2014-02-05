@@ -1,6 +1,7 @@
 ﻿var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
     UserController = new  UserController(),
     User = require('../models/user.js');
+    UserAvatar = require('../models/userAvatar.js');
 
 function UserController(){
     this.getlogin = function(req, res){
@@ -95,19 +96,16 @@ function UserController(){
 
     this.postperInfo = function(req, res){
         var newperInfo = new User({
-            name:req.body.name,
-            email:req.body.email,
-            sex:req.body.sex
+            name:req.body.user_name,
+            email:req.body.user_email,
+            sex:req.body.user_sex
         });
-        User.edit(req.session.name, newperInfo, function(err, perInfo){//修改逻辑有问题
+        User.edit(req.session.user.name, newperInfo, function(err, numeffect){//修改逻辑有问题
             if(err){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
                 return res.redirect('/user/perInfo');
             }
-            //req.session.user = perInfo;
-            req.flash('success', '修改成功');
-            res.redirect('/');
-
+            res.send({ok:numeffect});
         });
     };
 

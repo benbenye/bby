@@ -71,7 +71,6 @@ User.edit = function(name, perInfo, callback){
             return callback(err);
         }
         callback(null, perInfo);
-        console.log(perInfo);//perInfo == numeffect
     });
 };
 //添加用户想看书的信息

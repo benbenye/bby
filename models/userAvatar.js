@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var userAvatarSchema = mongoose.Schema;userAvatar
+var userAvatarSchema = mongoose.Schema;
 var ObjectId = userAvatarSchema.ObjectId();
 
 var userAvatarSchema = new userAvatarSchema({
