@@ -63,9 +63,11 @@ module.exports = function(app){
     app.get('/book/bookContent/delete/:id', BookController.getbookContentDeleteByid);
      
     //查看书籍内容(无需登录验证)
+    app.get('/book/bookContent/:id', CheckController.checkNotLogin);
     app.get('/book/bookContent/:id', BookController.getbookContentByid);
     
     //查看书籍描述(无需登录验证)
+    app.get('/book/:id', CheckController.checkNotLogin);
     app.get('/book/:id', BookController.getByid);
 
     //请求图书封皮
