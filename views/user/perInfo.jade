@@ -6,7 +6,7 @@ block content
 	p Welcome to #{title}
 	-if(error)
 		h1=error
-	form.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
+	form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
 		progress#progressBar(value='0',max='100')
 		span#percentage
 		br

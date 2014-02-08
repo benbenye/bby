@@ -72,7 +72,8 @@ function BookController(){
         var newBook = new Book({
             publisher:res.req.session.user.name,
             name_zh:req.body.name_zh,
-            tags:req.body.tags.split(",")
+            tags:req.body.tags.split(","),
+            intro:req.body.intro
         });
         newBook.save(function(err, book){
             if(err){
@@ -114,14 +115,29 @@ function BookController(){
     this.postupbookDecribeByid = function(req, res){       
         var book = {
             name_zh:req.body.name_zh,
-            tags:req.body.tags
+            tags:req.body.tags,
+            intro:req.body.intro
         }
         Book.edit(req.params.id,book,function(err, numeffect, raw){
             if(err){
                 return callback(err);
             }            
             req.flash('success', '修改成功');
-            res.redirect('/book/mybook');
+            res.send({ok:numeffect});
+        });
+    };
+    
+    this.postupbookCoverByid = function(req, res){
+        var fs = require('fs'),
+            cover = {data: fs.readFileSync(req.files.cover.path),
+                    contentType: req.files.cover.type},
+            id = req.body.id;
+        BookCover.edit(id, cover, function (err, cover) {
+            if (err) {
+                return callback(err);
+            }
+            req.flash('success', '修改成功');
+            res.send({ok:1});
         });
     };
 

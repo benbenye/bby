@@ -41,6 +41,10 @@ module.exports = function(app){
     //修改书籍描述
     app.post('/book/upbookDescribe/:id', CheckController.checkNotLogin);
     app.post('/book/upbookDescribe/:id', BookController.postupbookDecribeByid);
+    
+    //修改书籍封皮
+    app.post('/book/upbookCover/:id', CheckController.checkNotLogin);
+    app.post('/book/upbookCover/:id', BookController.postupbookCoverByid);
 
     //清空书籍描述
     app.get('/book/bookDescribe/delete/:id',  CheckController.checkNotLogin);

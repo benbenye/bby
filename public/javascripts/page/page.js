@@ -1,8 +1,12 @@
 ﻿$(document).ready(function(){
+    /**
+    *上传新书
+    */
     $('#postbook').click(function(){
         var name_zh = $('#name_zh').val(),
-            tags = $('#tags').val();
-        $.post('/book/upbook', { 'name_zh': name_zh, 'tags' : tags},
+            tags = $('#tags').val(),
+            intro = $('#intro').val();
+        $.post('/book/upbook', { 'name_zh': name_zh, 'tags' : tags, 'intro' : intro},
             function(data){
                 if(data){
                     $('#formDiscribe').before('<div>' + name_zh + '</div>');
@@ -13,6 +17,26 @@
                 }
            }, "json");
     });
+    /**
+    *修改书籍描述
+    */
+    $('#postDescribe').click(function(){
+        var name_zh = $('#name_zh').val(),
+            tags = $('#tags').val(),
+            intro = $('#intro').val(),
+            id = $('#name_zh').attr('sign');
+        $.post('/book/upbookDescribe/' + id, { 'name_zh': name_zh, 'tags' : tags, 'intro' : intro},
+            function(data){
+                if(data.ok){
+                    $('#formDiscribe').before('<div>' + name_zh + '</div>');
+                    $('#formDiscribe').hide();
+                    alert('ok');
+                }
+           }, "json");
+    });
+    /**
+    *修改个人信息
+    */
     $('#postperInfo').click(function(){
         var user_name = $('.user-name').val(),
             user_email = $('.user-email').val(),
@@ -24,30 +48,51 @@
                 }
            }, "json");
     });
+    /**
+    *修改个人头像
+    */
     $('#postuserAvatar').click(function(){
-        UpladFile();  
-    });
-    function UpladFile() {
         var fileObj = document.getElementById("userAvatar").files[0]; // js 获取文件对象
-        var FileController = "/user/userAvatar";                    // 接收上传文件的后台地址 
+        var FileController = "/user/userAvatar";                      // 接收上传文件的后台地址 
 
         // FormData 对象
         var userId = $('#userId').attr('name');
         var form = new FormData();
-        form.append("id", userId);                        // 可以增加表单数据
-        form.append("userAvatar", fileObj);          // 文件对象
+        form.append("id", userId);                                   // 可以增加表单数据
+        form.append("userAvatar", fileObj);                          // 文件对象
 
         // XMLHttpRequest 对象
         var xhr = new XMLHttpRequest();
         xhr.open("post", FileController, true);
         xhr.onload = function () {
-            // alert("上传完成!");
+            $('.postuserAvatar').before('<div>修改成功</div>');
         };
         xhr.upload.addEventListener("progress", progressFunction, false);
         xhr.send(form);
-            
+    });
+    /**
+    *修改书籍封皮
+    */
+    $('#postCover').click(function(){
+        var fileObj = document.getElementById("cover").files[0]; // js 获取文件对象
+        var id = $('#name_zh').attr('sign');
+        var FileController = "/book/upbookCover/" + id;                      // 接收上传文件的后台地址 
 
-    }
+        // FormData 对象
+        var form = new FormData();
+        form.append("id", id);                                   // 可以增加表单数据
+        form.append("cover", fileObj);                          // 文件对象
+
+        // XMLHttpRequest 对象
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", FileController, true);
+        xhr.onload = function () {
+            $('.formCover').before('<div>修改成功</div>');
+        };
+        xhr.send(form);
+        $('.coverImg').detach();
+        $('#formCover').prepend("<img class='coverImg' src='/images/books/"+id+"?1222' width='110' height='146'>");
+    }); 
     function progressFunction(evt) {
         var progressBar = document.getElementById("progressBar");
         var percentageDiv = document.getElementById("percentage");

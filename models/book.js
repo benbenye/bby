@@ -12,6 +12,7 @@ var bookSchema = new bookSchema({
   ISBN:String,
   author:String,
   tags:[],
+  intro:String,
   time:String
 },{
     collection:'books'
@@ -24,6 +25,7 @@ function Book(book) {
 	this.ISBN = book.ISBN;
 	this.author = book.author;
     this.tags = book.tags;
+    this.intro = book.intro;
     this.time = book.time;
 };//Book 构造函数，对新创建的对象进行初始化 
 
@@ -44,7 +46,8 @@ Book.prototype.save = function(callback) {
         publisher:this.publisher,
 		name_zh : this.name_zh,
 		time : time,
-        tags:this.tags
+        tags:this.tags,
+        intro:this.intro
 		//ISBN : this.ISBN,
 		//author : this.author,
         //tags:this.tags
@@ -105,7 +108,7 @@ Book.getCoverById = function(id, callback){
 };
 
 Book.edit = function(id, book, callback){
-    bookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(',')}},function(err, numeffect,raw){
+    bookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(','),intro:book.intro}},function(err, numeffect,raw){
         if(err){
             return callback(err);
         }
