@@ -87,7 +87,9 @@
         var xhr = new XMLHttpRequest();
         xhr.open("post", FileController, true);
         xhr.onload = function () {
-            $('.formCover').before('<div>修改成功</div>');
+            $('#formCover').before('<div>修改成功</div>');
+            $('.coverImg').detach();
+            $('#formCover').prepend("<img class='coverImg' src='/images/books/" + id + "?" + new Date().getTime() + "' width='110' height='146'>");
         };
         xhr.send(form);
     }); 
