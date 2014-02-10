@@ -6,9 +6,7 @@ var bookContentSchema = mongoose.Schema;
 var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
-  publisher:String,
-  name_zh:String,
-  content:String
+  content:[]
 },{
     collection:'bookContents'
 });
@@ -34,8 +32,6 @@ BookContent.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var bookContent = {
-        publisher:this.publisher,
-        name_zh:this.name_zh,
         content:this.content,
 		time : time
 	};
@@ -61,9 +57,7 @@ BookContent.getOne = function(id, callback){
 
 //修改一篇文章的内容
 BookContent.edit = function(id, bookContent, callback){
-    console.log(typeof id);
-    console.log(id);
-    bookContentModel.update({_id:id},{$set:{content:bookContent}},{upsert:true},function(err, numeffect, raw){
+    bookContentModel.update({_id:id},{$set:{content:bookContent.split('_ueditor_page_break_tag_')}},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }

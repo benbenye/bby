@@ -45,6 +45,7 @@
     <Compile Include="models\book.js" />
     <Compile Include="models\gridfs.js" />
     <Compile Include="models\user.js" />
+    <Compile Include="public\javascripts\page\commitContent.js" />
     <Compile Include="public\javascripts\page\page.js" />
     <Compile Include="public\javascripts\page\collect_page.js" />
     <Compile Include="public\javascripts\page\confirm_page.js" />

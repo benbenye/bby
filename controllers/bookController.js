@@ -179,9 +179,8 @@ function BookController(){
         }); 
     };
 
-    this.postupbookContentById = function(req, res){  
-        console.log(req.params.id);     
-        BookContent.edit(req.params.id, req.body.content, function(err, bookContent, raw){
+    this.postupbookContentById = function(req, res){
+        BookContent.edit(req.body.id, req.body.content, function(err, bookContent, raw){
             if(err){
                 return callback(err);
             }
