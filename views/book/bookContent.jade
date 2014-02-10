@@ -4,7 +4,7 @@ block content
 	h2=name
 	-if(bookContent)
 		-for(var i = 0; i < bookContent.content.length; ++i)
-			.bookContent.none=bookContent.content[i]
+			.bookContent !{bookContent.content[i]}
 	-else if(user === null)
 		p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
 		a(href='') 提醒TA上传
