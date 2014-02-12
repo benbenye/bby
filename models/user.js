@@ -80,7 +80,7 @@ User.edit = function(name, perInfo, callback){
 };
 //添加用户想看书的信息
 User.pushwish = function(name, bookId, callback){
-    userModel.update({name : name}, {$addToSet:{'wish.id':bookId, 'wish.schedule':'null'}}, function(err, numeffect){
+    userModel.update({name : name}, {$addToSet:{'wish.$.id':bookId, 'wish.$.schedule':'null'}}, function(err, numeffect){
         if(err){
             return callback(err)
         }

@@ -20,10 +20,6 @@ module.exports = function(app){
     app.get('/book/mybook',  CheckController.checkNotLogin);
     app.get('/book/mybook',BookController.getmybook);
     
-    //我想读的书
-    app.get('/book/mywish',  CheckController.checkNotLogin);
-    app.get('/book/mywish', BookController.getmywish);
-    
     //新建书籍描述
     app.get('/book/upbook', CheckController.checkNotLogin);
     app.get('/book/upbook', BookController.getupbook);

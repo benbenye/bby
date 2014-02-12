@@ -1,7 +1,8 @@
 ﻿var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
     UserController = new  UserController(),
-    User = require('../models/user.js');
-    UserAvatar = require('../models/userAvatar.js');
+    User = require('../models/user.js'),
+    UserAvatar = require('../models/userAvatar.js'),
+    Book = require('../models/book.js');
 
 function UserController(){
     this.getlogin = function(req, res){
