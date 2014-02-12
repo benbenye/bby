@@ -42,4 +42,8 @@ module.exports = function(app){
     //删除想看图书
     app.get('/user/pullwantread', CheckController.checkNotLogin);
     app.get('/user/pullwantread', UserController.getpullwantread);
+    
+    //我想读的书
+    app.get('/user/mywish',  CheckController.checkNotLogin);
+    app.get('/user/mywish', UserController.getmywish);
 };

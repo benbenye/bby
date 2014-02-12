@@ -68,7 +68,7 @@ module.exports = function(app){
     
     //查看书籍描述(无需登录验证)
     app.get('/book/:id', CheckController.checkNotLogin);
-    app.get('/book/:id', BookController.getByid);
+    app.get('/book/:id', BookController.getbookByid);
 
     //请求图书封皮
     app.get('/images/books/:id', BookController.getbookCoverByid);

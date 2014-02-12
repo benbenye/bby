@@ -51,7 +51,7 @@ function BookController(){
             if(err){
                 return callback(err);
             }
-            Book.getMywish(user.wish,function(err, mywishBook){                
+            Book.getMywish(user.wish.id,function(err, mywishBook){                
                 res.render('book/mywish',{
                     title:'我想看的书',
                     user:req.session.user,
@@ -214,7 +214,7 @@ function BookController(){
         });       
     };
 
-    this.getByid = function(req, res){
+    this.getbookByid = function(req, res){
         Book.getOne(req.params.id,function(err,book){
             if(err){
                 res.flash();
@@ -223,7 +223,7 @@ function BookController(){
             res.render('book/bookDescribe',{
                 title:'书籍页面',
                 book:book,
-                img :book.cover
+                user:req.session.user
             });         
         });       
     };         

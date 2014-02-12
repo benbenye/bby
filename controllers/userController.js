@@ -129,7 +129,7 @@ function UserController(){
             name : req.session.user.name,
             wish : req.query.bookId
             });
-        User.addwish(newwish.name, newwish.wish, function(err, numeffect){
+        User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
             if(err){
                 return res.redirect('/');
                 res.send({ok:0});
@@ -152,6 +152,21 @@ function UserController(){
             if(numeffect === 1){
                 res.send({ok:1});
                 }
+            });
+        };
+    
+    this.getmywish = function(req, res){
+        User.get(req.session.user.name,function(err, user){
+            if(err){
+                return callback(err);
+            }
+            Book.getMywish(user.wish,function(err, mywishBook){                
+                res.render('book/mywish',{
+                    title:'我想看的书',
+                    user:req.session.user,
+                    mywishBook : mywishBook
+                    });
+                });
             });
         };
 }
