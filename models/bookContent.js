@@ -6,7 +6,7 @@ var bookContentSchema = mongoose.Schema;
 var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
-  content:[]
+  content:[{page:String,content:String}]
 },{
     collection:'bookContents'
 });
@@ -57,13 +57,10 @@ BookContent.getOne = function(id, callback){
 
 //修改一篇文章的内容
 BookContent.edit = function(id, bookContent, callback){
-    var num = 1;
-    var content = 'content.'+num;
-    bookContentModel.update({_id:id},{$set:{'content.i':bookContent.split('_ueditor_page_break_tag_')}},{upsert:true},function(err, numeffect, raw){
+    bookContentModel.update({_id:id},{$addToSet:{content:[{page:1,content:bookContent}]}},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }
-        //console.log(numeffect + 'dd' + raw);
         callback(null, numeffect,raw);
     });
 };
