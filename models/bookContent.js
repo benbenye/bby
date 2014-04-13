@@ -6,16 +6,22 @@ var bookContentSchema = mongoose.Schema;
 var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
-  content:[]
+    _id:mongoose.Schema.ObjectId,
+    time:Date,
+    contents:[{
+        page:Number,
+        content:String
+     }]
 },{
     collection:'bookContents'
 });
 
 var bookContentModel = mongoose.model('BookContent', bookContentSchema);// all environments
 function BookContent(bookContent) {
-    this.publisher = bookContent.publisher
-    this.name_zh = bookContent.name_zh;
-    this.content = bookContent.content;
+    //this.publisher = bookContent.publisher
+    //this.name_zh = bookContent.name_zh;
+    this.contents = bookContent.contents;
+    this._id = bookContent._id;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -32,7 +38,8 @@ BookContent.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var bookContent = {
-        content:this.content,
+        _id:this._id,
+        contents:this.contents,
 		time : time
 	};
     var newBookContent = new bookContentModel(bookContent);
@@ -56,8 +63,10 @@ BookContent.getOne = function(id, callback){
 };
 
 //修改一篇文章的内容
-BookContent.edit = function(id, bookContent, callback){
-    bookContentModel.update({_id:id},{$set:{content:bookContent.split('_ueditor_page_break_tag_')}},{upsert:true},function(err, numeffect, raw){
+BookContent.edit = function(id, page, bookContent, callback){
+    //bookContent.split('_ueditor_page_break_tag_')
+    page = 0;
+    bookContentModel.update({_id:id, page:0},{$set:{content:bookContent}},{upsert:true},function(err, numeffect, raw){
         if(err){
             return callback(err);
         }

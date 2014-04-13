@@ -93,9 +93,9 @@
                 'print', 'preview', 'searchreplace', 'help', 'drafts']
         ]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
-//        ,labelMap:{
-//            'anchor':'', 'undo':''
-//        }
+        ,labelMap:{
+            'anchor':'', 'undo':''
+        }
         //webAppKey
         //百度应用的APIkey，每个站长必须首先去百度官网注册一个key后方能正常使用app功能
         //,webAppKey:""

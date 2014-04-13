@@ -2,8 +2,9 @@
     crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码    
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
-    BookContent = require('../models/bookContent.js');
-    BookCover = require('../models/bookCover.js');
+    BookContent = require('../models/bookContent.js'),
+    BookCover = require('../models/bookCover.js'),
+    mongoose = require('mongoose');
 
 function BookController(){
     this.getindex = function(req, res){
@@ -178,11 +179,33 @@ function BookController(){
             }
         }); 
     };
-
+    //上传新书内容
     this.postupbookContentById = function(req, res){
-        BookContent.edit(req.body.id, req.body.content, function(err, bookContent, raw){
-            if(err){
-                return callback(err);
+        //BookContent.edit(req.body.id, req.body.content, function(err, page, bookContent, raw){
+        //    if(err){
+        //        return callback(err);
+        //    }
+        // callback 处理不正确
+        // return callback(err) 
+        //    req.flash('success','上传成功');
+        //    res.redirect('/book/mybook');
+        //});
+        var pages = req.body.content.split('_ueditor_page_break_tag_'),
+            contents = [];
+        for(var i = 0, l = pages.length; i < l; i++){
+            contents[i] = {
+                page : i + 1,
+                content : pages[i]
+            }
+        }
+        console.log(contents);
+        var newBookContent = new BookContent({
+            _id:req.body.id,
+            contents:contents
+            });
+        newBookContent.save(function(err, bookContent){
+                   if(err){
+                    return callback(err);
             }
             req.flash('success','上传成功');
             res.redirect('/book/mybook');
