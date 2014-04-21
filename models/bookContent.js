@@ -62,15 +62,23 @@ BookContent.getOne = function(id, callback){
     });
 };
 
-//修改一篇文章的内容
-BookContent.edit = function(id, page, bookContent, callback){
-    //bookContent.split('_ueditor_page_break_tag_')
-    page = 0;
-    bookContentModel.update({_id:id, page:0},{$set:{content:bookContent}},{upsert:true},function(err, numeffect, raw){
+//读取一页文章内容
+BookContent.getOnePage = function(id, page, callback){
+    bookContentModel.findOne({_id:id.toString(),'contents.page':page},function(err,pageContent){
         if(err){
             return callback(err);
         }
-        //console.log(numeffect + 'dd' + raw);
+        callback(null, pageContent);
+    });
+};
+
+//修改一页文章的内容
+BookContent.editPage = function(id, page, pageContent, callback){
+    bookContentModel.update({_id:id, 'contents.page':page},{$set:{'contents.$.content':pageContent}},{upsert:true},function(err, numeffect, raw){
+        if(err){
+            return callback(err);
+        }
+        console.log(numeffect);
         callback(null, numeffect,raw);
     });
 };

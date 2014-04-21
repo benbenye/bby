@@ -50,6 +50,14 @@ module.exports = function(app){
     app.get('/book/bookDescribe/delete/:id',  CheckController.checkNotLogin);
     app.get('/book/bookDescribe/delete/:id', BookController.getbookDescribeDeleteByid);
 
+    //查看书籍单页内容
+    app.get('/book/upbookContent/:id/:page',  CheckController.checkNotLogin);
+    app.get('/book/upbookContent/:id/:page', BookController.getOnePagebyPage);
+
+    //修改书籍单页内容
+    app.post('/book/upbookContent/:id/:page',  CheckController.checkNotLogin);
+    app.post('/book/upbookContent/:id/:page', BookController.postOnePage);
+
     //查看书籍内容
     app.get('/book/upbookContent/:id',  CheckController.checkNotLogin);
     app.get('/book/upbookContent/:id', BookController.getupbookContentByid);

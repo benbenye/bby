@@ -11,7 +11,7 @@ block content
 	-if(error)
 		h3=error
 	form(method='post',action='/book/upbookContent/#{id}')
-		script#container(name="content",type="text/plain") #{contents.content}
+		script#container(name="content",type="text/plain") #{bookContent}
 		script(type="text/javascript") var editor = UE.getEditor('container')
 		input#commitContent(type='button',value='提交',name='#{id}')
 	script(type='text/javascript',src='/javascripts/page/commitContent.js')

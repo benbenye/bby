@@ -174,7 +174,7 @@ function BookController(){
                 res.render('book/upbookContent',{
                     id:req.params.id,
                     user:req.session.user,
-                    bookContent:bookContent.content
+                    bookContent:bookContent.contents
                 });
             }
         }); 
@@ -260,5 +260,38 @@ function BookController(){
             }
         });
     };
+
+    this.getOnePagebyPage = function (req, res) {
+        var page = req.params.page,
+            id = req.params.id;
+        console.log(page);
+        BookContent.getOnePage(id, page, function(err, pageContent){
+            if(pageContent == null){
+                res.send({state:0});
+            }else{
+                res.render('book/editPage',{
+                    id:id,
+                    page:page,
+                    content:pageContent.contents[page-1].content
+                });  
+            }
+        });
+    }
+    //提交一页的修改内容
+    this.postOnePage = function (req, res) {
+        var page = req.params.page,
+            id = req.params.id,
+            content = req.body.pageContent;
+        BookContent.editPage(id, page, content, function(err, pageContent){
+            if(pageContent == null){
+                res.send({state:0});
+            }else{
+                res.render('book/bookContent',{
+                    title:'书籍内容',
+                    user:req.session.user
+                });  
+            }
+        });
+    }
 }
 module.exports = BookController;

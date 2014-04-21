@@ -1,16 +1,17 @@
-﻿extends ../layout
+extends ../layout
 block content
 
 	h2=name
-	-if(bookContent)
-		-for(var i = 0; i < bookContent.contents.length; ++i)
-			.bookContent !{bookContent.contents[i].content}
-	-else if(user === null)
-		p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
-		a(href='') 提醒TA上传
-	-else
-		p 这本书还没有内容
-	-if(error)
-		p=error
-	script(src='/javascripts/page/toDom.js')
-	
+	.bookContent#bookContent
+		-if(bookContent)
+			-for(var i = 0; i < bookContent.contents.length; ++i)
+				.page(data-page=i+1) !{bookContent.contents[i].content}
+					a(href='/book/upbookContent/'+bookContent._id+'/'+(i+1)) 修改本页
+		-else if(user === null)
+			p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
+			a(href='') 提醒TA上传
+		-else
+			p 这本书还没有内容
+		-if(error)
+			p=error
+	script(type='text/javascript',src='/javascripts/page/commitContent.js')
