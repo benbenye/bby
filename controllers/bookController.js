@@ -46,21 +46,6 @@ function BookController(){
             });
         });       
     };
-    
-    this.getmywish = function(req, res){
-        User.get(req.session.user.name,function(err, user){
-            if(err){
-                return callback(err);
-            }
-            Book.getMywish(user.wish,function(err, mywishBook){                
-                res.render('book/mywish',{
-                    title:'我想看的书',
-                    user:req.session.user,
-                    mywishBook : mywishBook
-                    });
-                });
-            });
-        };
 
     this.getupbook = function(req, res){ 
         res.render('book/upbook',{
@@ -237,7 +222,7 @@ function BookController(){
         });       
     };
 
-    this.getByid = function(req, res){
+    this.getbookByid = function(req, res){
         Book.getOne(req.params.id,function(err,book){
             if(err){
                 res.flash();
@@ -246,7 +231,7 @@ function BookController(){
             res.render('book/bookDescribe',{
                 title:'书籍页面',
                 book:book,
-                img :book.cover
+                user:req.session.user
             });         
         });       
     };         

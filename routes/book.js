@@ -20,10 +20,6 @@ module.exports = function(app){
     app.get('/book/mybook',  CheckController.checkNotLogin);
     app.get('/book/mybook',BookController.getmybook);
     
-    //我想读的书
-    app.get('/book/mywish',  CheckController.checkNotLogin);
-    app.get('/book/mywish', BookController.getmywish);
-    
     //新建书籍描述
     app.get('/book/upbook', CheckController.checkNotLogin);
     app.get('/book/upbook', BookController.getupbook);
@@ -76,7 +72,7 @@ module.exports = function(app){
     
     //查看书籍描述(无需登录验证)
     app.get('/book/:id', CheckController.checkNotLogin);
-    app.get('/book/:id', BookController.getByid);
+    app.get('/book/:id', BookController.getbookByid);
 
     //请求图书封皮
     app.get('/images/books/:id', BookController.getbookCoverByid);

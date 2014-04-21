@@ -19,6 +19,7 @@
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
+    window.UEDITOR_HOME_URL||"/public/ueditor/";
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
     /**
@@ -35,7 +36,7 @@
         //,imageFieldName:"upfile"                  //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                           //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
         //,maxImageSideLength:900                   //上传图片最大允许的边长，超过会自动等比缩放,不缩放就设置一个比较大的值，更多设置在image.html中
-        //,savePath: [ 'upload1', 'upload2', 'upload3' ]    //图片保存在服务器端的目录， 默认为空， 此时在上传图片时会向服务器请求保存图片的目录列表，
+        ,savePath: [ 'upload1', 'upload2', 'upload3' ]    //图片保存在服务器端的目录， 默认为空， 此时在上传图片时会向服务器请求保存图片的目录列表，
                                                             // 如果用户不希望发送请求， 则可以在这里设置与服务器端能够对应上的目录名称列表
                                                             //比如： savePath: [ 'upload1', 'upload2' ]
 

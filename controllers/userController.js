@@ -1,7 +1,8 @@
 ﻿var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
     UserController = new  UserController(),
-    User = require('../models/user.js');
-    UserAvatar = require('../models/userAvatar.js');
+    User = require('../models/user.js'),
+    UserAvatar = require('../models/userAvatar.js'),
+    Book = require('../models/book.js');
 
 function UserController(){
     this.getlogin = function(req, res){
@@ -129,7 +130,7 @@ function UserController(){
             name : req.session.user.name,
             wish : req.query.bookId
             });
-        User.addwish(newwish.name, newwish.wish, function(err, numeffect){
+        User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
             if(err){
                 return res.redirect('/');
                 res.send({ok:0});
@@ -152,6 +153,21 @@ function UserController(){
             if(numeffect === 1){
                 res.send({ok:1});
                 }
+            });
+        };
+    
+    this.getmywish = function(req, res){
+        User.get(req.session.user.name,function(err, user){
+            if(err){
+                return callback(err);
+            }
+            Book.getMywish(user.wish,function(err, mywishBook){                
+                res.render('book/mywish',{
+                    title:'我想看的书',
+                    user:req.session.user,
+                    mywishBook : mywishBook
+                    });
+                });
             });
         };
 }

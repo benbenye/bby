@@ -19,7 +19,12 @@ var userSchema = new userSchema({
   password:String,
   email:String,
   sex:String,
-  wish:[]
+  wish:[
+      {
+      id:ObjectId,
+      schedule:0
+      }
+      ]
 },{
     collection:'users'
 });
@@ -74,8 +79,8 @@ User.edit = function(name, perInfo, callback){
     });
 };
 //添加用户想看书的信息
-User.addwish = function(name, bookId, callback){
-    userModel.update({name : name}, {$addToSet:{wish:bookId}}, function(err, numeffect){
+User.pushwish = function(name, bookId, callback){
+    userModel.update({name : name}, {$addToSet:{'wish.$.id':bookId, 'wish.$.schedule':'null'}}, function(err, numeffect){
         if(err){
             return callback(err)
         }
@@ -85,7 +90,7 @@ User.addwish = function(name, bookId, callback){
 
 //取消用户想看书的信息
 User.pullwish = function(name, bookId, callback){
-    userModel.update({name : name}, {$pull:{wish:bookId}}, function(err, numeffect){
+    userModel.update({name : name}, {$pull:{'wish.id':bookId}}, function(err, numeffect){
         if(err){
             return callback(err)
         }
