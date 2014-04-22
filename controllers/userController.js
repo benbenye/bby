@@ -132,8 +132,8 @@ function UserController(){
             });
         User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
             if(err){
-                return res.redirect('/');
-                res.send({ok:0});
+                //return res.redirect('/');
+                res.send({ok:0,err:err});
             }
             if(numeffect === 1){
                 res.send({ok:1});//插入成功

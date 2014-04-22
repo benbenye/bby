@@ -7,13 +7,16 @@ var bookSchema = mongoose.Schema;
 var ObjectId = bookSchema.ObjectId;
 
 var bookSchema = new bookSchema({
-  publisher:String,
-  name_zh: String,
-  ISBN:String,
-  author:String,
-  tags:[],
-  intro:String,
-  time:String
+  publisher:String,//发布者
+  name_zh: String,//中文书名
+  ISBN:String,//ISBN
+  author:String,//作者
+  tags:[],//标签
+  intro:String,//简介
+  time:String,//发布时间
+  want:Number,//想看人数
+  reading:Number,//正在读的人数
+  readed:Number//读过的人数
 },{
     collection:'books'
 });
@@ -43,14 +46,16 @@ Book.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var book = {
-        publisher:this.publisher,
-		name_zh : this.name_zh,
-		time : time,
-        tags:this.tags,
-        intro:this.intro
+        publisher:this.publisher
+		,name_zh : this.name_zh
+		,time : time
+        ,tags:this.tags
+        ,intro:this.intro
+        ,want:0
+        ,reading:0
+        ,readed:0
 		//ISBN : this.ISBN,
 		//author : this.author,
-        //tags:this.tags
 	};
     var newBook = new bookModel(book);
 	

@@ -8,8 +8,9 @@
                 $('<span>+1</span>').appendTo("#wish");
                 wish.after();
                 wish.detach();
-            }else if(data.ok === 'no'){
-                alert('您已经添加过这本书了');
+                //喜欢过的变换样式，并且不可再点
+            }else if(data.ok === 0){
+                alert('您已经添加过这本书了'+data.err.err);
                 }
         });
     });

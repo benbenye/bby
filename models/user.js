@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema;
 var ObjectId = userSchema.ObjectId;
 
 var userSchema = new userSchema({
-  name: String,
+  name: String,//用户名，唯一标识
   password:String,
   email:String,
   sex:String,
@@ -80,7 +80,7 @@ User.edit = function(name, perInfo, callback){
 };
 //添加用户想看书的信息
 User.pushwish = function(name, bookId, callback){
-    userModel.update({name : name}, {$addToSet:{'wish.$.id':bookId, 'wish.$.schedule':'null'}}, function(err, numeffect){
+    userModel.update({name : name}, {$addToSet:{'wish':bookId}}, function(err, numeffect){
         if(err){
             return callback(err)
         }

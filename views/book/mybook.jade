@@ -11,8 +11,9 @@ block content
 				a.mr10(href='/book/#{book[index]._id}',title='#{book[index].name_zh}') #{book[index].name_zh}
 				a.mr10(href='/book/upbookDescribe/#{book[index]._id}',title='修改描述') 修改描述
 				a.mr10.deleteAll(href='/book/bookDescribe/delete/#{book[index]._id}',title='删除此书') 删除此书
-				a.mr10(href='/book/upbookContent/#{book[index]._id}',title='修改内容') 修改内容
+				a.mr10(href='/book/upbookContent/#{book[index]._id}',title='修改内容') 新建书籍
 				a.mr10.deleteCon(href='/book/bookContent/delete/#{book[index]._id}',title='清空内容') 清空内容
+				a.mr10.deleteCon(href='/book/bookContent/add/#{book[index]._id}',title='追加内容') 追加内容
 	ul
 		-each val,index in book
 			li=index+1 +':' + val.name_zh
