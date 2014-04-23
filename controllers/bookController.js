@@ -213,6 +213,7 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
+            console.log(bookContent);
             res.render('book/bookContent',{
                 title:'书籍内容',
                 bookContent:bookContent,
