@@ -61,6 +61,10 @@ module.exports = function(app){
     //上传/修改书籍内容
     app.post('/book/upbookContent/:id', CheckController.checkNotLogin);
     app.post('/book/upbookContent/:id', BookController.postupbookContentById);
+    
+    //追加书籍内容
+    app.post('/book/additionContents/:id', CheckController.checkNotLogin);
+    app.post('/book/additionContents/:id', BookController.postadditionContentsById);
 
     //清空书籍内容
     app.get('/book/bookContent/delete/:id',  CheckController.checkNotLogin);

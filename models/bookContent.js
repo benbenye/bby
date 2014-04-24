@@ -22,6 +22,7 @@ function BookContent(bookContent) {
     //this.name_zh = bookContent.name_zh;
     this.contents = bookContent.contents;
     this._id = bookContent._id;
+    // this.time = bookContent.time;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -49,6 +50,16 @@ BookContent.prototype.save = function(callback) {
             return callback(err);
         }
         callback(null, bookContent);
+    });
+};
+
+//追加内容
+BookContent.additionContents = function(id, contents, callback){
+    bookContentModel.update({_id:id},{$addToSet:{contents:{$each:contents}}},function(err, numeffect){
+        if(err){
+            return callback(err);
+        }
+        callback(null, numeffect);
     });
 };
 

@@ -183,16 +183,36 @@ function BookController(){
                 content : pages[i]
             }
         }
-        console.log(contents);
         var newBookContent = new BookContent({
             _id:req.body.id,
             contents:contents
             });
         newBookContent.save(function(err, bookContent){
-                   if(err){
-                    return callback(err);
+            if(err){
+                console.log(err);
+                return err;
             }
             req.flash('success','上传成功');
+            res.redirect('/book/mybook');
+        });
+    };
+
+    this.postadditionContentsById = function(req, res){
+        var pages = req.body.content.split('_ueditor_page_break_tag_'),
+            contents = [],
+            pageNum = parseInt(req.body.pageNum);//已经上传的页数
+        for(var i = 0, j = pageNum, l = pages.length; i < l; i++,j++){
+            console.log(j);
+            contents[i] = {
+                page : j + 1,
+                content : pages[i]
+            }
+        }
+        console.log(contents);
+        BookContent.additionContents(req.body.id, contents, function(err){
+            if(err)
+                console.log(err);
+            req.flash('success','追加成功');
             res.redirect('/book/mybook');
         });
     };

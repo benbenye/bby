@@ -8,11 +8,24 @@ block content
 	script(type="text/javascript",src="/ueditor1_3_6-utf8-php/lang/zh-cn/zh-cn.js")
 	h1=title
 	p welcome to #{title}
+	//有错误
+	-if(err)
+		h3=err
+	//没有上传内容
 	-if(error)
 		h3=error
-	h3 已经上传了 #{bookContent[bookContent.length-1].page} 页内容
-	form(method='post',action='/book/upbookContent/#{id}')
-		script#container(name="content",type="text/plain") reter
-		script(type="text/javascript") var editor = UE.getEditor('container')
-		input#commitContent(type='button',value='提交',name='#{id}')
-	script(type='text/javascript',src='/javascripts/page/commitContent.js')
+		form(method='post',action='/book/upbookContent/#{id}')
+			input(type="hidden",name='id',value='#{id}')
+			script#container(name="content",type="text/plain")
+			script(type="text/javascript") var editor = UE.getEditor('container')
+			input#commitContent(type='submit',value='提交',name='#{id}')
+	-else
+		h3 已经上传了 #{bookContent[bookContent.length-1].page} 页内容
+		div.content #{bookContent[bookContent]}
+		form(method='post',action='/book/additionContents/#{id}')
+			input(type="hidden",name='id',value='#{id}')
+			input(type="hidden",name="pageNum",value="#{bookContent[bookContent.length-1].page}")
+			script#container(name="content",type="text/plain")
+			script(type="text/javascript") var editor = UE.getEditor('container')
+			input#addcommitContent(type='submit',value='提交',name='#{id}')
+//script(type='text/javascript',src='/javascripts/page/commitContent.js')
