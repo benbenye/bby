@@ -1,6 +1,6 @@
 ﻿
 /*
- * GET users listing.
+ * GET books listing.
  */
 var BookController = require('../controllers/bookController.js'),
     CheckController = require('../controllers/checkController.js');
