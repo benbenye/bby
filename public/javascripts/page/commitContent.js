@@ -12,4 +12,40 @@
                 }
            }, "json");
     });
+    /*
+    *写书评
+    */
+    $('#comment-btn').click(function(){
+        //显示添加评论的窗口
+        showdialog();
+
+        //验证内容
+        var title = $('#comment .title').val()
+            ,content = $('#comment .content').val()
+            ,bookId = $('#bookId').val()
+            ,userId = $('#userId').val();
+        if(title != '' && content != ''){
+            sendContent(bookId, userId, title, content);
+        }else{
+            alert('标题或者内容不能为空！');
+        }
+        
+        //发送信息
+        function sendContent(bookId, userId, title, content){
+            var comment = {title:title,content:content};
+            $.post('/book/comment',{bookId : bookId, userId : userId, comment : comment},function(data){
+                if(data.ok == 1){
+                    alert("提交成功");
+                }
+            });
+        }
+    });
+    /*
+    *显示对话框，填写书评，登陆窗口。。。
+    */
+    function showdialog(){
+
+    }
+
+    //实现书评的添加修改删除，8点之前
 });

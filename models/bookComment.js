@@ -6,7 +6,10 @@ var ObjectId = bookCommentSchema.ObjectId();
 var bookCommentSchema = new bookCommentSchema({
   userId:String,
   bookId:String,
-  comment:String
+  comment:{[
+    title:String,
+    content:String
+    ]}
 },{
     collection:'bookComment'
 });

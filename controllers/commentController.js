@@ -1,6 +1,7 @@
 var CommentController = new  CommentController(),
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
+    BookComment = require('../models/bookComment.js'),
     mongoose = require('mongoose');
 
 function CommentController(){
@@ -11,14 +12,19 @@ function CommentController(){
         }
         next();
     };
-
-    this.checkLogin = function checkLogin(req, res, next){
-        if(req.session.user){
-            req.flash('error','您已经登录了');
-            return res.redirect('back');
-            //res.redirect('back');
-        }
-        next();
+    //提交书评
+    this.postcomments = function(req, res){
+        var newBookComment = new BookComment({
+            userId : req.query.userId,
+            bookId : req.query.bookId,
+            comment : comment
+        });
+        newBookComment.save(function(err, bookComment){
+            if(err){
+                return err;
+            }
+            res.send({ok:1});
+        });
     };
 }
 module.exports = CommentController;
