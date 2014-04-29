@@ -6,16 +6,16 @@ var ObjectId = bookCommentSchema.ObjectId();
 var bookCommentSchema = new bookCommentSchema({
   userId:String,
   bookId:String,
-  comment:{[
+  comment:[{
     title:String,
     content:String
-    ]}
+    }]
 },{
     collection:'bookComment'
 });
 
-var bookCommentModel = mongoose.model('bookComment', bookCommentSchema);// all environments
-function bookComment(bookComment) {
+var bookCommentModel = mongoose.model('BookComment', bookCommentSchema);// all environments
+function BookComment(bookComment) {
     this.userId = bookComment.userId;
     this.bookId = bookComment.bookId;
     this.comment = bookComment.comment;
@@ -23,7 +23,7 @@ function bookComment(bookComment) {
 
 
 ////存储一篇文章及其相关信息
-bookComment.prototype.save = function(callback) {
+BookComment.prototype.save = function(callback) {
 	var date = new Date();
 	//存储各种时间格式，方便以后扩展
 	var time = {
@@ -51,7 +51,7 @@ bookComment.prototype.save = function(callback) {
 //目前书评都是一级书评
 
 //读取一篇文章下所有的用户书评
-bookComment.getComment = function(bookId, callback){
+BookComment.getComment = function(bookId, callback){
 	bookCommentModel.find({bookId:bookId},function(err,bookComment){
         if(err){
             return callback(err);
@@ -61,7 +61,7 @@ bookComment.getComment = function(bookId, callback){
 };
 
 //修改一篇文章某个用户的书评
-bookComment.edit = function(id, bookComment, callback){
+BookComment.edit = function(id, bookComment, callback){
     bookCommentModel.update({_id:id},{$set:{comment:bookComment}},{upsert:true},function(err, numeffect){
         if(err){
             return callback(err);
@@ -69,4 +69,4 @@ bookComment.edit = function(id, bookComment, callback){
         callback(null, numeffect);
     });
 };
-module.exports = bookComment;
+module.exports = BookComment;

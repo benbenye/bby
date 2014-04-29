@@ -39,9 +39,9 @@ BookContent.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var bookContent = {
-        _id:this._id,
-        contents:this.contents,
-		time : time
+              _id : this._id
+        ,contents : this.contents
+		    ,time : time
 	};
     var newBookContent = new bookContentModel(bookContent);
 	

@@ -25,6 +25,7 @@
             ,bookId = $('#bookId').val()
             ,userId = $('#userId').val();
         if(title != '' && content != ''){
+            console.log(title+','+content+','+bookId+','+userId);
             sendContent(bookId, userId, title, content);
         }else{
             alert('标题或者内容不能为空！');
@@ -37,7 +38,7 @@
                 if(data.ok == 1){
                     alert("提交成功");
                 }
-            });
+            },'json');
         }
     });
     /*

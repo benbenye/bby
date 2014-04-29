@@ -21,7 +21,7 @@ function CommentController(){
         });
         newBookComment.save(function(err, bookComment){
             if(err){
-                return err;
+                callback(err);
             }
             res.send({ok:1});
         });
