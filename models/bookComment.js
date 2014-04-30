@@ -6,10 +6,10 @@ var ObjectId = bookCommentSchema.ObjectId();
 var bookCommentSchema = new bookCommentSchema({
   userId:String,
   bookId:String,
-  comment:[{
+  comment:{
     title:String,
     content:String
-    }]
+    }
 },{
     collection:'bookComment'
 });
@@ -40,7 +40,6 @@ BookComment.prototype.save = function(callback) {
         comment:this.comment
 	};
     var newbookComment = new bookCommentModel(bookComment);
-	
     newbookComment.save(function(err, bookComment){
         if(err){
             return callback(err);

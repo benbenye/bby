@@ -17,7 +17,7 @@ block content
 		-if(error)
 			p=error
 	.comment
-		form#comment(method='post',action='/book/comment')
+		form#comment(method='get',action='/book/comment')
 			input#bookId(type='hidden',value='#{bookContent._id}',name='bookId')
 			input#userId(type='hidden',value='#{user._id}',name='userId')
 			label

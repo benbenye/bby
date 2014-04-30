@@ -5,20 +5,14 @@ var CommentController = new  CommentController(),
     mongoose = require('mongoose');
 
 function CommentController(){
-    this.checkNotLogin = function checkNotLogin(req, res, next){
-        if(!req.session.user){
-            req.flash('error','您还未登录');
-            return res.redirect('back');
-        }
-        next();
-    };
     //提交书评
-    this.postcomments = function(req, res){
+    this.getcomments = function(req, res){
         var newBookComment = new BookComment({
             userId : req.query.userId,
             bookId : req.query.bookId,
-            comment : comment
+            comment : req.query.comment
         });
+        console.log(newBookComment);
         newBookComment.save(function(err, bookComment){
             if(err){
                 callback(err);

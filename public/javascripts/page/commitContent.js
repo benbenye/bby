@@ -34,7 +34,7 @@
         //发送信息
         function sendContent(bookId, userId, title, content){
             var comment = {title:title,content:content};
-            $.post('/book/comment',{bookId : bookId, userId : userId, comment : comment},function(data){
+            $.get('/book/comment',{'bookId' : bookId, 'userId' : userId, 'comment' : comment},function(data){
                 if(data.ok == 1){
                     alert("提交成功");
                 }
