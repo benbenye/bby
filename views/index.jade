@@ -23,3 +23,18 @@ block content
 								img.cover(src='/images/books/#{books[index]._id}')
 							dd
 								a.no_unl(href='book/#{books[index]._id}') #{books[index].name_zh}
+		.hd
+			h2 书评人
+		.hd
+			ul
+				-for (var i = bookComment.length - 1; i >= 0; --i)
+					li.fl.w200.mr10
+						a(href='')
+							img(src='')
+						.userInfo
+							p
+								a(href='') #{bookComment[i].userId.name}
+							p 评论《#{bookComment[i].bookId.name_zh}》
+							p #{bookComment[i].comment.content}
+							p
+								#{bookComment[i].useful}有用 shijian

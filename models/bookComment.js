@@ -1,15 +1,20 @@
 var mongoose = require('mongoose');
+// var users = require('user.js');
+// var books = require('book.js');
 
 var bookCommentSchema = mongoose.Schema;
 var ObjectId = bookCommentSchema.ObjectId();
 
 var bookCommentSchema = new bookCommentSchema({
-  userId:String,
-  bookId:String,
-  comment:{
+  userId:{type:String,ref:'User'},//用户ID,关联用户表
+  bookId:{type:String,ref:'Book'},//所评书籍ID
+  comment:{//评论标题以及内容
     title:String,
     content:String
-    }
+    },
+  useful:Number,//有用
+  useless:Number,//没用
+  datetime:Date//评论时间
 },{
     collection:'bookComment'
 });
@@ -19,6 +24,7 @@ function BookComment(bookComment) {
     this.userId = bookComment.userId;
     this.bookId = bookComment.bookId;
     this.comment = bookComment.comment;
+    this.datetime = bookComment.datetime;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -37,7 +43,10 @@ BookComment.prototype.save = function(callback) {
 	var bookComment = {
         userId:this.userId,
         bookId:this.bookId,
-        comment:this.comment
+        comment:this.comment,
+        useful:0,
+        useless:0,
+        datetime:time.day
 	};
     var newbookComment = new bookCommentModel(bookComment);
     newbookComment.save(function(err, bookComment){
@@ -48,6 +57,24 @@ BookComment.prototype.save = function(callback) {
     });
 };
 //目前书评都是一级书评
+
+//读取所有书评取前5个
+BookComment.getAllList = function(callback){
+    // var options = {limit: {10}};
+   /* bookCommentModel.find(null, {limit:10},function(err, bookComment){
+        if(err){
+            return callback(err);
+        }
+        callback(null, bookComment);
+    });*/
+    var bookComment = bookCommentModel.find().populate('userId').populate('bookId').sort('-userId').limit(10);
+        bookComment.exec(function(err, bookComment) {
+            if(err){
+                return callback(err);
+            }
+            callback(null, bookComment);
+        });
+};
 
 //读取一篇文章下所有的用户书评
 BookComment.getComment = function(bookId, callback){

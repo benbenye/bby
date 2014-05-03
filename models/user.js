@@ -19,12 +19,10 @@ var userSchema = new userSchema({
   password:String,
   email:String,
   sex:String,
-  wish:[
-      {
+  wish:[{
       id:ObjectId,
       schedule:0
-      }
-      ]
+      }]
 },{
     collection:'users'
 });
