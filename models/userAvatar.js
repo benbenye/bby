@@ -4,6 +4,7 @@ var userAvatarSchema = mongoose.Schema;
 var ObjectId = userAvatarSchema.ObjectId();
 
 var userAvatarSchema = new userAvatarSchema({
+  _id:String,
   avatar:{ data: Buffer, contentType: String }
 },{
     collection:'userAvatar'

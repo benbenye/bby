@@ -22,7 +22,8 @@ var userSchema = new userSchema({
   wish:[{
       id:ObjectId,
       schedule:0
-      }]
+      }],
+  avatar:{type:String,ref:'UserAvatar'}
 },{
     collection:'users'
 });
@@ -60,10 +61,13 @@ User.prototype.save = function(callback){
 
 //读取用户信息
 User.get = function(name,callback){
-    userModel.findOne({name:name},function(err, user){
+    userModel.findOne({name:name})
+    .populate('UserAvatar')
+    .exec(function(err, user){
         if(err){
             return callback(err);
         }
+        console.log(user);
         callback(null, user);
     });
 };

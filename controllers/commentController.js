@@ -12,7 +12,6 @@ function CommentController(){
             bookId : req.query.bookId,
             comment : req.query.comment
         });
-        console.log(newBookComment);
         newBookComment.save(function(err, bookComment){
             if(err){
                 callback(err);

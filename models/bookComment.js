@@ -14,7 +14,7 @@ var bookCommentSchema = new bookCommentSchema({
     },
   useful:Number,//有用
   useless:Number,//没用
-  datetime:Date//评论时间
+  datetime:String//评论时间
 },{
     collection:'bookComment'
 });
@@ -36,7 +36,7 @@ BookComment.prototype.save = function(callback) {
 		date : date,
 		year : date.getFullYear(),
 		month : date.getFullYear() + '-' + (date.getMonth() + 1),
-		day : date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
+		day : date.getFullYear() + '-' + ((date.getMonth() + 1).toString.length == 1 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' + (date.getDate().toString().length == 1 ? '0' + date.getDate() : date.getDate()),
 		minute : date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
 	}
 	//要存入数据库的文档
@@ -48,6 +48,7 @@ BookComment.prototype.save = function(callback) {
         useless:0,
         datetime:time.day
 	};
+    console.log(bookComment.datetime);
     var newbookComment = new bookCommentModel(bookComment);
     newbookComment.save(function(err, bookComment){
         if(err){
@@ -60,15 +61,12 @@ BookComment.prototype.save = function(callback) {
 
 //读取所有书评取前5个
 BookComment.getAllList = function(callback){
-    // var options = {limit: {10}};
-   /* bookCommentModel.find(null, {limit:10},function(err, bookComment){
-        if(err){
-            return callback(err);
-        }
-        callback(null, bookComment);
-    });*/
-    var bookComment = bookCommentModel.find().populate('userId').populate('bookId').sort('-userId').limit(10);
-        bookComment.exec(function(err, bookComment) {
+    bookCommentModel.find()
+    .populate('userId')
+    .populate('bookId')
+    .sort('-userId')
+    .limit(10)
+    .exec(function(err, bookComment) {
             if(err){
                 return callback(err);
             }
