@@ -1,22 +1,23 @@
 ﻿extends ../layout
 block content
-	h1=title
-	p welcome to #{title}
-	form#formDiscribe(method='post',action='/book/upbook')
-		label 书名：
-			input#name_zh(type='text',name='name_zh')
-		br
-		label 标签：
-			input#tags(type='text',name='tags')
-		br
-		label 简介：
-			input#intro(type='text',name='intro')
-		br
-		input#postbook(type='button',value='提交')
-	form#formCover.none(method='post',action='/book/upbookCover',enctype='multipart/form-data')
-		label 封面：
-			input#cover(type='file',name='cover')
-			input#bookId(type='hidden',name='bookId')
-		br
-		input#postbookCover(type='submit')
-	script(src='/javascripts/page/page.js')
+	.main-content
+		h1=title
+		p welcome to #{title}
+		form#formDiscribe(method='post',action='/book/upbook')
+			label 书名：
+				input#name_zh(type='text',name='name_zh')
+			br
+			label 标签：
+				input#tags(type='text',name='tags')
+			br
+			label 简介：
+				input#intro(type='text',name='intro')
+			br
+			input#postbook(type='button',value='提交')
+		form#formCover.none(method='post',action='/book/upbookCover',enctype='multipart/form-data')
+			label 封面：
+				input#cover(type='file',name='cover')
+				input#bookId(type='hidden',name='bookId')
+			br
+			input#postbookCover(type='submit')
+		script(src='/javascripts/page/page.js')

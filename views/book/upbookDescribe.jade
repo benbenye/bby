@@ -1,21 +1,22 @@
 ﻿extends ../layout
 block content
-	p welcome to #{title}
-		form#formDiscribe(method='post',action='/book/upbookDescribe/#{book._id}')
-			label 书名：
-				input#name_zh(type='text',name='name_zh',value='#{book.name_zh}',sign='#{book._id}')
-			br
-			label 标签：
-				input#tags(type='text',name='tags',value='#{book.tags}')
-			br
-			label 简介：
-			textarea#intro(rows='10',cols='20',name='content')=book.intro
-			br
-			input#postDescribe(type='button',value='提交')
-		form#formCover(method='post',action='/book/upbookCover/#{book._id}')
-			img.coverImg(src='/images/books/#{book._id}',width='110',height='146')
-			label 封面：
-				input#cover(type='file',name='cover')
-			br
-			input#postCover(type='button',value='提交')
-	script(src='/javascripts/page/page.js')
+	.main-content
+		p welcome to #{title}
+			form#formDiscribe(method='post',action='/book/upbookDescribe/#{book._id}')
+				label 书名：
+					input#name_zh(type='text',name='name_zh',value='#{book.name_zh}',sign='#{book._id}')
+				br
+				label 标签：
+					input#tags(type='text',name='tags',value='#{book.tags}')
+				br
+				label 简介：
+				textarea#intro(rows='10',cols='20',name='content')=book.intro
+				br
+				input#postDescribe(type='button',value='提交')
+			form#formCover(method='post',action='/book/upbookCover/#{book._id}')
+				img.coverImg(src='/images/books/#{book._id}',width='110',height='146')
+				label 封面：
+					input#cover(type='file',name='cover')
+				br
+				input#postCover(type='button',value='提交')
+		script(src='/javascripts/page/page.js')

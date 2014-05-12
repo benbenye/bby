@@ -1,19 +1,17 @@
 ﻿extends layout
 
-block content
-	h1= title
-	p Welcome to #{title}
-	-if(success)
-		p=success
-		p 你好，
-			a(href='user/perInfo') #{user.name}	
-	-else if(success_out)
-		p=success_out
-	-if(error)
-		p=error
-	section.book_express
+block content	
+	section.main-content
 		div.hd
-			h2 新书速递
+			-if(success)
+				p=success
+				p 你好，
+					a(href='user/perInfo') #{user.name}	
+			-else if(success_out)
+				p=success_out
+			-if(error)
+				p=error
+		h2 新书速递
 		div.bd
 			ul
 				-for(var index = books.length - 1; index >= 0; --index)

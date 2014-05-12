@@ -22,7 +22,7 @@ function BookContent(bookContent) {
     //this.name_zh = bookContent.name_zh;
     this.contents = bookContent.contents;
     this._id = bookContent._id;
-    // this.time = bookContent.time;
+    this.time = bookContent.time;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 

@@ -2,19 +2,25 @@ doctype html
 html
 	include head
 	body
-		ul.nav.db.h50
-			li.mr10.w80.fl.tc
-				a.no_unl(href='/') 首页
-			li.mr10.w80.fl.tc
-				a.no_unl(href='/book/book') 读书dfdf
-			-if(user)
-				li.mr10.w80.fl.tc
-					a.no_unl(href='/user/perInfo') 个人中心
-				li.mr10.w80.fl.tc
-					a.no_unl.logout(href='/user/logout') 退出
-			-else
-				li.mr10.w80.fl.tc
-					a.no_unl(href='/user/login') 登录
-				li.mr10.w80.fl.tc
-					a.no_unl(href='/user/reg') 注册
+		.left-content
+			.perinfo
+			ul.nav
+				li
+					a.no_unl(href='/') 首页
+				li
+					a.no_unl(href='/book/newbook') 新书速递
+				li
+					a.no_unl(href='/book/serial') 最新连载
+				li
+					a.no_unl(href='/reviewer') 书评人
+				-if(user)
+					li
+						a.no_unl(href='/user/perInfo') 个人中心
+					li
+						a.no_unl.logout(href='/user/logout') 退出
+				-else
+					li
+						a.no_unl(href='/user/login') 登录
+					li
+						a.no_unl(href='/user/reg') 注册
 		block content
