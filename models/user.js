@@ -13,17 +13,16 @@ if (mongoose.readyState === 0 || mongoose.readyState === undefined) {
 
 var userSchema = mongoose.Schema;
 var ObjectId = userSchema.ObjectId;
-
+//将唯一标识改为ID，之前是用name做唯一标识
 var userSchema = new userSchema({
-  name: String,//用户名，唯一标识
-  password:String,
-  email:String,
-  sex:String,
-  wish:[{
+  name : String,//用户名，唯一标识
+  password : String,
+  email : String,
+  sex : String,
+  wish :[{
       id:ObjectId,
       schedule:0
-      }],
-  avatar:{type:String,ref:'UserAvatar'}
+      }]
 },{
     collection:'users'
 });
@@ -62,7 +61,6 @@ User.prototype.save = function(callback){
 //读取用户信息
 User.get = function(name,callback){
     userModel.findOne({name:name})
-    .populate('UserAvatar')
     .exec(function(err, user){
         if(err){
             return callback(err);

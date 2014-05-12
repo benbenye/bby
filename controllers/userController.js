@@ -63,6 +63,7 @@ function UserController(){
            password:password,
            email:req.body.email
        });
+       console.log(newUser.name);
        //check the user is exist?
         User.get(newUser.name,function(err,user){
             if(user){
@@ -82,17 +83,36 @@ function UserController(){
     };
 
     this.getperInfo = function(req, res){
-        User.get(req.session.user.name,function(err, user){
+        var user = '';
+        User.get(req.session.user.name,function(err, returnuser){
+            //先获取基本信息
             if(err){
                 res.flash();//丰富一下
                 return callback(err);
             }
-            res.render('user/perInfo',{
-                title:'个人中心',
-                user:user,
-                error:req.flash('error').toString()
-            });
+            user = returnuser;
+            UserAvatar.getOne(req.session.user._id, function (err, avatar) {
+                res.render('user/perInfo',{
+                        title:'个人中心',
+                        user:user,
+                        avatar:avatar,
+                        error:req.flash('error').toString()
+                });
+            });                      
          });        
+    };
+
+    //然后根据ID获取用户头像
+    this.getUserAvatarByid = function (req, res) {
+        UserAvatar.getOne(req.params.id, function (err, avatar) {
+            if(avatar === null){
+                res.send({state:0});
+            }else{
+                console.log('ok');
+                res.set("Content-Type", "image/"+avatar.avatar.contentType);
+                res.send(avatar.avatar.data);
+            }
+        });
     };
 
     this.postperInfo = function(req, res){
@@ -116,13 +136,12 @@ function UserController(){
                     contentType: req.files.userAvatar.type},
             id = req.session.user._id;
         UserAvatar.edit(id, userAvatar, function (err, numeffect) {
-            if (err) {
-                return callback(err);
-            }
-            req.flash('success', '上传成功');
-            //res.redirect('/book/mybook');
-            res.send({ok:numeffect});
-        });
+                if (err) {
+                    req.flash('err', err.message);
+                }
+                req.flash('success', '上传成功');
+                res.send({ok:numeffect});
+            });
     };
 
     this.getwantread = function(req, res){

@@ -7,3 +7,5 @@ a {
 }
 
 .none{display: none;}
+
+.avatar{width: 76px; height: 76px; border: 0; vertical-align: top;}
