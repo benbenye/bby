@@ -7,7 +7,7 @@ var CommentController = require('../controllers/commentController.js'),
 
 module.exports = function(app){
 	//进入评书页面
-	app.get('/book/comment', CheckController.checkNotLogin);
+	//app.get('/book/comment', CheckController.checkNotLogin);
 	app.get('/book/comment', CommentController.getcomments);
 
 	//查寻书评

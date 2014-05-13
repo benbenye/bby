@@ -13,7 +13,7 @@ function CommentController(){
         next();
     };
     //提交书评
-    this.postcomments = function(req, res){
+    this.postcomments = function (req, res){
         var newBookComment = new BookComment({
             userId : req.query.userId,
             bookId : req.query.bookId,
@@ -26,5 +26,8 @@ function CommentController(){
             res.send({ok:1});
         });
     };
+    this.getcomments = function (){
+        
+    }
 }
 module.exports = CommentController;
