@@ -25,7 +25,6 @@ var bookModel = mongoose.model('Book', bookSchema);// all environments
 function Book(book) {
     this.publisher = book.publisher
 	this.name_zh = book.name_zh;
-	this.ISBN = book.ISBN;
 	this.author = book.author;
     this.tags = book.tags;
     this.intro = book.intro;

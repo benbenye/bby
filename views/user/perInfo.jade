@@ -2,48 +2,53 @@
 
 extends ../layout
 block content
-	h1= title
-	p Welcome to #{title}
-	-if(error)
-		h1=error
-	form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
-		progress#progressBar(value='0',max='100')
-		span#percentage
-		br
-		label 头像：
-			input#userAvatar(type='file',name='user-avatar')
-			input#userId(type='hidden',name='#{user._id}')
-		br
-		input#postuserAvatar(type='button',value='提交')
-	form.perInfo.fl(method='post',action='/user/perInfo')
-		label 用户名：
-			input.user-name(name='name',value='#{user.name}')
-		br
-		label 邮箱：
-			input.user-email(type='text',name='email',value='#{user.email}')
-		br
-		label 性别：
-			-if(user.sex === '1')
-				input.user-sex(type='radio',name='sex',value='0')
-				|男
-				input.user-sex(type='radio',name='sex',value='1' checked='#{user.sex}')
-				|女
-				input.user-sex(type='radio',name='sex')
-				|保密
-			-else if(user.sex === '0')
-				input.user-sex(type='radio',name='sex',value='0' checked='checked')
-				|男
-				input.user-sex(type='radio',name='sex',value='1')
-				|女
-				input.user-sex(type='radio',name='sex')
-				|保密
-			-else
-				input.user-sex(type='radio',name='sex',value='0')
-				|男
-				input.user-sex(type='radio',name='sex',value='1')
-				|女
-				input.user-sex(type='radio',name='sex' checked = 'checked')
-				|保密
-		br
-		input#postperInfo(type='button',value='提交')
-	script(src='/javascripts/page/page.js')
+	.main-content
+		h1= title
+		p Welcome to #{title}
+		-if(error)
+			h1=error
+		-if(avatar)
+			img.fl.avatar(src='/images/avatar/#{user._id}')
+		-else
+			img.fl.avatar(src='../images/default/avatar.png')
+		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
+			progress#progressBar(value='0',max='100')
+			span#percentage
+			br
+			label 头像：
+				input#userAvatar(type='file',name='user-avatar')
+				input#userId(type='hidden',name='#{user._id}')
+			br
+			input#postuserAvatar(type='button',value='提交')
+		form.perInfo.fl(method='post',action='/user/perInfo')
+			label 用户名：
+				input.user-name(name='name',value='#{user.name}')
+			br
+			label 邮箱：
+				input.user-email(type='text',name='email',value='#{user.email}')
+			br
+			label 性别：
+				-if(user.sex === '1')
+					input.user-sex(type='radio',name='sex',value='0')
+					|男
+					input.user-sex(type='radio',name='sex',value='1' checked='#{user.sex}')
+					|女
+					input.user-sex(type='radio',name='sex')
+					|保密
+				-else if(user.sex === '0')
+					input.user-sex(type='radio',name='sex',value='0' checked='checked')
+					|男
+					input.user-sex(type='radio',name='sex',value='1')
+					|女
+					input.user-sex(type='radio',name='sex')
+					|保密
+				-else
+					input.user-sex(type='radio',name='sex',value='0')
+					|男
+					input.user-sex(type='radio',name='sex',value='1')
+					|女
+					input.user-sex(type='radio',name='sex' checked = 'checked')
+					|保密
+			br
+			input#postperInfo(type='button',value='提交')
+		script(src='/javascripts/page/page.js')

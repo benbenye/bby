@@ -1,19 +1,17 @@
 ﻿extends layout
 
-block content
-	h1= title
-	p Welcome to #{title}
-	-if(success)
-		p=success
-		p 你好，
-			a(href='user/perInfo') #{user.name}	
-	-else if(success_out)
-		p=success_out
-	-if(error)
-		p=error
-	section.book_express
+block content	
+	section.main-content
 		div.hd
-			h2 新书速递
+			-if(success)
+				p=success
+				p 你好，
+					a(href='user/perInfo') #{user.name}	
+			-else if(success_out)
+				p=success_out
+			-if(error)
+				p=error
+		h2 新书速递
 		div.bd
 			ul
 				-for(var index = books.length - 1; index >= 0; --index)
@@ -23,3 +21,18 @@ block content
 								img.cover(src='/images/books/#{books[index]._id}')
 							dd
 								a.no_unl(href='book/#{books[index]._id}') #{books[index].name_zh}
+		.hd
+			h2 书评人
+		.hd
+			ul
+				-for (var i = bookComment.length - 1; i >= 0; --i)
+					li.fl.w200.mr10
+						a(href='')
+							img(src='')
+						.userInfo
+							p
+								a(href='') #{bookComment[i].userId.name}
+							p 评论《#{bookComment[i].bookId.name_zh}》
+							p #{bookComment[i].comment.content}
+							p
+								!{bookComment[i].useful}有用 #{bookComment[i].datetime}

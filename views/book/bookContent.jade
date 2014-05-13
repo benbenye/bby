@@ -1,30 +1,30 @@
 extends ../layout
 block content
-
-	h2=name
-	.bookContent#bookContent
-		-if(bookContent)
-			h2
-				a(href='',target='_blank') 我要写书评
-			-for(var i = 0; i < bookContent.contents.length; ++i)
-				.page(data-page=i+1) !{bookContent.contents[i].content}
-					a(href='/book/upbookContent/'+bookContent._id+'/'+(i+1)) 修改本页
-		-else if(user === null)
-			p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
-			a(href='') 提醒TA上传
-		-else
-			p 这本书还没有内容
-		-if(error)
-			p=error
-	.comment
-		form#comment(method='post',action='/book/comment')
-			input#bookId(type='hidden',value='#{bookContent._id}',name='bookId')
-			input#userId(type='hidden',value='#{user._id}',name='userId')
-			label
-				标题：
-				input.title(type='text',name='title')
-			label
-				内容：
-				textarea.content(name='commentContent')
-			input#comment-btn(type='button',value='提交')
-	script(type='text/javascript',src='/javascripts/page/commitContent.js')
+	.main-content
+		h2=name
+		.bookContent#bookContent
+			-if(bookContent)
+				h2
+					a#comment-btn(href='javascript:;',target='_blank') 我要写书评
+				-for(var i = 0; i < bookContent.contents.length; ++i)
+					.page(data-page=i+1) !{bookContent.contents[i].content}
+						a(href='/book/upbookContent/'+bookContent._id+'/'+(i+1)) 修改本页
+			-else if(user === null)
+				p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
+				a(href='') 提醒TA上传
+			-else
+				p 这本书还没有内容
+			-if(error)
+				p=error
+		.comment.none
+			form#comment(method='get',action='/book/comment')
+				input#bookId(type='hidden',value='#{bookContent._id}',name='bookId')
+				input#userId(type='hidden',value='#{user._id}',name='userId')
+				label
+					标题：
+					input.title(type='text',name='title')
+				label
+					内容：
+					textarea.content(name='commentContent')
+				input#commit-btn(type='button',value='提交')
+		script(type='text/javascript',src='/javascripts/page/commitContent.js')

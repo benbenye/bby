@@ -1,7 +1,25 @@
 body {
   padding: 50px;
-  /*font: 14px 'aquilinetworegular',"Lucida Grande", Helvetica, Arial, sans-serif;*/
+  font-family: "Microsoft Yahei","冬青黑体简体中文 w3";
+  height: 1000px;/*暂时的*/
 }
 a {
   color: #00b7ff;
 }
+
+.none{display: none;}
+
+.avatar{width: 76px; height: 76px; border: 0; vertical-align: top;}
+
+/*left content*/
+.left-content{width: 250px; position: fixed; top: 0; bottom: 0; left: 0; background: #534F49;}
+/*perinfo*/
+.perinfo{height: 200px;}
+/*nav*/
+.nav{width: 180px; margin-right: auto; margin-left: auto;}
+.nav li{width: 156px; text-align: center; border-radius: 17px; margin-bottom: 20px;padding: 6px 12px;height: 20px; background: #5c5852;border-bottom: 1px solid #423f3a;background: rgba(255,255,255,0.1);border-bottom: 1px solid rgba(0,0,0,0.4);line-height: 20px;white-space: nowrap;}
+.nav li:hover{background: #95A153;}
+.nav li a{display: block; width: 100%; height: 100%; color: #fff;}
+
+/*main content*/
+.main-content{margin-left: 250px;}

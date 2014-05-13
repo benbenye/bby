@@ -12,7 +12,7 @@ var userAvatarSchema = new userAvatarSchema({
 var userAvatarModel = mongoose.model('UserAvatar', userAvatarSchema);// all environments
 function UserAvatar(userAvatar) {
     this.avatar = userAvatar.avatar;
-};//Book 构造函数，对新创建的对象进行初始化 
+};//UserAvatar 构造函数，对新创建的对象进行初始化 
 
 
 ////存储一篇文章及其相关信息
@@ -28,6 +28,7 @@ UserAvatar.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var userAvatar = {
+        name:this.name,
         avatar:this.avatar
 	};
     var newUserAvatar = new userAvatarModel(userAvatar);
@@ -46,11 +47,11 @@ UserAvatar.getOne = function(id, callback){
         if(err){
             return callback(err);
         }
-        callback(null, UserAvatar);
+        callback(null, userAvatar);
     });
 };
 
-//修改一篇文章封面
+//修改头像
 UserAvatar.edit = function(id, userAvatar, callback){
     userAvatarModel.update({_id:id},{$set:{avatar:userAvatar}},{upsert:true},function(err, numeffect){
         if(err){

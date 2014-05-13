@@ -4,25 +4,38 @@
     Book = require('../models/book.js'),
     BookContent = require('../models/bookContent.js'),
     BookCover = require('../models/bookCover.js'),
+    BookComment = require('../models/bookComment.js'),
     mongoose = require('mongoose');
 
 function BookController(){
     this.getindex = function(req, res){
-        Book.getAllList(function(err,book){
+        var bookComment = [];
+        BookComment.getAllList(function(err,bc){
             if(err){
                 res.flash();
                 return callback(err);
             }
-            res.render('index',{
-                title:'主页',
-                user:req.session.user,
-                books:book,
-                success:req.flash('success').toString(),
-                success_out:req.flash('success_out').toString(),
-                error:req.flash('error').toString()
-            });
+            bookComment = bc;//先获取书评
+            getbooklist();//获取书籍 并返回视图
         });
-    }
+        var getbooklist = function(){
+            Book.getAllList(function(err,book){
+                if(err){
+                    res.flash();
+                    return callback(err);
+                }
+                res.render('index',{
+                    title:'主页',
+                    user:req.session.user,
+                    books:book,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                    bookComment:bookComment
+                });
+            });
+        };
+    };
     
     this.getbook = function(req, res){        
         res.render('book/book',{
