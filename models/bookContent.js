@@ -7,7 +7,7 @@ var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
     _id:mongoose.Schema.ObjectId,
-    time:Date,
+    _time:String,
     contents:[{
         page:Number,
         content:String
@@ -22,7 +22,7 @@ function BookContent(bookContent) {
     //this.name_zh = bookContent.name_zh;
     this.contents = bookContent.contents;
     this._id = bookContent._id;
-    this.time = bookContent.time;
+    this._time = bookContent.time;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -41,15 +41,15 @@ BookContent.prototype.save = function(callback) {
 	var bookContent = {
               _id : this._id
         ,contents : this.contents
-		    ,time : time
+		    ,_time : time
 	};
     var newBookContent = new bookContentModel(bookContent);
 	
-    newBookContent.save(function(err, bookContent){
+    newBookContent.save(function(err, bookContents){
         if(err){
             return callback(err);
         }
-        callback(null, bookContent);
+        callback(null, bookContents);
     });
 };
 

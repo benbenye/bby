@@ -198,7 +198,8 @@ function BookController(){
         }
         var newBookContent = new BookContent({
             _id:req.body.id,
-            contents:contents
+            contents:contents,
+            time:0
             });
         newBookContent.save(function(err, bookContent){
             if(err){
