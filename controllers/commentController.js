@@ -19,5 +19,8 @@ function CommentController(){
             res.send({ok:1});
         });
     };
+    this.getcomments = function (){
+        
+    }
 }
 module.exports = CommentController;
