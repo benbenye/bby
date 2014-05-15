@@ -7,7 +7,7 @@ var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
     _id:mongoose.Schema.ObjectId,
-    _time:String,
+    _time:{},
     contents:[{
         page:Number,
         content:String
