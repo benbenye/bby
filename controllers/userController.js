@@ -87,8 +87,8 @@ function UserController(){
         User.get(req.session.user.name,function(err, returnuser){
             //先获取基本信息
             if(err){
-                res.flash();//丰富一下
-                return callback(err);
+                //res.flash();//丰富一下
+                return console.log(err.message);
             }
             user = returnuser;
             UserAvatar.getOne(req.session.user._id, function (err, avatar) {
@@ -178,7 +178,7 @@ function UserController(){
     this.getmywish = function(req, res){
         User.get(req.session.user.name,function(err, user){
             if(err){
-                return callback(err);
+                return console.log(err.message);
             }
             Book.getMywish(user.wish,function(err, mywishBook){                
                 res.render('book/mywish',{
@@ -189,5 +189,20 @@ function UserController(){
                 });
             });
         };
+
+    //个人页面
+    this.getUserInfor = function(req, res){
+        // User.get(),需要一个新的jade视图显示个人页面
+        User.get(req.session.user.name,function(err, userInfor){
+            if(err){
+                return console.log(err.message);
+            }
+            res.render('user/userInfor', {
+                title:userInfor.name+'的个人页面',
+                user:req.session.user,
+                userInfor:userInfor
+            });
+        });
+    };
 }
 module.exports = UserController;

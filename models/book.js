@@ -25,12 +25,13 @@ var bookSchema = new bookSchema({
 
 var bookModel = mongoose.model('Book', bookSchema);// all environments
 function Book(book) {
-    this.publisher = book.publisher
+    this.publisher = book.publisher;
+    this.userId = book.userId;
 	this.name_zh = book.name_zh;
 	this.author = book.author;
     this.tags = book.tags;
     this.intro = book.intro;
-    this.time = book.time;
+    this.time = book.time;//添加一个用户ID
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -50,6 +51,7 @@ Book.prototype.save = function(callback) {
 	var book = {
         _id:_ID
         ,publisher:this.publisher
+        ,userId:this.userId
 		,name_zh : this.name_zh
 		,time : time
         ,tags:this.tags

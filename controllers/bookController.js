@@ -79,8 +79,14 @@ function BookController(){
             if(err){
                 return console.log(err.message);
             }
-            req.flash('success','上传成功');
-            res.send(book);
+            //将新书的ID存到上传用户的数据表中
+            User.insertBookId(newBook.publisher, book._id, function(err, userBookId){
+                if(err){
+                    return console.log(err.message);
+                }
+                req.flash('success','上传成功');
+                res.send(book);
+            });            
         });
     };
 

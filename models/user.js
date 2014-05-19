@@ -15,6 +15,8 @@ var userSchema = mongoose.Schema;
 var ObjectId = userSchema.ObjectId;
 //将唯一标识改为ID，之前是用name做唯一标识
 var userSchema = new userSchema({
+  // userId : {type:String,ref:'BookComment'},
+  bookId : [{type:String,ref:'Book'}],//我上传的书
   name : String,//用户名，唯一标识
   password : String,
   email : String,
@@ -61,6 +63,8 @@ User.prototype.save = function(callback){
 //读取用户信息
 User.get = function(name,callback){
     userModel.findOne({name:name})
+    // .populate('userId')
+    .populate('bookId')
     .exec(function(err, user){
         if(err){
             return callback(err);
@@ -93,6 +97,16 @@ User.pullwish = function(name, bookId, callback){
     userModel.update({name : name}, {$pull:{'wish.id':bookId}}, function(err, numeffect){
         if(err){
             return callback(err)
+        }
+        callback(null, numeffect);
+    });
+};
+
+//用户上传新书的时候追加新书ID
+User.insertBookId = function(name, bookId, callback){
+    userModel.update({name:name}, {$addToSet:{'bookId':bookId}},function(err, numeffect){
+        if(err){
+            return callback(err);
         }
         callback(null, numeffect);
     });
