@@ -1,19 +1,30 @@
 ﻿$(document).ready(function(){
+
     $('#wish').click(function(){
-        var bookId = $('h2').last().attr('bookId'),
-            wish = $(this);
-        $.get('/user/wantread',{bookId:bookId},function(data){
+       pushFollow($('#bookTitle').attr('bookId'),'wish');
+    });
+    $('#readed').click(function(){
+       pushFollow($('#bookTitle').attr('bookId'),'readed');
+    });
+    $('#reading').click(function(){
+       pushFollow($('#bookTitle').attr('bookId'),'reading');
+    });
+    
+    function pushFollow(bookId, thisObj){
+        var _followName = thisObj,
+            _route = '/user/'+_followName;
+        $.get(_route,{bookId:bookId},function(data){
             if(data.ok === 1){
-                wish.siblings().detach();
-                $('<span>+1</span>').appendTo("#wish");
-                wish.after();
-                wish.detach();
-                //喜欢过的变换样式，并且不可再点
+                $('#'+thisObj).siblings().detach();
+                $('<span>+1</span>').appendTo("#"+_followName);
+                $('#'+thisObj).attr({id:'wished'});
             }else if(data.ok === 0){
                 alert('您已经添加过这本书了'+data.err.err);
                 }
         });
-    });
+    }
+
+
     $('.pullwish').click(function(){
         var bookId = $(this).attr('bookId'),
             bookLi = $(this).parent('li');

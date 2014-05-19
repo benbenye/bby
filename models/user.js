@@ -24,7 +24,15 @@ var userSchema = new userSchema({
   wish :[{
       id:ObjectId,
       schedule:0
-      }]
+      }],//想看
+  readed :[{
+      id:ObjectId,
+      schedule:0
+      }],//看过
+  reading :[{
+      id:ObjectId,
+      schedule:0
+      }]//正在看
 },{
     collection:'users'
 });
@@ -85,6 +93,26 @@ User.edit = function(name, perInfo, callback){
 //添加用户想看书的信息
 User.pushwish = function(name, bookId, callback){
     userModel.update({name : name}, {$addToSet:{'wish':bookId}}, function(err, numeffect){
+        if(err){
+            return callback(err)
+        }
+        callback(null, numeffect);
+    });
+};
+
+//添加用户看过书的信息
+User.pushreaded = function(name, bookId, callback){
+    userModel.update({name : name}, {$addToSet:{'readed':bookId}}, function(err, numeffect){
+        if(err){
+            return callback(err)
+        }
+        callback(null, numeffect);
+    });
+};
+
+//添加用户在看书的信息
+User.pushreading = function(name, bookId, callback){
+    userModel.update({name : name}, {$addToSet:{'reading':bookId}}, function(err, numeffect){
         if(err){
             return callback(err)
         }

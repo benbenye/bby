@@ -9,33 +9,20 @@
 
 function BookController(){
     this.getindex = function(req, res){
-        var bookComment = [];
-        BookComment.getAllList(function(err,bc){
+        Book.getAllList(function(err,book){
             if(err){
                 res.flash();
                 return callback(err);
             }
-            bookComment = bc;//先获取书评
-            console.log(bookComment);
-            getbooklist();//获取书籍 并返回视图
-        });
-        var getbooklist = function(){
-            Book.getAllList(function(err,book){
-                if(err){
-                    res.flash();
-                    return callback(err);
-                }
-                res.render('index',{
-                    title:'主页',
-                    user:req.session.user,
-                    books:book,
-                    success:req.flash('success').toString(),
-                    success_out:req.flash('success_out').toString(),
-                    error:req.flash('error').toString(),
-                    bookComment:bookComment
-                });
+            res.render('index',{
+                title:'主页',
+                user:req.session.user,
+                books:book,
+                success:req.flash('success').toString(),
+                success_out:req.flash('success_out').toString(),
+                error:req.flash('error').toString(),
             });
-        };
+        });
     };
     
     this.getbook = function(req, res){        

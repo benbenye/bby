@@ -36,12 +36,20 @@ module.exports = function(app){
     app.post('/user/userAvatar', UserController.postuserAvatar);
 
     //添加想看图书
-    app.get('/user/wantread', CheckController.checkNotLogin);
-    app.get('/user/wantread', UserController.getwantread);
+    app.get('/user/wish', CheckController.checkNotLogin);
+    app.get('/user/wish', UserController.getwish);
+
+    //添加看过图书
+    app.get('/user/readed', CheckController.checkNotLogin);
+    app.get('/user/readed', UserController.getread);
+
+    //添加在看图书
+    app.get('/user/reading', CheckController.checkNotLogin);
+    app.get('/user/reading', UserController.getreading);
 
     //删除想看图书
-    app.get('/user/pullwantread', CheckController.checkNotLogin);
-    app.get('/user/pullwantread', UserController.getpullwantread);
+    app.get('/user/pullwish', CheckController.checkNotLogin);
+    app.get('/user/pullwish', UserController.getpullwish);
     
     //我想读的书
     app.get('/user/mywish', CheckController.checkNotLogin);

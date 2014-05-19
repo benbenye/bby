@@ -19,8 +19,20 @@ function CommentController(){
             res.send({ok:1});
         });
     };
-    // this.getcomments = function (){
-        
-    // }
+
+    //书评人页面
+    this.getreviewer = function (req, res){
+         BookComment.getAllList(function(err,bc){
+            if(err){
+                return consloe.log(err.message);
+            }
+            res.render('user/reviewer',{
+                title:'书评人',
+                user:req.session.user,
+                error:req.flash('error').toString(),
+                bookComment:bc
+            });
+        });
+    };
 }
 module.exports = CommentController;

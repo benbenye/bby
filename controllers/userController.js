@@ -144,14 +144,14 @@ function UserController(){
             });
     };
 
-    this.getwantread = function(req, res){
-        var newwish = new User({
+    //添加想看
+    this.getwish = function(req, res){
+        var newwish = {
             name : req.session.user.name,
             wish : req.query.bookId
-            });
+            };
         User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
             if(err){
-                //return res.redirect('/');
                 res.send({ok:0,err:err});
             }
             if(numeffect === 1){
@@ -160,7 +160,39 @@ function UserController(){
             });
     };
 
-    this.getpullwantread = function(req, res){
+    //添加看过
+    this.getread = function(req, res){
+        var newreaded = {
+            name : req.session.user.name,
+            readed : req.query.bookId
+            };
+        User.pushreaded(newreaded.name, newreaded.readed, function(err, numeffect){
+            if(err){
+                res.send({ok:0,err:err});
+            }
+            if(numeffect === 1){
+                res.send({ok:1});//插入成功
+            }
+            });
+    };
+
+    //添加在看
+    this.getreading = function(req, res){
+        var newreading = {
+            name : req.session.user.name,
+            reading : req.query.bookId
+            };
+        User.pushreading(newreading.name, newreading.reading, function(err, numeffect){
+            if(err){
+                res.send({ok:0,err:err});
+            }
+            if(numeffect === 1){
+                res.send({ok:1});//插入成功
+            }
+            });
+    };
+
+    this.getpullwish = function(req, res){
         var pullwish = new User({
             name: req.session.user.name,
             wish:req.query.bookId

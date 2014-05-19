@@ -7,7 +7,7 @@ var bookRoute = require('./book.js');
 var commentRoute = require('./comment.js');
 
 module.exports = function(app){
-    userRoute(app);  
-    commentRoute(app);    
+    commentRoute(app);
+    userRoute(app);
     bookRoute(app);      
 };
