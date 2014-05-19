@@ -31,7 +31,7 @@ block content
 							img(src='')
 						.userInfo
 							p
-								a(href='') #{bookComment[i].userId.name}
+								a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
 							p 评论《#{bookComment[i].bookId.name_zh}》
 							p #{bookComment[i].comment.content}
 							p

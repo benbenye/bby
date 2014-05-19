@@ -14,13 +14,13 @@ function CommentController(){
         });
         newBookComment.save(function(err, bookComment){
             if(err){
-                return consloe.log();
+                return consloe.log(err.message);
             }
             res.send({ok:1});
         });
     };
-    this.getcomments = function (){
+    // this.getcomments = function (){
         
-    }
+    // }
 }
 module.exports = CommentController;
