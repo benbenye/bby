@@ -11,28 +11,28 @@ block content
 				p=success_out
 			-if(error)
 				p=error
-		h2 新书速递
+		h2 最新连载
 		div.bd
 			ul
 				-for(var index = books.length - 1; index >= 0; --index)
 					li.fl.w200.mr10
-						dl
-							dt
-								img.cover(src='/images/books/#{books[index]._id}')
-							dd
-								a.no_unl(href='book/#{books[index]._id}') #{books[index].name_zh}
+						img.cover(src='/images/books/#{books[index]._id}')
+						a.no_unl(href='book/#{books[index]._id}') #{books[index].name_zh}
+						span.intro #{books[index].intro}
+						-if(books[index].bookContent._time.minute)
+							span.time 更新于 #{books[index].bookContent._time.minute}
 		.hd
-			h2 书评人
-		.hd
-			ul
-				-for (var i = bookComment.length - 1; i >= 0; --i)
-					li.fl.w200.mr10
-						a(href='')
-							img(src='')
-						.userInfo
-							p
-								a(href='') #{bookComment[i].userId.name}
-							p 评论《#{bookComment[i].bookId.name_zh}》
-							p #{bookComment[i].comment.content}
-							p
-								!{bookComment[i].useful}有用 #{bookComment[i].datetime}
+		//- 	h2 书评人
+		//- .hd
+		//- 	ul
+		//- 		-for (var i = bookComment.length - 1; i >= 0; --i)
+		//- 			li.fl.w200.mr10
+		//- 				a(href='')
+		//- 					img(src='')
+		//- 				.userInfo
+		//- 					p
+		//- 						a(href='') #{bookComment[i].userId.name}
+		//- 					p 评论《#{bookComment[i].bookId.name_zh}》
+		//- 					p #{bookComment[i].comment.content}
+		//- 					p
+		//- 						!{bookComment[i].useful}有用 #{bookComment[i].datetime}

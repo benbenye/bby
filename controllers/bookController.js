@@ -76,7 +76,7 @@ function BookController(){
         });
         newBook.save(function(err, book){
             if(err){
-                return callback(err);
+                return console.log(err.message);
             }
             req.flash('success','上传成功');
             res.send(book);
@@ -247,7 +247,6 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
-            console.log(bookContent);
             res.render('book/bookContent',{
                 title:'书籍内容',
                 bookContent:bookContent,

@@ -10,13 +10,17 @@ module.exports = function(app){
     /**
      * 进入首页
      */
-    app.get('/', BookController.getindex);
+    app.get('/book/serial', BookController.getindex);
 
-    //书籍页面
+    /*个人书籍页面
+    *我上传的，我想读的，我读过的，正在看的
+    */
     app.get('/book/book', CheckController.checkNotLogin);
     app.get('/book/book',BookController.getbook);
 
-    //我的书籍页面
+    /*我上传的书
+    *我上传过的书
+    */
     app.get('/book/mybook',  CheckController.checkNotLogin);
     app.get('/book/mybook',BookController.getmybook);
     

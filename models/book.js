@@ -1,4 +1,4 @@
-﻿//var mongodb = require('./db');
+//var mongodb = require('./db');
 
 var mongoose = require('mongoose'),
     fs = require('fs');
@@ -7,6 +7,7 @@ var bookSchema = mongoose.Schema;
 var ObjectId = bookSchema.ObjectId;
 
 var bookSchema = new bookSchema({
+  _id:ObjectId,
   publisher:String,//发布者
   name_zh: String,//中文书名
   ISBN:String,//ISBN
@@ -16,7 +17,8 @@ var bookSchema = new bookSchema({
   time:String,//发布时间
   want:Number,//想看人数
   reading:Number,//正在读的人数
-  readed:Number//读过的人数
+  readed:Number,//读过的人数
+  bookContent:{type:ObjectId,ref:'BookContent'}
 },{
     collection:'books'
 });
@@ -44,8 +46,10 @@ Book.prototype.save = function(callback) {
 		minute : date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
 	}
 	//要存入数据库的文档
+    var _ID = new mongoose.Types.ObjectId();
 	var book = {
-        publisher:this.publisher
+        _id:_ID
+        ,publisher:this.publisher
 		,name_zh : this.name_zh
 		,time : time
         ,tags:this.tags
@@ -53,6 +57,7 @@ Book.prototype.save = function(callback) {
         ,want:0
         ,reading:0
         ,readed:0
+        ,bookContent:_ID
 		//ISBN : this.ISBN,
 		//author : this.author,
 	};
@@ -67,10 +72,13 @@ Book.prototype.save = function(callback) {
 };
 //读取文章及其相关信息
 Book.getAllList = function(callback){
-	bookModel.find(function(err,book){
+	bookModel.find()
+    .populate('bookContent')
+    .exec(function(err,book){
         if(err){
             return callback(err);
         }
+        console.log(book);
         callback(null, book);//book数组
     });
 };

@@ -6,8 +6,10 @@ var bookContentSchema = mongoose.Schema;
 var ObjectId = bookContentSchema.ObjectId();
 
 var bookContentSchema = new bookContentSchema({
-    _id:mongoose.Schema.ObjectId,
+    _id:{type:mongoose.Schema.ObjectId},
+    // _id:mongoose.Schema.ObjectId,
     _time:{},
+    book: {type:mongoose.Schema.ObjectId,ref:'Book'},
     contents:[{
         page:Number,
         content:String
@@ -65,10 +67,13 @@ BookContent.additionContents = function(id, contents, callback){
 
 //读取一篇文章内容
 BookContent.getOne = function(id, callback){
-	bookContentModel.findOne({_id:id.toString()},function(err,bookContent){
+	bookContentModel.findOne({_id:id.toString()})
+    .populate('Book')
+    .exec(function(err,bookContent){
         if(err){
             return callback(err);
         }
+        console.log(bookContent+'d');
         callback(null, bookContent);
     });
 };
@@ -89,7 +94,6 @@ BookContent.editPage = function(id, page, pageContent, callback){
         if(err){
             return callback(err);
         }
-        console.log(numeffect);
         callback(null, numeffect,raw);
     });
 };
