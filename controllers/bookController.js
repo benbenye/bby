@@ -16,6 +16,7 @@ function BookController(){
                 return callback(err);
             }
             bookComment = bc;//先获取书评
+            console.log(bookComment);
             getbooklist();//获取书籍 并返回视图
         });
         var getbooklist = function(){

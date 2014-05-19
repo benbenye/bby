@@ -14,7 +14,7 @@ function CommentController(){
         });
         newBookComment.save(function(err, bookComment){
             if(err){
-                callback(err);
+                return consloe.log();
             }
             res.send({ok:1});
         });

@@ -49,5 +49,9 @@ module.exports = function(app){
 
     //读取用户头像
     app.get('/images/avatar/:id', CheckController.checkNotLogin);
-    app.get('/images/avatar/:id', UserController.getUserAvatarByid)
+    app.get('/images/avatar/:id', UserController.getUserAvatarByid);
+
+    //用户个人页面
+    app.get('/user/:id', CheckController.checkNotLogin);
+    app.get('/user/:id', UserController.getUserInfor);
 };
