@@ -15,9 +15,8 @@
             _route = '/user/'+_followName;
         $.get(_route,{bookId:bookId},function(data){
             if(data.ok === 1){
-                $('#'+thisObj).siblings().detach();
+                $('#'+_followName).attr({id:'wished'}).siblings().detach();
                 $('<span>+1</span>').appendTo("#"+_followName);
-                $('#'+thisObj).attr({id:'wished'});
             }else if(data.ok === 0){
                 alert('您已经添加过这本书了'+data.err.err);
                 }

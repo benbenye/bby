@@ -41,7 +41,7 @@ UserAvatar.prototype.save = function(callback) {
     });
 };
 
-//读取一篇文章封面
+//读取
 UserAvatar.getOne = function(id, callback){
 	userAvatarModel.findOne({_id:id},function(err,userAvatar){
         if(err){
