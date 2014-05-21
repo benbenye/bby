@@ -2,14 +2,16 @@ extends ../layout
 block content	
 	.main-content
 		h2 书评人
-		ul
+		ul.reviewer
 			-for (var i = bookComment.length - 1; i >= 0; --i)
-				li.fl.w200.mr10
-					a(href='/user/#{bookComment[i].userId.name}')
-						img(src='/images/avatar/#{bookComment[i].userId._id}')
+				li.mr10
+					a.avatar(href='/user/#{bookComment[i].userId.name}')
+						-if(avatar)
+							img(src='/images/avatar/#{bookComment[i].userId._id}')
+						-else
+							img.fl.avatar(src='../images/default/avatar.png')
 					.userInfo
-						p
-							a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
+						a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
 						p 评论《#{bookComment[i].bookId.name_zh}》
 						p #{bookComment[i].comment.content}
 						p

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-// var users = require('user.js');
+//var User = require('userModel');
 // var books = require('book.js');
 
 var bookCommentSchema = mongoose.Schema;
@@ -59,7 +59,7 @@ BookComment.prototype.save = function(callback) {
 };
 //目前书评都是一级书评
 
-//读取所有书评取前5个
+//读取所有书评取前10个
 BookComment.getAllList = function(callback){
     bookCommentModel.find()
     .populate('userId')
@@ -67,11 +67,12 @@ BookComment.getAllList = function(callback){
     .sort('-userId')
     .limit(10)
     .exec(function(err, bookComment) {
-            if(err){
-                return callback(err);
-            }
-            callback(null, bookComment);
-        });
+        User.populate(bookComment.userId, {path:'UserAvatar'});
+        if(err){
+            return callback(err);
+        }
+        callback(null, bookComment);
+    });
 };
 
 //读取一篇文章下所有的用户书评

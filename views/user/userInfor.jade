@@ -5,4 +5,7 @@ block content
 	.main-content
 		h1= title
 		p Welcome to #{title}
-		p #{userInfor.bookId[0].name_zh}
+		-if (userInfor.bookId.length == 0)
+			p 没有上传过作品
+		-else
+			#{userInfor.bookId[0].name_zh}

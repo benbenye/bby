@@ -13,11 +13,12 @@ block content
 				p=error
 		h2 最新连载
 		div.bd
-			ul
+			ul.serial
 				-for(var index = books.length - 1; index >= 0; --index)
-					li.fl.w200.mr10
+					li
 						img.cover(src='/images/books/#{books[index]._id}')
-						a.no_unl(href='/book/#{books[index]._id}') #{books[index].name_zh}
-						span.intro #{books[index].intro}
+						h3.title
+							a(href='/book/#{books[index]._id}') #{books[index].name_zh}
+						.intro #{books[index].intro}
 						-if(books[index].bookContent._time.minute)
-							span.time 更新于 #{books[index].bookContent._time.minute}
+							.time #{books[index].bookContent._time.minute}

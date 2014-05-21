@@ -4,7 +4,7 @@ body {
   height: 1000px;/*暂时的*/
 }
 a {
-  color: #00b7ff;
+  color: #00b7ff; text-decoration: none;
 }
 
 .none{display: none;}
@@ -23,3 +23,18 @@ a {
 
 /*main content*/
 .main-content{margin-left: 250px;}
+
+/*book List*/
+.serial{font-size: 14px;}
+.serial li{display: inline-block; *display: inline; *zoom: 1; width: 160px; margin-right: 10px;}
+.serial li .title{font-size: 16px;}
+.serial li .title a:hover{color: #fff; background: #0590C7;}
+.serial li .intro{color: #666;}
+.serial li .time{color: #999;}
+
+
+/*reviewer list*/
+.reviewer li{position: relative; width: 480px; height: 200px; display: inline-block; *display: inline; *zoom: 1; vertical-align: top;}
+.reviewer li a.avatar{position: absolute;}
+.reviewer li a img{width: 96px; height: 96px; vertical-align: top;}
+.reviewer li .userInfo{margin-left: 110px;}

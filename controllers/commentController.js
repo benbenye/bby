@@ -2,6 +2,7 @@ var CommentController = new  CommentController(),
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
     BookComment = require('../models/bookComment.js'),
+    UserAvatar = require('../models/userAvatar.js'),
     mongoose = require('mongoose');
 
 function CommentController(){
@@ -26,11 +27,15 @@ function CommentController(){
             if(err){
                 return consloe.log(err.message);
             }
-            res.render('user/reviewer',{
-                title:'书评人',
-                user:req.session.user,
-                error:req.flash('error').toString(),
-                bookComment:bc
+            UserAvatar.getOne(bc.userId,function(err, avatar){
+                console.log(avatar);
+                res.render('user/reviewer',{
+                    title:'书评人',
+                    user:req.session.user,
+                    error:req.flash('error').toString(),
+                    bookComment:bc,
+                    avatar:avatar
+                });
             });
         });
     };
