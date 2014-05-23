@@ -133,14 +133,21 @@ function UserController(){
     this.postuserAvatar = function (req, res) {
         var fs = require('fs'),
             userAvatar = {data: fs.readFileSync(req.files.userAvatar.path),
-                    contentType: req.files.userAvatar.type},
-            id = req.session.user._id;
-        UserAvatar.edit(id, userAvatar, function (err, numeffect) {
+                    contentType: req.files.userAvatar.type};
+        var newUserAvatar = new UserAvatar({
+            avatar:userAvatar
+        });
+        newUserAvatar.save(function (err, avatar) {
                 if (err) {
                     req.flash('err', err.message);
                 }
-                req.flash('success', '上传成功');
-                res.send({ok:numeffect});
+                User.editAvatar(req.session.user.name, avatar._id,function(err, perInfo) {
+                    if(err){
+                        req.flash('err', err.message);
+                    }
+                    req.flash('success', '上传成功');
+                    res.send({ok:perInfo});
+                });
             });
     };
 

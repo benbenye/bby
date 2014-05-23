@@ -15,7 +15,7 @@ function CommentController(){
         });
         newBookComment.save(function(err, bookComment){
             if(err){
-                return consloe.log(err.message);
+                return console.log(err.message);
             }
             res.send({ok:1});
         });
@@ -23,19 +23,16 @@ function CommentController(){
 
     //书评人页面
     this.getreviewer = function (req, res){
-         BookComment.getAllList(function(err,bc){
+         BookComment.getAllList(function(err, bc){
             if(err){
                 return consloe.log(err.message);
             }
-            UserAvatar.getOne(bc.userId,function(err, avatar){
-                console.log(avatar);
-                res.render('user/reviewer',{
-                    title:'书评人',
-                    user:req.session.user,
-                    error:req.flash('error').toString(),
-                    bookComment:bc,
-                    avatar:avatar
-                });
+            console.log(bc);
+            res.render('user/reviewer',{
+                title:'书评人',
+                user:req.session.user,
+                error:req.flash('error').toString(),
+                bookComment:bc
             });
         });
     };

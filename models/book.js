@@ -47,9 +47,9 @@ Book.prototype.save = function(callback) {
 		minute : date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
 	}
 	//要存入数据库的文档
-    var _ID = new mongoose.Types.ObjectId();
+    var temp = new mongoose.Types.ObjectId();
 	var book = {
-        _id:_ID
+        _id:temp
         ,publisher:this.publisher
         ,userId:this.userId
 		,name_zh : this.name_zh
@@ -59,7 +59,7 @@ Book.prototype.save = function(callback) {
         ,want:0
         ,reading:0
         ,readed:0
-        ,bookContent:_ID
+        ,bookContent:temp
 		//ISBN : this.ISBN,
 		//author : this.author,
 	};

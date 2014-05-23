@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-//var User = require('userModel');
+var User = mongoose.model('User');
 // var books = require('book.js');
 
 var bookCommentSchema = mongoose.Schema;
@@ -67,11 +67,16 @@ BookComment.getAllList = function(callback){
     .sort('-userId')
     .limit(10)
     .exec(function(err, bookComment) {
-        User.populate(bookComment.userId, {path:'UserAvatar'});
-        if(err){
-            return callback(err);
+        var options = {
+            path:'userId.avatar',
+            model:'User'
         }
-        callback(null, bookComment);
+        bookCommentModel.populate(bookComment, options, function(err, data){
+            if(err){
+                return callback(err);
+            }
+            callback(null, data);
+        });
     });
 };
 

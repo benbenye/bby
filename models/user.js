@@ -15,7 +15,8 @@ var userSchema = mongoose.Schema;
 var ObjectId = userSchema.ObjectId;
 //将唯一标识改为ID，之前是用name做唯一标识
 var userSchema = new userSchema({
-  // userId : {type:String,ref:'BookComment'},
+  _id : ObjectId,
+  avatar : {type:ObjectId,ref:'UserAvatar'},
   bookId : [{type:String,ref:'Book'}],//我上传的书
   name : String,//用户名，唯一标识
   password : String,
@@ -52,11 +53,14 @@ function User(user) {
 User.prototype.save = function(callback){
 
 	//要存入数据库的用户文档
+  var temp = new mongoose.Types.ObjectId();
 	var user = {
+    _id : temp,
+    avatar : temp,
 		name : this.name,
 		password : this.password,
 		email : this.email,
-        wish : this.wish
+    wish : this.wish
 	};
 
     var newUser = new userModel(user);
@@ -73,6 +77,7 @@ User.get = function(name,callback){
     userModel.findOne({name:name})
     // .populate('userId')
     .populate('bookId')
+    .populate('avatar')
     .exec(function(err, user){
         if(err){
             return callback(err);
@@ -81,6 +86,7 @@ User.get = function(name,callback){
         callback(null, user);
     });
 };
+
 //修改用户个人信息
 User.edit = function(name, perInfo, callback){
     userModel.update({name:name},{$set:{email:perInfo.email,sex:perInfo.sex}},function(err, perInfo){
@@ -90,6 +96,17 @@ User.edit = function(name, perInfo, callback){
         callback(null, perInfo);
     });
 };
+
+//修改用户个人头像
+User.editAvatar = function(name, id, callback){
+    userModel.update({name:name},{$set:{avatar:id}},function(err, perInfo){
+        if(err){
+            return callback(err);
+        }
+        callback(null, perInfo);
+    });
+};
+
 //添加用户想看书的信息
 User.pushwish = function(name, bookId, callback){
     userModel.update({name : name}, {$addToSet:{'wish':bookId}}, function(err, numeffect){
