@@ -43,12 +43,12 @@ UserAvatar.getOne = function(id, callback){
 };
 
 //修改头像
-UserAvatar.edit = function(id, userAvatar, callback){
+/*UserAvatar.edit = function(id, userAvatar, callback){
     userAvatarModel.update({_id:id},{$set:{avatar:userAvatar}},{upsert:true},function(err, numeffect){
         if(err){
             return callback(err);
         }
         callback(null, numeffect);
     });
-};
+};*/
 module.exports = UserAvatar;

@@ -134,20 +134,15 @@ function UserController(){
         var fs = require('fs'),
             userAvatar = {data: fs.readFileSync(req.files.userAvatar.path),
                     contentType: req.files.userAvatar.type};
-        var newUserAvatar = new UserAvatar({
+        /*var newUserAvatar = new UserAvatar({
             avatar:userAvatar
-        });
-        newUserAvatar.save(function (err, avatar) {
+        });*/
+        User.editAvatar(req.session.user.name, userAvatar, function (err, numeffect) {
                 if (err) {
                     req.flash('err', err.message);
                 }
-                User.editAvatar(req.session.user.name, avatar._id,function(err, perInfo) {
-                    if(err){
-                        req.flash('err', err.message);
-                    }
-                    req.flash('success', '上传成功');
-                    res.send({ok:perInfo});
-                });
+                req.flash('success', '上传成功');
+                res.send({ok:numeffect});
             });
     };
 

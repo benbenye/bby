@@ -18,7 +18,8 @@ var bookSchema = new bookSchema({
   want:Number,//想看人数
   reading:Number,//正在读的人数
   readed:Number,//读过的人数
-  bookContent:{type:ObjectId,ref:'BookContent'}
+  bookContent:{type:ObjectId,ref:'BookContent'},
+  cover:{ data: Buffer, contentType: String }//封皮
 },{
     collection:'books'
 });
@@ -111,22 +112,22 @@ Book.getOne = function(id, callback){
         callback(null, book);
     });
 };
-// 获取图书封面
-Book.getCoverById = function(id, callback){
-	bookModel.findOne({_id:id},function(err,book){
+// 修改图书封面
+Book.editCover = function(id, cover, callback){
+	bookModel.findOne({_id:id}, { $set : { cover : cover }}, function(err, numeffect){
         if(err){
             return callback(err);
         }
-        callback(null, book);
+        callback(null, numeffect);
     });
 };
-
+//修改图书描述
 Book.edit = function(id, book, callback){
-    bookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(','),intro:book.intro}},function(err, numeffect,raw){
+    bookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(','),intro:book.intro}},function(err, numeffect){
         if(err){
             return callback(err);
         }
-        callback(null, numeffect, raw);
+        callback(null, numeffect);
     });
 };
 //清空书籍内容

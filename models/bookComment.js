@@ -71,10 +71,12 @@ BookComment.getAllList = function(callback){
             path:'userId.avatar',
             model:'User'
         }
+        console.log(bookComment);
         bookCommentModel.populate(bookComment, options, function(err, data){
             if(err){
                 return callback(err);
             }
+            console.log(data);
             callback(null, data);
         });
     });

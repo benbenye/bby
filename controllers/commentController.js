@@ -25,7 +25,7 @@ function CommentController(){
     this.getreviewer = function (req, res){
          BookComment.getAllList(function(err, bc){
             if(err){
-                return consloe.log(err.message);
+                return console.log(err.message);
             }
             console.log(bc);
             res.render('user/reviewer',{

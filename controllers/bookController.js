@@ -82,7 +82,7 @@ function BookController(){
             cover = {data: fs.readFileSync(req.files.cover.path),
                     contentType: req.files.cover.type},
             id = req.body.bookId;
-        BookCover.edit(id, cover, function (err, cover) {
+        BookCover.edit(id, cover, function (err, numeffect) {
             if (err) {
                 return callback(err);
             }
