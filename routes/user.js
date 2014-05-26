@@ -56,8 +56,8 @@ module.exports = function(app){
     app.get('/user/mywish', UserController.getmywish);
 
     //读取用户头像
-    app.get('/images/avatar/:id', CheckController.checkNotLogin);
-    app.get('/images/avatar/:id', UserController.getUserAvatarByid);
+    /*app.get('/images/avatar/:id', CheckController.checkNotLogin);
+    app.get('/images/avatar/:id', UserController.getUserAvatarByid);*/
 
     //用户个人页面
     app.get('/user/:name', CheckController.checkNotLogin);

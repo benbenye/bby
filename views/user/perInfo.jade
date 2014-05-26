@@ -7,8 +7,8 @@ block content
 		p Welcome to #{title}
 		-if(error)
 			h1=error
-		-if(avatar)
-			img.fl.avatar(src='/images/avatar/#{user._id}')
+		-if(user.avatar)
+			img.fl.avatar(src='#{avatar}')
 		-else
 			img.fl.avatar(src='../images/default/avatar.png')
 		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')

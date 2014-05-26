@@ -83,23 +83,24 @@ function UserController(){
     };
 
     this.getperInfo = function(req, res){
-        var user = '';
-        User.get(req.session.user.name,function(err, returnuser){
-            //先获取基本信息
+        User.get(req.session.user.name,function(err, user){
             if(err){
                 //res.flash();//丰富一下
                 return console.log(err.message);
             }
-            user = returnuser;
-            UserAvatar.getOne(req.session.user._id, function (err, avatar) {
-                res.render('user/perInfo',{
-                        title:'个人中心',
-                        user:user,
-                        avatar:avatar,
-                        error:req.flash('error').toString()
+            var avatar = user.avatar.data.toString('base64');
+            console.log(avatar);
+            res.render('user/perInfo',{
+                title:'个人中心',
+                user:user,
+                avatar:avatar,
+                error:req.flash('error').toString()
+            });
+              /*  res.set({
+                    "Content-Type" : "image/"+user.avatar.contentType
                 });
-            });                      
-         });        
+                res.send(user);*/
+         });
     };
 
     //然后根据ID获取用户头像
@@ -108,7 +109,6 @@ function UserController(){
             if(avatar === null){
                 res.send({state:0});
             }else{
-                console.log('ok');
                 res.set("Content-Type", "image/"+avatar.avatar.contentType);
                 res.send(avatar.avatar.data);
             }
