@@ -3,7 +3,12 @@ html
 	include head
 	body
 		.left-content
-			.perinfo
+			.perinfo.tc.mt30.mb30
+				-if(user.avatar)
+					img.avatar-120(src='data:image/#{user.avatar.type};base64,#{avatar}')
+				-else
+					img.avatar-120(src='/public/images/default/avatar.jpg')
+				p.username #{user.name}
 			ul.nav
 				li
 					a.no_unl(href='/') 首页

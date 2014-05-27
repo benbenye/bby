@@ -4,13 +4,8 @@ extends ../layout
 block content
 	.main-content
 		h1= title
-		p Welcome to #{title}
 		-if(error)
 			h1=error
-		-if(user.avatar)
-			img.fl.avatar(src='#{avatar}')
-		-else
-			img.fl.avatar(src='../images/default/avatar.png')
 		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
 			progress#progressBar(value='0',max='100')
 			span#percentage

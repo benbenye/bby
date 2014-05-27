@@ -1,18 +1,20 @@
 body {
   padding: 50px;
   font-family: "Microsoft Yahei","冬青黑体简体中文 w3";
-  height: 1000px;/*暂时的*/
+  /*height: 1000px;*/
 }
 a {
   color: #00b7ff; text-decoration: none;
 }
 
 .none{display: none;}
-
+/*头像尺寸*/
 .avatar{width: 76px; height: 76px; border: 0; vertical-align: top;}
+.avatar-120{width: 128px; height: 128px; border-radius: 50%; margin-bottom: 10px;border: 2px solid #95a153;padding: 5px;}
 
 /*left content*/
 .left-content{width: 250px; position: fixed; top: 0; bottom: 0; left: 0; background: #534F49;}
+.username{color: #fff;}
 /*perinfo*/
 .perinfo{height: 200px;}
 /*nav*/
