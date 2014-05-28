@@ -90,7 +90,11 @@ function UserController(){
             }
 
             //图片二进制转换
-            var avatar = user.avatar.data.toString('base64');
+            if(user.avatar._id == undefined) { 
+                var avatar = {};
+            }else{
+                var avatar = user.avatar.data.toString('base64');
+            }
 
             res.render('user/perInfo',{
                 title:'个人中心',
