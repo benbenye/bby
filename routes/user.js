@@ -52,8 +52,8 @@ module.exports = function(app){
     app.get('/user/pullwish', UserController.getpullwish);
     
     //我想读的书
-    app.get('/user/mywish', CheckController.checkNotLogin);
-    app.get('/user/mywish', UserController.getmywish);
+/*    app.get('/user/mywish', CheckController.checkNotLogin);
+    app.get('/user/mywish', UserController.getmywish);*/
 
     //读取用户头像
     /*app.get('/images/avatar/:id', CheckController.checkNotLogin);

@@ -21,18 +21,9 @@ var userSchema = new userSchema({
   password : String,
   email : String,
   sex : String,
-  wish :[{
-      id:ObjectId,
-      schedule:0
-      }],//想看
-  readed :[{
-      id:ObjectId,
-      schedule:0
-      }],//看过
-  reading :[{
-      id:ObjectId,
-      schedule:0
-      }]//正在看
+  wish :[{type:String,ref:'Book'}],//想看
+  readed :[{type:String,ref:'Book'}],//看过
+  reading :[{type:String,ref:'Book'}]//正在看
 },{
     collection:'users'
 });
@@ -72,6 +63,9 @@ User.get = function(name,callback){
     userModel.findOne({name:name})
     // .populate('userId')
     .populate('bookId')
+    .populate('wish')
+    .populate('reading')
+    .populate('readed')
     .exec(function(err, user){
         if(err){
             return callback(err);
@@ -107,6 +101,7 @@ User.pushwish = function(name, bookId, callback){
         if(err){
             return callback(err)
         }
+        console.log(numeffect);
         callback(null, numeffect);
     });
 };

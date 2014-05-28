@@ -6,6 +6,43 @@ block content
 		h1= title
 		-if(error)
 			h1=error
+		.mybook
+			.title 我上传的书
+				a(href='/book/upbook') +添加一本书
+			.content
+				-if(user.bookId.length)
+					ul
+						-for(var i = 0, j = user.bookId.length; i < j; i++)
+							li
+								a.mr10(href='/book/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
+								a.mr10(href='/book/upbookDescribe/#{user.bookId[i]._id}',title='修改描述') 修改描述
+								a.mr10.deleteAll(href='/book/bookDescribe/delete/#{user.bookId[i]._id}',title='删除此书') 删除此书
+								a.mr10(href='/book/upbookContent/#{user.bookId[i]._id}',title='修改内容') 修改内容
+								a.mr10.deleteCon(href='/book/bookContent/delete/#{user.bookId[i]._id}',title='清空内容') 清空内容
+								a.mr10.deleteCon(href='/book/bookContent/add/#{user.bookId[i]._id}',title='追加内容') 追加内容还没实现？ 
+				-else
+					p 暂时还没有上传书籍
+		.mywish
+			.title 我喜欢读的
+			-if(user.wish.length)
+			ul
+				-for(var i = 0, j = user.wish.length; i < j; i++)
+					li
+						a.mr10(href='/book/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
+		.myreaded
+			.title 我读过的书
+			-if(user.readed.length)
+			ul
+				-for(var i = 0, j = user.readed.length; i < j; i++)
+					li
+						a.mr10(href='/book/#{user.readed[i]._id}',title='#{user.readed[i].name_zh}') #{user.readed[i].name_zh}
+		.myreading
+			.title 我正在读的
+			-if(user.reading.length)
+			ul
+				-for(var i = 0, j = user.reading.length; i < j; i++)
+					li
+						a.mr10(href='/book/#{user.reading[i]._id}',title='#{user.reading[i].name_zh}') #{user.reading[i].name_zh}
 		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
 			progress#progressBar(value='0',max='100')
 			span#percentage
@@ -46,7 +83,4 @@ block content
 					|保密
 			br
 			input#postperInfo(type='button',value='提交')
-		.mybook
-			a(href='/book/mybook') 我上传的书
-			a(href='/user/mywish') 我喜欢读的
 		script(src='/javascripts/page/page.js')

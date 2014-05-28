@@ -61,8 +61,6 @@ Book.prototype.save = function(callback) {
         ,reading:0
         ,readed:0
         ,bookContent:temp
-		//ISBN : this.ISBN,
-		//author : this.author,
 	};
     var newBook = new bookModel(book);
 	
@@ -105,7 +103,9 @@ Book.getMywish= function(mywishBook, callback){
 };
 //读取文章及其相关信息
 Book.getOne = function(id, callback){
-	bookModel.findOne({_id:id},function(err,book){
+	bookModel.findOne({_id:id})
+    .populate('bookContent')
+    .exec(function(err,book){
         if(err){
             return callback(err);
         }

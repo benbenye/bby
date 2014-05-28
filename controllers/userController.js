@@ -84,22 +84,20 @@ function UserController(){
 
     this.getperInfo = function(req, res){
         User.get(req.session.user.name,function(err, user){
+            //获取个人信息
             if(err){
-                //res.flash();//丰富一下
                 return console.log(err.message);
             }
+
+            //图片二进制转换
             var avatar = user.avatar.data.toString('base64');
-            console.log(avatar);
+
             res.render('user/perInfo',{
                 title:'个人中心',
-                user:user,
-                avatar:avatar,
+                user:user,//个人信息
+                avatar:avatar,//头像
                 error:req.flash('error').toString()
             });
-              /*  res.set({
-                    "Content-Type" : "image/"+user.avatar.contentType
-                });
-                res.send(user);*/
          });
     };
 
@@ -154,9 +152,11 @@ function UserController(){
             };
         User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
             if(err){
+        console.log(numeffect);
                 res.send({ok:0,err:err});
             }
             if(numeffect === 1){
+        console.log(numeffect);
                 res.send({ok:1});//插入成功
             }
             });
@@ -209,7 +209,7 @@ function UserController(){
             });
         };
     
-    this.getmywish = function(req, res){
+/*    this.getmywish = function(req, res){
         User.get(req.session.user.name,function(err, user){
             if(err){
                 return console.log(err.message);
@@ -223,7 +223,7 @@ function UserController(){
                 });
             });
         };
-
+*/
     //个人页面
     this.getUserInfor = function(req, res){
         // User.get(),需要一个新的jade视图显示个人页面

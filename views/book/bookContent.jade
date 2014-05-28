@@ -2,23 +2,23 @@ extends ../layout
 block content
 	.main-content
 		h2=name
-		.bookContent#bookContent
-			-if(bookContent)
+		.book#book
+			-if(book.bookContent != null)
 				h2
 					a#comment-btn(href='javascript:;',target='_blank') 我要写书评
-				-for(var i = 0; i < bookContent.contents.length; ++i)
-					.page(data-page=i+1) !{bookContent.contents[i].content}
-						a(href='/book/upbookContent/'+bookContent._id+'/'+(i+1)) 修改本页
+				-for(var i = 0; i < book.bookContent.contents.length; ++i)
+					.page(data-page=i+1) !{book.bookContent.contents[i].content}
+						a(href='/book/upbookContent/'+book._id+'/'+(i+1)) 修改本页
 			-else if(user === null)
-				p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
-				a(href='') 提醒TA上传
-			-else
-				p 这本书还没有内容
+					p 这本书的贡献者还没有来得及上传内容哦～（拦截信息没有显示）
+					a(href='') 提醒TA上传
+				-else
+					p 这本书还没有内容
 			-if(error)
 				p=error
 		.comment.none
 			form#comment(method='get',action='/book/comment')
-				input#bookId(type='hidden',value='#{bookContent._id}',name='bookId')
+				input#bookId(type='hidden',value='#{book._id}',name='bookId')
 				input#userId(type='hidden',value='#{user._id}',name='userId')
 				label
 					标题：

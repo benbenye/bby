@@ -36,8 +36,8 @@ function BookController(){
     this.getmybook = function(req, res){
         Book.getList(req.session.user.name,function(err,book){
             if(err){
-                res.flash();
-                return callback(err);
+                // res.flash();
+                return console.log(err.message);
             }
             res.render('book/mybook',{
                 title:'书籍页面',
@@ -236,14 +236,15 @@ function BookController(){
     };
     
     this.getbookContentByid = function(req, res){
-        BookContent.getOne(req.params.id,function(err,bookContent){
+        Book.getOne(req.params.id,function(err,book){
             if(err){
                 res.flash();
                 return callback(err);
             }
+            console.log(book);
             res.render('book/bookContent',{
                 title:'书籍内容',
-                bookContent:bookContent,
+                book:book,
                 user:req.session.user,
                 error:req.flash('error').toString()
             });
