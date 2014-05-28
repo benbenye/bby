@@ -4,7 +4,10 @@ html
 	body
 		.left-content
 			.perinfo.tc.mt30.mb30
-				-if(user.avatar._id != undefined)
+				.s=user
+				-for(var s in user)
+					.s=s
+				-if(0)
 					img.avatar-120(src='data:image/#{user.avatar.type};base64,#{avatar}')
 				-else
 					img.avatar-120(src='/images/default/avatar.jpg')

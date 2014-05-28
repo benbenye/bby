@@ -95,11 +95,12 @@ function UserController(){
             }else{
                 var avatar = user.avatar.data.toString('base64');
             }
+            
+            req.session.user = user;
 
             res.render('user/perInfo',{
                 title:'个人中心',
                 user:user,//个人信息
-                avatar:avatar,//头像
                 error:req.flash('error').toString()
             });
          });

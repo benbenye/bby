@@ -1,5 +1,6 @@
 ﻿var BookController = new  BookController(),
-    crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码    
+    crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码  
+    GetPerInfo = require('../common/getPerInfo.js'),  
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
     BookContent = require('../models/bookContent.js'),
@@ -14,14 +15,19 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
-            res.render('index',{
-                title:'主页',
-                user:req.session.user,
-                books:book,
-                success:req.flash('success').toString(),
-                success_out:req.flash('success_out').toString(),
-                error:req.flash('error').toString(),
+            // console.log(new GetPerInfo(req.session.user.name));
+            GetPerInfo(req.session.user.name, function (user) {
+            console.log(user);
+                res.render('index',{
+                    title:'主页',
+                    user:user,
+                    books:book,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                });
             });
+            
         });
     };
     
@@ -216,7 +222,6 @@ function BookController(){
                 content : pages[i]
             }
         }
-        console.log(contents);
         BookContent.additionContents(req.body.id, contents, function(err){
             if(err)
                 console.log(err);
@@ -285,6 +290,7 @@ function BookController(){
             }else{
                 res.render('book/editPage',{
                     id:id,
+                    user:req.session.user,
                     page:page,
                     content:pageContent.contents[page-1].content
                 });  

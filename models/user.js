@@ -70,7 +70,6 @@ User.get = function(name,callback){
         if(err){
             return callback(err);
         }
-        console.log(user);
         callback(null, user);
     });
 };
