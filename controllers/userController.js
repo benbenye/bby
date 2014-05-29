@@ -1,4 +1,5 @@
 ﻿var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
+    GetPerInfo = require('../common/getPerInfo.js'),  
     UserController = new  UserController(),
     User = require('../models/user.js'),
     UserAvatar = require('../models/userAvatar.js'),
@@ -83,31 +84,19 @@ function UserController(){
     };
 
     this.getperInfo = function(req, res){
-        User.get(req.session.user.name,function(err, user){
-            //获取个人信息
-            if(err){
-                return console.log(err.message);
-            }
-
-            //图片二进制转换
-            if(user.avatar._id == undefined) { 
-                var avatar = {};
-            }else{
-                var avatar = user.avatar.data.toString('base64');
-            }
-            
-            req.session.user = user;
-
+        GetPerInfo(req.session.user.name, function (user) {
             res.render('user/perInfo',{
                 title:'个人中心',
-                user:user,//个人信息
-                error:req.flash('error').toString()
+                user:user,
+                success:req.flash('success').toString(),
+                success_out:req.flash('success_out').toString(),
+                error:req.flash('error').toString(),
             });
-         });
+        });
     };
 
     //然后根据ID获取用户头像
-    this.getUserAvatarByid = function (req, res) {
+/*    this.getUserAvatarByid = function (req, res) {
         UserAvatar.getOne(req.params.id, function (err, avatar) {
             if(avatar === null){
                 res.send({state:0});
@@ -117,14 +106,16 @@ function UserController(){
             }
         });
     };
-
+*/
     this.postperInfo = function(req, res){
         var newperInfo = new User({
             name:req.body.user_name,
             email:req.body.user_email,
             sex:req.body.user_sex
         });
-        User.edit(req.session.user.name, newperInfo, function(err, numeffect){//修改逻辑有问题
+        User.edit(req.session.user.name, newperInfo, function(err, numeffect){
+            //修改逻辑有问题
+            //不能提供用户名的修改
             if(err){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
                 return res.redirect('/user/perInfo');

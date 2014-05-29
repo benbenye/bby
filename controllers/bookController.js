@@ -15,9 +15,7 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
-            // console.log(new GetPerInfo(req.session.user.name));
             GetPerInfo(req.session.user.name, function (user) {
-            console.log(user);
                 res.render('index',{
                     title:'主页',
                     user:user,

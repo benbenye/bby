@@ -48,12 +48,12 @@ BookComment.prototype.save = function(callback) {
         useless:0,
         datetime:time.day
 	};
-    console.log(bookComment.datetime);
     var newbookComment = new bookCommentModel(bookComment);
     newbookComment.save(function(err, bookComment){
         if(err){
             return callback(err);
         }
+        console.log(bookComment.comment);
         callback(null, bookComment);
     });
 };
@@ -67,18 +67,10 @@ BookComment.getAllList = function(callback){
     .sort('-userId')
     .limit(10)
     .exec(function(err, bookComment) {
-        var options = {
-            path:'userId.avatar',
-            model:'User'
+        if(err){
+            return callback(err);
         }
-        console.log(bookComment);
-        bookCommentModel.populate(bookComment, options, function(err, data){
-            if(err){
-                return callback(err);
-            }
-            console.log(data);
-            callback(null, data);
-        });
+        callback(null, bookComment);
     });
 };
 

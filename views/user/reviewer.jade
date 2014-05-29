@@ -6,10 +6,10 @@ block content
 			-for (var i = bookComment.length - 1; i >= 0; --i)
 				li.mr10
 					a.avatar(href='/user/#{bookComment[i].userId.name}')
-						-if(avatar)
-							img(src='/images/avatar/#{bookComment[i].userId._id}')
+						-if(bookComment[i].userId.avatar.dataNull == undefined)
+							img(src='data:image/#{user.avatar.type};base64,#{bookComment[i].userId.avatar.dataStr}')
 						-else
-							img.fl.avatar(src='../images/default/avatar.png')
+							img.fl.avatar(src='/images/default/avatar.png')
 					.userInfo
 						a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
 						p 评论《#{bookComment[i].bookId.name_zh}》
