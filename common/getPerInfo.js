@@ -6,9 +6,8 @@ function GetPerInfo (name, cb) {
 	    if(err){
 	        return console.log(err.message);
 	    }
-	    console.log(user);
-	    //图片二进制转换
 	    
+	    //图片二进制转换
 		if(user.avatar.data == undefined) { 
             user.avatar.dataNull = null;
         }else{

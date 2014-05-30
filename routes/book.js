@@ -6,19 +6,18 @@ var BookController = require('../controllers/bookController.js'),
     CheckController = require('../controllers/checkController.js');
 
 module.exports = function(app){
-    
-    /**
-     * 进入首页
-     */
+
+    //新书速递,实体书 进入首页
+    app.get('/', CheckController.checkNotLogin);
+    app.get('/', BookController.getpaperbook);
+
+    app.get('/getuppaperBook', BookController.getuppaperBook);
+    app.get('/uppaperBook', BookController.uppaperBook);
+
+    //最新连载
     app.get('/book/serial', BookController.getindex);
 
-    /*个人书籍页面
-    *我上传的，我想读的，我读过的，正在看的
-    */
-    app.get('/book/book', CheckController.checkNotLogin);
-    app.get('/book/book',BookController.getbook);
-
-    /*我上传的书
+    /*
     *我上传过的书
     */
     app.get('/book/mybook',  CheckController.checkNotLogin);
@@ -77,10 +76,6 @@ module.exports = function(app){
     //查看书籍内容(无需登录验证)
     app.get('/book/bookContent/:id', CheckController.checkNotLogin);
     app.get('/book/bookContent/:id', BookController.getbookContentByid);
-
-    //新书速递,实体书
-    app.get('/book/paperbook', CheckController.checkNotLogin);
-    app.get('/book/paperbook', PaperBookController.getpaperbook);
     
     //查看书籍描述(无需登录验证)
     app.get('/book/:id', CheckController.checkNotLogin);

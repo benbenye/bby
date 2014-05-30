@@ -32,22 +32,22 @@ var paperbookSchema = new paperbookSchema({
 var paperbookModel = mongoose.model('PaperBook', paperbookSchema);// all environments
 function PaperBook(paperBook) {
     this.publisher = paperBook.publisher;
-    this.press = paperBook.press;
-	this.name_zh = paperBook.name_zh;
+    this.press = paperBook.press;//出版社
+	this.name_zh = paperBook.name_zh;//书名
     this.ISBN = paperBook.ISBN;
-	this.author = paperBook.author;
-    this.translator = paperBook.translator;
-    this.tags = paperBook.tags;
-    this.authorIntro = paperBook.authorIntro;
-    this.contIntro = paperBook.contIntro;
-    this.releaseTime = paperBook.releaseTime;
-    this.publisTime = paperBook.publisTime;
-    this.want = paperBook.want;
-    this.reading = paperBook.reading;
-    this.readed = paperBook.readed;
-    this.pages = paperBook.pages;
-    this.price = paperBook.price;
-    this.layout = paperBook.layout;
+	this.author = paperBook.author;//作者
+    this.translator = paperBook.translator;//译者
+    this.tags = paperBook.tags;//标签
+    this.authorIntro = paperBook.authorIntro;//作者简介
+    this.contIntro = paperBook.contIntro;//内容简介
+    this.releaseTime = paperBook.releaseTime;//出版时间
+    this.publisTime = paperBook.publisTime;//发布时间
+    this.want = paperBook.want;//想读人数
+    this.reading = paperBook.reading;//在读人数
+    this.readed = paperBook.readed;//渡过人数
+    this.pages = paperBook.pages;//页数
+    this.price = paperBook.price;//定价
+    this.layout = paperBook.layout;//装帧
 };//paperBook 构造函数，对新创建的对象进行初始化 
 
 
@@ -64,88 +64,69 @@ PaperBook.prototype.save = function(callback) {
 	}
 	//要存入数据库的文档
 	var pagerBook = {
-        ,publisher:this.publisher
-        ,userId:this.userId
-		,name_zh : this.name_zh
-		,time : time
-        ,tags:this.tags
-        ,intro:this.intro
-        ,want:0
-        ,reading:0
-        ,readed:0
-        ,bookContent:temp
+        publisher:this.publisher,
+        press: this.press,
+        name_zh: this.name_zh,
+        ISBN: this.ISBN,
+        author: this.author,
+        translator: this.translator,
+        tags: this.tags,
+        authorIntro: this.authorIntro,
+        contIntro: this.contIntro,
+        releaseTime: this.releaseTime,
+        publisTime: this.publisTime,
+        want: this.want,
+        reading: this.reading,
+        readed: this.readed,
+        pages: this.pages,
+        price: this.price,
+        layout: this.layout
 	};
-    var newBook = new bookModel(book);
+    var newpaperBook = new paperbookModel(pagerBook);
 	
-    newBook.save(function(err, book){
+    newpaperBook.save(function(err, paperBook){
         if(err){
             return callback(err);
         }
-        callback(null, book);
+        callback(null, paperBook);
     });
 };
-//读取文章及其相关信息
-Book.getAllList = function(callback){
-	bookModel.find()
-    .populate('bookContent')
-    .exec(function(err,book){
+//读取纸质书信息
+PaperBook.getAllList = function(callback){
+	paperbookModel.find()
+    .limit(10)
+    .exec(function(err,paperBook){
         if(err){
             return callback(err);
         }
-        console.log(book);
-        callback(null, book);//book数组
+        callback(null, paperBook);//paperbook数组
     });
 };
-//读取文章及其相关信息
-Book.getList = function(name, callback){
-	bookModel.find({publisher:name},function(err,book){
+
+
+//读取纸质书详细信息
+PaperBook.getOne = function(id, callback){
+	paperbookModel.findOne({_id : id})
+    .exec(function(err, paperBook){
         if(err){
             return callback(err);
         }
-        callback(null, book);//book数组
+        callback(null, paperBook);
     });
 };
-//读取我想看的书
-Book.getMywish= function(mywishBook, callback){
-	bookModel.find({_id:{$in:mywishBook}},function(err,book){
-        if(err){
-            return callback(err);
-        }
-        callback(null, book);//book数组
-    });
-};
-//读取文章及其相关信息
-Book.getOne = function(id, callback){
-	bookModel.findOne({_id:id})
-    .populate('bookContent')
-    .exec(function(err,book){
-        if(err){
-            return callback(err);
-        }
-        callback(null, book);
-    });
-};
-// 修改图书封面
-Book.editCover = function(id, cover, callback){
-	bookModel.findOne({_id:id}, { $set : { cover : cover }}, function(err, numeffect){
+
+//修改图书信息
+PaperBook.edit = function(id, book, callback){
+    paperbookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(','),intro:book.intro}},function(err, numeffect){
         if(err){
             return callback(err);
         }
         callback(null, numeffect);
     });
 };
-//修改图书描述
-Book.edit = function(id, book, callback){
-    bookModel.update({_id:id},{$set:{name_zh:book.name_zh,tags:book.tags.split(','),intro:book.intro}},function(err, numeffect){
-        if(err){
-            return callback(err);
-        }
-        callback(null, numeffect);
-    });
-};
-//清空书籍内容
-Book.remove = function(id, callback){
-    bookModel.findByIdAndRemove(id, function(err){
+//删除图书
+PaperBook.remove = function(id, callback){
+    paperbookModel.findByIdAndRemove(id, function(err){
         if(err){
             return callback(err);
         }
@@ -153,4 +134,4 @@ Book.remove = function(id, callback){
     });
 };
 
-module.exports = Book;
+module.exports = PaperBook;

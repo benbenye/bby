@@ -1,0 +1,46 @@
+extends ../layout
+block content
+	.main-content
+		h2 #{title}
+		form(method='get',action='/uppaperBook',enctype='multipart/form-data')
+			input(type='hidden',value='#{user.userId}')
+			p
+				label 书名：
+					input(type="text")
+			p
+				label 作者：
+					input(type="text")
+			p
+				label 译者：
+					input(type="text")
+			p
+				label 出版社：
+					input(type="text")
+			p
+				label ISBN：
+					input(type="text")
+			p
+				label 标签：
+					input(type="text")
+			p
+				label 作者简介：
+					input(type="text")
+			p
+				label 内容简介：
+					input(type="text")
+			p
+				label 出版时间：
+					input(type="text")
+			p
+				label 页数：
+					input(type="text")
+			p
+				label 定价：
+					input(type="text")
+			p
+				label 装帧：
+					input(type="text")
+			p
+				label 封皮：
+					input#cover(type='file',name='cover')
+			input(type="submit",value="提交")

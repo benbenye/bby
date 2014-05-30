@@ -1,8 +1,10 @@
 ﻿var BookController = new  BookController(),
     crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码  
+    fs = require('fs'),
     GetPerInfo = require('../common/getPerInfo.js'),  
     User = require('../models/user.js'),
     Book = require('../models/book.js'),
+    PaperBook = require('../models/paperBook.js'),
     BookContent = require('../models/bookContent.js'),
     BookCover = require('../models/bookCover.js'),
     BookComment = require('../models/bookComment.js'),
@@ -26,14 +28,6 @@ function BookController(){
                 });
             });
             
-        });
-    };
-    
-    this.getbook = function(req, res){        
-        res.render('book/book',{
-            title:'书籍页面',
-            user:req.session.user,
-            success:req.flash('success').toString()
         });
     };
     
@@ -82,9 +76,10 @@ function BookController(){
     };
 
     this.postupbookCover = function (req, res) {
-        var fs = require('fs'),
-            cover = {data: fs.readFileSync(req.files.cover.path),
-                    contentType: req.files.cover.type},
+        var cover = {
+                data: fs.readFileSync(req.files.cover.path),
+                contentType: req.files.cover.type
+            },
             id = req.body.bookId;
         BookCover.edit(id, cover, function (err, numeffect) {
             if (err) {
@@ -241,7 +236,7 @@ function BookController(){
     this.getbookContentByid = function(req, res){
         Book.getOne(req.params.id,function(err,book){
             if(err){
-                res.flash();
+                req.flash();
                 return callback(err);
             }
             console.log(book);
@@ -257,8 +252,8 @@ function BookController(){
     this.getbookByid = function(req, res){
         Book.getOne(req.params.id,function(err,book){
             if(err){
-                res.flash();
-                return callback(err);
+                req.flash('err').toString();
+                return console.log(err.message);
             }
             res.render('book/bookDescribe',{
                 title:'书籍页面',
@@ -311,5 +306,78 @@ function BookController(){
             }
         });
     }
+
+    /******************************************************/
+
+    //
+    this.getuppaperBook = function(req, res){
+        GetPerInfo(req.session.user.name, function (user) {
+            res.render('book/uppaperBook',{
+                title:'上传新书',
+                user:user,
+                success:req.flash('success').toString(),
+                success_out:req.flash('success_out').toString(),
+                error:req.flash('error').toString(),
+            });
+        });
+    };
+
+    //图书上传
+    this.uppaperBook = function (req, res){
+        var paperCover = {
+                data: fs.readFileSync(req.files.cover.path),
+                contentType: req.files.cover.type
+            };
+        var newpaperBook = new PaperBook({
+            publisher : req.body.publisher,
+            press : req.body.press,
+            name_zh : req.body.name_zh,
+            ISBN : req.body.ISBN,
+            author : req.body.author,
+            translator : req.body.translator,
+            tags : req.body.tags,
+            authorIntro : req.body.authorIntro,
+            contIntro : req.body.contIntro,
+            releaseTime : req.body.releaseTime,
+            publisTime : req.body.publisTime,
+            want : req.body.want,
+            reading : req.body.reading,
+            readed : req.body.readed,
+            pages : req.body.pages,
+            price : req.body.price,
+            layout : req.body.layout,
+            cover : paperCover 
+        });
+
+        newpaperBook.save(function(err, paperBook){
+            if(err){
+                return console.log(err.message);
+            }
+            res.redirect('/book/paperbook');
+        });
+    };
+
+    //修改图书
+
+    //获取所有图书
+    this.getpaperbook = function(req, res){
+        PaperBook.getAllList(function(err, paperBook){
+            if(err){
+                return console.log(err.message);
+            }
+            GetPerInfo(req.session.user.name, function (user) {
+                res.render('book/paperBook',{
+                    title:'新书速递',
+                    user:user,
+                    paperBook:paperBook,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                });
+            });
+        });
+    };
+
+    //读取单个图书详细信息
 }
 module.exports = BookController;
