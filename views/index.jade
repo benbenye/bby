@@ -20,5 +20,6 @@ block content
 							img.cover(src='/images/books/#{books[index]._id}')
 							h3.title
 								a(href='/book/#{books[index]._id}') #{books[index].name_zh}
+								a(href='') 修改新书信息[仅管理员可见]
 							.intro #{books[index].intro}
 							.time #{books[index].bookContent._time.minute}

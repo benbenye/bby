@@ -2,45 +2,76 @@ extends ../layout
 block content
 	.main-content
 		h2 #{title}
-		form(method='get',action='/uppaperBook',enctype='multipart/form-data')
+		form(method='post',action='/uppaperBook',enctype='multipart/form-data')
 			input(type='hidden',value='#{user.userId}')
 			p
 				label 书名：
-					input(type="text")
+					input(class="selectize-input",type="text",name="name_zh")
 			p
 				label 作者：
-					input(type="text")
+					input(class="selectize-input",type="text",name="author")
 			p
 				label 译者：
-					input(type="text")
+					input(class="selectize-input",type="text",name="translator")
 			p
 				label 出版社：
-					input(type="text")
+					input(type="text",name="press",id="publish")
 			p
 				label ISBN：
-					input(type="text")
+					input(class="selectize-input",type="text",name="ISBN")
 			p
 				label 标签：
-					input(type="text")
+					input(class="selectize-input",type="text",name="tags")
 			p
 				label 作者简介：
-					input(type="text")
+					input(class="selectize-input",type="text",name="authorIntro")
 			p
 				label 内容简介：
-					input(type="text")
+					input(class="selectize-input",type="text",name="contIntro")
 			p
 				label 出版时间：
-					input(type="text")
+					input(class="selectize-input",type="date",name="releaseTime")
 			p
 				label 页数：
-					input(type="text")
+					input(class="selectize-input",type="text",name="pages")
 			p
 				label 定价：
-					input(type="text")
+					input(class="selectize-input",type="text",name="price")
 			p
 				label 装帧：
-					input(type="text")
+					input(class="selectize-input",type="text",name="layout")
 			p
 				label 封皮：
-					input#cover(type='file',name='cover')
+					input#class="selectize-input",cover(type='file',name='cover')
 			input(type="submit",value="提交")
+			script.
+				$('#publish').selectize({
+					create: true,
+					valueField:'text',
+					// sortField: {field: 'text',direction: 'asc'},
+					options:[
+						{text:'北京出版社'},
+						{text:'长春出版社'},
+						{text:'重庆出版社'},
+						{text:'湖南人民出版社'},
+						{text:'江苏人民出版社'},
+						{text:'解放军出版社'},
+						{text:'商务印书馆'},
+						{text:'外文出版社'},
+						{text:'学习出版社'},
+						{text:'知识产权出版社'},
+						{text:'中国财政经济出版社'},
+						{text:'中信出版社'},
+						{text:'机械工业出版社'},
+						{text:'人民邮电出版社'},
+						{text:'北京大学出版社'},
+						{text:'中国政法大学出版社'},
+						{text:'高等教育出版社'},
+						{text:'国家图书馆出版社'},
+						{text:'中华书局'},
+						{text:'作家出版社'},
+						{text:'浙江摄影出版社'},
+						{text:'译林出版社'},
+						{text:'上海译文出版社'},
+						{text:'人民文学出版社'}],
+					dropdownParent: 'body',maxItems:1});

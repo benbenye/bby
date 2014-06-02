@@ -329,7 +329,7 @@ function BookController(){
                 contentType: req.files.cover.type
             };
         var newpaperBook = new PaperBook({
-            publisher : req.body.publisher,
+            publisher : req.session.user.userId,
             press : req.body.press,
             name_zh : req.body.name_zh,
             ISBN : req.body.ISBN,
@@ -339,10 +339,6 @@ function BookController(){
             authorIntro : req.body.authorIntro,
             contIntro : req.body.contIntro,
             releaseTime : req.body.releaseTime,
-            publisTime : req.body.publisTime,
-            want : req.body.want,
-            reading : req.body.reading,
-            readed : req.body.readed,
             pages : req.body.pages,
             price : req.body.price,
             layout : req.body.layout,
@@ -353,7 +349,7 @@ function BookController(){
             if(err){
                 return console.log(err.message);
             }
-            res.redirect('/book/paperbook');
+            res.redirect('/');
         });
     };
 

@@ -12,7 +12,7 @@ module.exports = function(app){
     app.get('/', BookController.getpaperbook);
 
     app.get('/getuppaperBook', BookController.getuppaperBook);
-    app.get('/uppaperBook', BookController.uppaperBook);
+    app.post('/uppaperBook', BookController.uppaperBook);
 
     //最新连载
     app.get('/book/serial', BookController.getindex);
