@@ -1,14 +1,47 @@
 body {
   padding: 50px;
   font-family: "Microsoft Yahei","冬青黑体简体中文 w3";
+  letter-spacing:5;
   /*height: 1000px;*/
 }
 a {
   color: #00b7ff; text-decoration: none;
 }
 
-.none{display: none;}
-.main-content h2{margin-bottom: 30px;}
+.none{
+	display: none;
+}
+.main-content h2{
+	margin-bottom: 30px;
+}
+.btn{
+	font-family: "Microsoft Yahei","冬青黑体简体中文 w3";
+	background: #1b9dec;
+	border: none;
+	color: #fff;
+	padding: 8px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	background-image: -moz-linear-gradient(top, #1da7ee, #178ee9);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1da7ee), to(#178ee9));
+	background-image: -webkit-linear-gradient(top, #1da7ee, #178ee9);
+	background-image: -o-linear-gradient(top, #1da7ee, #178ee9);
+	background-image: linear-gradient(to bottom, #1da7ee, #178ee9);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff1da7ee', endColorstr='#ff178ee9', GradientType=0);
+	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),inset 0 1px rgba(255,255,255,0.03);
+	box-shadow: 0 1px 0 rgba(0,0,0,0.2),inset 0 1px rgba(255,255,255,0.03);
+}
+.btn:hover{
+	background-color: #0085d4;
+	background-image: -moz-linear-gradient(top, #008fd8, #0075cf);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#008fd8), to(#0075cf));
+	background-image: -webkit-linear-gradient(top, #008fd8, #0075cf);
+	background-image: -o-linear-gradient(top, #008fd8, #0075cf);
+	background-image: linear-gradient(to bottom, #008fd8, #0075cf);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008fd8', endColorstr='#ff0075cf', GradientType=0);
+}
 
 /*头像尺寸*/
 .avatar{width: 76px; height: 76px; border: 0; vertical-align: top;}
@@ -32,7 +65,7 @@ a {
 
 /*book List*/
 .serial{font-size: 14px;}
-.serial li{display: inline-block; *display: inline; *zoom: 1; width: 160px; margin-right: 10px;}
+.serial li{display: inline-block; *display: inline; *zoom: 1; width: 160px; margin-right: 10px; vertical-align: top;}
 .serial li .title{font-size: 16px;}
 .serial li .title a:hover{color: #fff; background: #0590C7;}
 .serial li .intro{color: #666;}
@@ -46,10 +79,21 @@ a {
 .reviewer li .userInfo{margin-left: 110px;}
 
 /*paperbook list*/
-.paperBook li{display: inline-block; *display: inline; *zoom: 1; position: relative;}
+.paperBook li{display: inline-block; *display: inline; *zoom: 1; position: relative; margin-right: 30px; margin-bottom: 40px; vertical-align: top;}
 .paperBook li .delete{position: absolute; right: 0; top: 0; cursor: pointer;}
-.paperBook li .cover{margin-right: 20px; float: left;}
-.paperBook li .info{margin-left: 130px;}
+.paperBook li .cover{float: left;}
+.paperBook li .info{margin-left: 125px; width: 160px; font-size: 14px;}
 
-/*后台上传表单样式*/
+/*paperbook content*/
+.paperBookCont{display: inline-block; font-size: 14px;}
+.paperBookContIntro .title{margin-top: 20px; color: #95a153;}
+.paperBookContIntro p{font-size: 14px;}
+.paperBookCont .cover{float: left;}
+.paperBookCont .paperBookIntro{margin-left: 125px;}
+.tags span{margin-right: 20px;}
+
+/*表单样式
+*登录 注册 后台上传 表单宽度一致
+*/
 .form{width: 240px;}
+.login,.reg{margin-top: 20px; float: right;}

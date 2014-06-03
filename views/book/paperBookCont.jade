@@ -1,0 +1,27 @@
+﻿extends ../layout
+block content
+	.main-content
+		h1=paperBook.name_zh
+		-if(success)
+			h2.f18.fb=success
+		.paperBookCont
+			img.cover(src='data:#{paperBook.cover.contentType};base64,#{paperBook.cover.data.toString("base64")}')
+			.paperBookIntro
+				.author 作者：#{paperBook.author}
+				-if(paperBook.translator != '')
+					.translator 译者：#{paperBook.translator}
+				.press 出版社：#{paperBook.press}
+				.releaseTime 出版年：#{paperBook.releaseTime}
+				.price 定价：#{paperBook.price}元
+				.layout 装帧：#{paperBook.layout}
+				.isbn ISBN：#{paperBook.ISBN}
+		.paperBookContIntro
+			h2.title 作者简介......
+			.authorIntro
+				p #{paperBook.authorIntro}
+			h2.title 内容简介......
+			.contIntro
+				p #{paperBook.contIntro}
+		.tags 标签：
+			-for(var i = 0, j = paperBook.tags.length; i <= j; i++)
+				span #{paperBook.tags[i]}

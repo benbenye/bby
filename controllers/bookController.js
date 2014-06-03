@@ -335,7 +335,7 @@ function BookController(){
             ISBN : req.body.ISBN,
             author : req.body.author,
             translator : req.body.translator,
-            tags : req.body.tags,
+            tags : req.body.tags.split(','),
             authorIntro : req.body.authorIntro,
             contIntro : req.body.contIntro,
             releaseTime : req.body.releaseTime,
@@ -354,6 +354,16 @@ function BookController(){
     };
 
     //修改图书
+
+    // 删除图书
+    this.removepaperBook = function(req, res){
+        PaperBook.remove(req.query.bookId, function(err){
+            if(err){
+                return console.log(err.message);
+            }
+            res.send({ok:1});
+        });
+    };
 
     //获取所有图书
     this.getpaperbook = function(req, res){
@@ -375,5 +385,22 @@ function BookController(){
     };
 
     //读取单个图书详细信息
+    this.getpaperbookByid = function(req, res){
+        PaperBook.getOne(req.params.id, function(err, paperBook){
+            if(err){
+                return console.log(err.message);
+            }
+            console.log(paperBook);
+            GetPerInfo(req.session.user.name, function (user) {
+                res.render('book/paperBookCont',{
+                    user:user,
+                    paperBook:paperBook,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                });
+            });
+        });
+    };
 }
 module.exports = BookController;

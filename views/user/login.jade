@@ -1,15 +1,14 @@
 ﻿extends ../layout
 block content
 	.main-content
-		h1=title
-		p Welcom to #{title}
+		h2=title
 		-if(error)
 			h1=error
-		form(method='post',action='')
-			label 用户名：
-			input(type='text',name='name')
+		form.form(method='post',action='')
+			label
+				input.selectize-input(type='text',name='name',placeholder='用户名')
 			br
-			label 密码：
-			input(type='password',name='password')
+			label
+				input.selectize-input(type='password',name='password',placeholder='密码')
 			br
-			input(type='submit')
+			input.btn.login(type='submit',value='立即登录')

@@ -7,17 +7,29 @@ block content
 		ul.paperBook
 			-for(var index = paperBook.length - 1; index >= 0; --index)
 				li
-					.btn.delete(paper-id="#{paperBook[index]._id}") ×
+					-if(user.name == 'name')
+						.btn.delete(paper-id="#{paperBook[index]._id}") ×
 					-if(paperBook[index].cover.data == undefined)
 						img.cover(src='/images/default/avatar.jpg')
 					-else
 						img.cover(src='data:#{paperBook[index].cover.contentType};base64,#{paperBook[index].cover.data.toString("base64")}')
 					.info
 						h3.title
-							a(href='/book/#{paperBook[index]._id}') #{paperBook[index].name_zh}
+							a(href='/paperbook/#{paperBook[index]._id}') #{paperBook[index].name_zh}
 							-if(user.name == 'name')
 								br
-								a(href='') 修改新书信息[仅管理员可见]
-						.author #{paperBook[index].author}
-						.press #{paperBook[index].press}
-						.releaseTime #{paperBook[index].releaseTime}
+								a(href='/edit/#{paperBook[index]._id}') 修改新书信息[仅管理员可见]
+						.author 作者：#{paperBook[index].author}
+						.press 出版社：#{paperBook[index].press}
+						.releaseTime 出版年：#{paperBook[index].releaseTime}
+		script.
+			$('.delete').click(function(){
+				var bookId = $(this).attr('paper-id'),
+					$delete = $(this);
+				$.get('/delete/'+bookId,{bookId:bookId},function(data){
+					if(data.ok){
+						alert('删除成功');
+						$delete.parent('li').detach();
+					}
+				},'json');
+			});

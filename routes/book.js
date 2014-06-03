@@ -11,8 +11,12 @@ module.exports = function(app){
     app.get('/', CheckController.checkNotLogin);
     app.get('/', BookController.getpaperbook);
 
+    // 进入后台上传页面
     app.get('/getuppaperBook', BookController.getuppaperBook);
+    // 提交paperbook内容
     app.post('/uppaperBook', BookController.uppaperBook);
+    // 删除一本paperbook
+    app.get('/delete/:id', BookController.removepaperBook);
 
     //最新连载
     app.get('/book/serial', BookController.getindex);
@@ -78,8 +82,12 @@ module.exports = function(app){
     app.get('/book/bookContent/:id', BookController.getbookContentByid);
     
     //查看书籍描述(无需登录验证)
-    app.get('/book/:id', CheckController.checkNotLogin);
-    app.get('/book/:id', BookController.getbookByid);
+    app.get('/serial/:id', CheckController.checkNotLogin);
+    app.get('/serial/:id', BookController.getbookByid);
+
+    //查看paperbook(无需登录验证)
+    app.get('/paperbook/:id', CheckController.checkNotLogin);
+    app.get('/paperbook/:id', BookController.getpaperbookByid);
 
     //请求图书封皮
     app.get('/images/books/:id', BookController.getbookCoverByid);
