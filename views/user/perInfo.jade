@@ -54,7 +54,7 @@ block content
 			input#postuserAvatar(type='button',value='提交')
 		form.perInfo.fl(method='post',action='/user/perInfo')
 			label 用户名：
-				input.user-name(name='name',value='#{user.name}')
+				input.user-name(name='name',value='#{user.name}',disabled='disabled')
 			br
 			label 邮箱：
 				input.user-email(type='text',name='email',value='#{user.email}')

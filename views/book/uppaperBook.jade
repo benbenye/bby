@@ -2,47 +2,47 @@ extends ../layout
 block content
 	.main-content
 		h2 #{title}
-		form(method='post',action='/uppaperBook',enctype='multipart/form-data')
+		form.form(method='post',action='/uppaperBook',enctype='multipart/form-data')
 			input(type='hidden',value='#{user.userId}')
 			p
 				label 书名：
-					input(class="selectize-input",type="text",name="name_zh")
+					input.selectize-input(type="text",name="name_zh")
 			p
 				label 作者：
-					input(class="selectize-input",type="text",name="author")
+					input.selectize-input(type="text",name="author")
 			p
 				label 译者：
-					input(class="selectize-input",type="text",name="translator")
+					input.selectize-input(type="text",name="translator")
 			p
 				label 出版社：
 					input(type="text",name="press",id="publish")
 			p
 				label ISBN：
-					input(class="selectize-input",type="text",name="ISBN")
+					input.selectize-input(type="text",name="ISBN")
 			p
 				label 标签：
-					input(class="selectize-input",type="text",name="tags")
+					input.selectize-input(type="text",name="tags")
 			p
 				label 作者简介：
-					input(class="selectize-input",type="text",name="authorIntro")
+					input.selectize-input(type="text",name="authorIntro")
 			p
 				label 内容简介：
-					input(class="selectize-input",type="text",name="contIntro")
+					input.selectize-input(type="text",name="contIntro")
 			p
 				label 出版时间：
-					input(class="selectize-input",type="date",name="releaseTime")
+					input.selectize-input(type="date",name="releaseTime")
 			p
 				label 页数：
-					input(class="selectize-input",type="text",name="pages")
+					input.selectize-input(type="text",name="pages")
 			p
 				label 定价：
-					input(class="selectize-input",type="text",name="price")
+					input.selectize-input(type="text",name="price")
 			p
 				label 装帧：
-					input(class="selectize-input",type="text",name="layout")
+					input.selectize-input(type="text",name="layout")
 			p
 				label 封皮：
-					input#class="selectize-input",cover(type='file',name='cover')
+					input#cover.selectize-input(type='file',name='cover')
 			input(type="submit",value="提交")
 			script.
 				$('#publish').selectize({

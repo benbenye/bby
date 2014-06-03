@@ -8,6 +8,8 @@ a {
 }
 
 .none{display: none;}
+.main-content h2{margin-bottom: 30px;}
+
 /*头像尺寸*/
 .avatar{width: 76px; height: 76px; border: 0; vertical-align: top;}
 .avatar-120{width: 128px; height: 128px; border-radius: 50%; margin-bottom: 10px;border: 2px solid #95a153;padding: 5px;}
@@ -15,8 +17,10 @@ a {
 /*left content*/
 .left-content{width: 250px; position: fixed; top: 0; bottom: 0; left: 0; background: #534F49;}
 .username{color: #fff;}
+
 /*perinfo*/
 .perinfo{height: 200px;}
+
 /*nav*/
 .nav{width: 180px; margin-right: auto; margin-left: auto;}
 .nav li{width: 156px; text-align: center; border-radius: 17px; margin-bottom: 20px;padding: 6px 12px;height: 20px; background: #5c5852;border-bottom: 1px solid #423f3a;background: rgba(255,255,255,0.1);border-bottom: 1px solid rgba(0,0,0,0.4);line-height: 20px;white-space: nowrap;}
@@ -40,3 +44,12 @@ a {
 .reviewer li a.avatar{position: absolute;}
 .reviewer li a img{width: 96px; height: 96px; vertical-align: top;}
 .reviewer li .userInfo{margin-left: 110px;}
+
+/*paperbook list*/
+.paperBook li{display: inline-block; *display: inline; *zoom: 1; position: relative;}
+.paperBook li .delete{position: absolute; right: 0; top: 0; cursor: pointer;}
+.paperBook li .cover{margin-right: 20px; float: left;}
+.paperBook li .info{margin-left: 130px;}
+
+/*后台上传表单样式*/
+.form{width: 240px;}

@@ -7,13 +7,17 @@ block content
 		ul.paperBook
 			-for(var index = paperBook.length - 1; index >= 0; --index)
 				li
+					.btn.delete(paper-id="#{paperBook[index]._id}") ×
 					-if(paperBook[index].cover.data == undefined)
 						img.cover(src='/images/default/avatar.jpg')
 					-else
 						img.cover(src='data:#{paperBook[index].cover.contentType};base64,#{paperBook[index].cover.data.toString("base64")}')
-					h3.title
-						a(href='/book/#{paperBook[index]._id}') #{paperBook[index].name_zh}
-						a(href='') 修改新书信息[仅管理员可见]
-					.author #{paperBook[index].author}
-					.press #{paperBook[index].press}
-					.releaseTime #{paperBook[index].releaseTime}
+					.info
+						h3.title
+							a(href='/book/#{paperBook[index]._id}') #{paperBook[index].name_zh}
+							-if(user.name == 'name')
+								br
+								a(href='') 修改新书信息[仅管理员可见]
+						.author #{paperBook[index].author}
+						.press #{paperBook[index].press}
+						.releaseTime #{paperBook[index].releaseTime}
