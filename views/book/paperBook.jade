@@ -2,12 +2,12 @@ extends ../layout
 block content
 	.main-content
 		h2 #{title}
-			-if(user.name == 'name')
+			-if(user && user.name == 'name')
 				a(href='/getuppaperBook') 新书上传地址[仅管理员可见]
 		ul.paperBook
 			-for(var index = paperBook.length - 1; index >= 0; --index)
 				li
-					-if(user.name == 'name')
+					-if(user && user.name == 'name')
 						.btn.delete(paper-id="#{paperBook[index]._id}") ×
 					-if(paperBook[index].cover.data == undefined)
 						img.cover(src='/images/default/avatar.jpg')
@@ -16,7 +16,7 @@ block content
 					.info
 						h3.title
 							a(href='/paperbook/#{paperBook[index]._id}') #{paperBook[index].name_zh}
-							-if(user.name == 'name')
+							-if(user && user.name == 'name')
 								br
 								a(href='/edit/#{paperBook[index]._id}') 修改新书信息[仅管理员可见]
 						.author 作者：#{paperBook[index].author}

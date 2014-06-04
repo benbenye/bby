@@ -35,16 +35,27 @@ function CommentController(){
                     bc[i].userId.avatar.dataStr =  bc[i].userId.avatar.data.toString('base64');
                 }
             }
-            GetPerInfo(req.session.user.name, function (user) {
+            console.log(bc);
+            if(req.session.user == null){
                 res.render('user/reviewer',{
                     title:'书评人',
                     bookComment:bc,
-                    user:user,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
                     error:req.flash('error').toString()
                 });
-            });
+            }else{
+                GetPerInfo(req.session.user.name, function (user) {
+                    res.render('user/reviewer',{
+                        title:'书评人',
+                        bookComment:bc,
+                        user:user,
+                        success:req.flash('success').toString(),
+                        success_out:req.flash('success_out').toString(),
+                        error:req.flash('error').toString()
+                    });
+                });
+            }
         });
     };
 }

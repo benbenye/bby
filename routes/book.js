@@ -8,14 +8,16 @@ var BookController = require('../controllers/bookController.js'),
 module.exports = function(app){
 
     //新书速递,实体书 进入首页
-    app.get('/', CheckController.checkNotLogin);
     app.get('/', BookController.getpaperbook);
 
     // 进入后台上传页面
+    app.get('/getuppaperBook', CheckController.checkNotLogin);
     app.get('/getuppaperBook', BookController.getuppaperBook);
     // 提交paperbook内容
+    app.post('/uppaperBook', CheckController.checkNotLogin);
     app.post('/uppaperBook', BookController.uppaperBook);
     // 删除一本paperbook
+    app.get('/delete/:id', CheckController.checkNotLogin);
     app.get('/delete/:id', BookController.removepaperBook);
 
     //最新连载
@@ -24,8 +26,8 @@ module.exports = function(app){
     /*
     *我上传过的书
     */
-    app.get('/book/mybook',  CheckController.checkNotLogin);
-    app.get('/book/mybook',BookController.getmybook);
+    // app.get('/book/mybook',  CheckController.checkNotLogin);
+    // app.get('/book/mybook',BookController.getmybook);
     
     //新建书籍描述
     app.get('/book/upbook', CheckController.checkNotLogin);
@@ -38,7 +40,7 @@ module.exports = function(app){
     app.post('/book/upbookCover', BookController.postupbookCover);
 
     //查看\修改书籍描述
-    app.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
+    // app.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
     app.get('/book/upbookDescribe/:id', BookController.getupbookDecribeByid);
     
     //修改书籍描述
@@ -78,17 +80,17 @@ module.exports = function(app){
     app.get('/book/bookContent/delete/:id', BookController.getbookContentDeleteByid);
      
     //查看书籍内容(无需登录验证)
-    app.get('/book/bookContent/:id', CheckController.checkNotLogin);
+    // app.get('/book/bookContent/:id', CheckController.checkNotLogin);
     app.get('/book/bookContent/:id', BookController.getbookContentByid);
     
     //查看书籍描述(无需登录验证)
-    app.get('/serial/:id', CheckController.checkNotLogin);
+    // app.get('/serial/:id', CheckController.checkNotLogin);
     app.get('/serial/:id', BookController.getbookByid);
 
     //查看paperbook(无需登录验证)
-    app.get('/paperbook/:id', CheckController.checkNotLogin);
+    // app.get('/paperbook/:id', CheckController.checkNotLogin);
     app.get('/paperbook/:id', BookController.getpaperbookByid);
 
     //请求图书封皮
-    app.get('/images/books/:id', BookController.getbookCoverByid);
+    // app.get('/images/books/:id', BookController.getbookCoverByid);
 };

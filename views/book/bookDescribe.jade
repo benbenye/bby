@@ -5,7 +5,7 @@ block content
 		-if(book)
 			h2.fb.f18#bookTitle(bookId='#{book._id}')=book.name_zh
 			p=book.tags
-			img.cover(src='/images/books/#{book._id}')
+			img.cover(src='data:#{book.cover.contentType};base64,#{book.cover.data}')
 			p
 				a.mr10.no_unl#wish(href='javascript:void(0)') 想看
 				a.mr10.no_unl#readed(href='javascript:void(0)') 看过

@@ -14,7 +14,7 @@ block content
 					ul
 						-for(var i = 0, j = user.bookId.length; i < j; i++)
 							li
-								a.mr10(href='/book/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
+								a.mr10(href='/serial/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
 								a.mr10(href='/book/upbookDescribe/#{user.bookId[i]._id}',title='修改描述') 修改描述
 								a.mr10.deleteAll(href='/book/bookDescribe/delete/#{user.bookId[i]._id}',title='删除此书') 删除此书
 								a.mr10(href='/book/upbookContent/#{user.bookId[i]._id}',title='修改内容') 修改内容

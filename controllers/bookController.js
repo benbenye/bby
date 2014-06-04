@@ -17,17 +17,26 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
-            GetPerInfo(req.session.user.name, function (user) {
+            if(req.session.user == null){
                 res.render('index',{
                     title:'主页',
-                    user:user,
                     books:book,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
                     error:req.flash('error').toString(),
                 });
-            });
-            
+            }else{
+                GetPerInfo(req.session.user.name, function (user) {
+                    res.render('index',{
+                        title:'主页',
+                        user:user,
+                        books:book,
+                        success:req.flash('success').toString(),
+                        success_out:req.flash('success_out').toString(),
+                        error:req.flash('error').toString(),
+                    });
+                });
+            }
         });
     };
     
@@ -47,10 +56,15 @@ function BookController(){
     };
 
     this.getupbook = function(req, res){ 
-        res.render('book/upbook',{
-            title:'上传书籍描述',
-            user:req.session.user
-        });       
+        GetPerInfo(req.session.user.name, function (user) {
+            res.render('book/upbook',{
+                title:'上传书籍描述',
+                user:user,
+                success:req.flash('success').toString(),
+                success_out:req.flash('success_out').toString(),
+                error:req.flash('error').toString(),
+            });
+        });      
     };
 
     this.postupbook = function (req, res) {
@@ -86,7 +100,7 @@ function BookController(){
                 return callback(err);
             }
             req.flash('success', '上传成功');
-            res.redirect('/book/mybook');
+            res.redirect('/user/perInfo');
         });
     };
 
@@ -255,11 +269,26 @@ function BookController(){
                 req.flash('err').toString();
                 return console.log(err.message);
             }
-            res.render('book/bookDescribe',{
-                title:'书籍页面',
-                book:book,
-                user:req.session.user
-            });         
+            console.log(book);
+            if(req.session.user == null){
+                res.render('book/bookDescribe',{
+                    title:'上传书籍描述',
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                });
+            }else{
+                GetPerInfo(req.session.user.name, function (user) {
+                    res.render('book/bookDescribe',{
+                        title:'书籍页面',
+                        user:user,
+                        book:book,
+                        success:req.flash('success').toString(),
+                        success_out:req.flash('success_out').toString(),
+                        error:req.flash('error').toString(),
+                    });
+                }); 
+            }        
         });       
     };         
     this.getbookCoverByid = function (req, res) {
@@ -371,16 +400,26 @@ function BookController(){
             if(err){
                 return console.log(err.message);
             }
-            GetPerInfo(req.session.user.name, function (user) {
+            if(req.session.user == null){
                 res.render('book/paperBook',{
                     title:'新书速递',
-                    user:user,
                     paperBook:paperBook,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
                     error:req.flash('error').toString(),
                 });
-            });
+            }else{
+               GetPerInfo(req.session.user.name, function (user) {
+                   res.render('book/paperBook',{
+                       title:'新书速递',
+                       user:user,
+                       paperBook:paperBook,
+                       success:req.flash('success').toString(),
+                       success_out:req.flash('success_out').toString(),
+                       error:req.flash('error').toString(),
+                   });
+               }); 
+            }
         });
     };
 

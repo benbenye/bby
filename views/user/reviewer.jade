@@ -4,15 +4,16 @@ block content
 		h2 书评人
 		ul.reviewer
 			-for (var i = bookComment.length - 1; i >= 0; --i)
-				li.mr10
-					a.avatar(href='/user/#{bookComment[i].userId.name}')
-						-if(bookComment[i].userId.avatar.dataNull == undefined)
-							img(src='data:image/#{user.avatar.type};base64,#{bookComment[i].userId.avatar.dataStr}')
-						-else
-							img.fl.avatar(src='/images/default/avatar.png')
-					.userInfo
-						a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
-						p 评论《#{bookComment[i].bookId.name_zh}》
-						p #{bookComment[i].comment.content}
-						p
-							!{bookComment[i].useful}有用 #{bookComment[i].datetime}
+				-if(bookComment[i].bookId !== null)
+					li.mr10
+						a.avatar(href='/user/#{bookComment[i].userId.name}')
+							-if(bookComment[i].userId.avatar.dataNull == undefined)
+								img(src='data:image/#{bookComment[i].userId.avatar.contentType};base64,#{bookComment[i].userId.avatar.dataStr}')
+							-else
+								img.fl.avatar(src='/images/default/avatar.png')
+						.userInfo
+							a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
+							p 评论《#{bookComment[i].bookId.name_zh}》
+							p #{bookComment[i].comment.content}
+							p
+								!{bookComment[i].useful}有用 #{bookComment[i].datetime}
