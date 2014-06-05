@@ -3,7 +3,7 @@ block content
 	.main-content
 		h1=title
 		p welcome to #{title}
-		form#formDiscribe.form(method='post',action='/book/upbook')
+		form#formDiscribe.form(method='post',action='/book/upbook',enctype='multipart/form-data')
 			label 书名：
 				input#name_zh.selectize-input(type='text',name='name_zh')
 			br
@@ -13,11 +13,8 @@ block content
 			label 简介：
 				input#intro.selectize-input(type='text',name='intro')
 			br
-			input#postbook.btn(type='button',value='提交')
-		form#formCover.none(method='post',action='/book/upbookCover',enctype='multipart/form-data')
 			label 封面：
 				input#cover.selectize-input(type='file',name='cover')
-				input#bookId(type='hidden',name='bookId')
 			br
-			input#postbookCover.btn(type='submit')
+			input#postbook.btn(type='submit',value='立即提交')
 		script(src='/javascripts/page/page.js')

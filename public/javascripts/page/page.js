@@ -2,7 +2,7 @@
     /**
     *上传新书
     */
-    $('#postbook').click(function(){
+  /*  $('#postbook').click(function(){
         var name_zh = $('#name_zh').val(),
             tags = $('#tags').val(),
             intro = $('#intro').val();
@@ -16,7 +16,7 @@
                     alert('ok');
                 }
            }, "json");
-    });
+    });*/
     /**
     *修改书籍描述
     */

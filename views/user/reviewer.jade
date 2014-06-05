@@ -7,10 +7,10 @@ block content
 				-if(bookComment[i].bookId !== null)
 					li.mr10
 						a.avatar(href='/user/#{bookComment[i].userId.name}')
-							-if(bookComment[i].userId.avatar.dataNull == undefined)
-								img(src='data:image/#{bookComment[i].userId.avatar.contentType};base64,#{bookComment[i].userId.avatar.dataStr}')
+							-if(bookComment[i].userId.avatar.data != undefined)
+								img(src='data:image/#{bookComment[i].userId.avatar.contentType};base64,#{bookComment[i].userId.avatar.data.toString("base64")}')
 							-else
-								img.fl.avatar(src='/images/default/avatar.png')
+								img.fl.avatar(src='/images/default/avatar.jpg')
 						.userInfo
 							a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
 							p 评论《#{bookComment[i].bookId.name_zh}》

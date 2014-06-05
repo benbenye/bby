@@ -68,11 +68,16 @@ function BookController(){
     };
 
     this.postupbook = function (req, res) {
+        var cover = {
+                data: fs.readFileSync(req.files.cover.path),
+                contentType: req.files.cover.type
+            };
         var newBook = new Book({
             publisher:res.req.session.user.name,
             name_zh:req.body.name_zh,
             tags:req.body.tags.split(","),
-            intro:req.body.intro
+            intro:req.body.intro,
+            cover:cover
         });
         newBook.save(function(err, book){
             if(err){
@@ -84,12 +89,13 @@ function BookController(){
                     return console.log(err.message);
                 }
                 req.flash('success','上传成功');
-                res.send(book);
+                res.redirect('/user/perInfo');
+                // res.send(book);
             });            
         });
     };
 
-    this.postupbookCover = function (req, res) {
+    /*this.postupbookCover = function (req, res) {
         var cover = {
                 data: fs.readFileSync(req.files.cover.path),
                 contentType: req.files.cover.type
@@ -102,7 +108,7 @@ function BookController(){
             req.flash('success', '上传成功');
             res.redirect('/user/perInfo');
         });
-    };
+    };*/
 
     this.getupbookDecribeByid = function(req, res){ 
         Book.getOne(req.params.id, function(err,book){
@@ -158,7 +164,7 @@ function BookController(){
                 return callback(err);
             }
             req.flash('success','删除成功');
-            res.redirect('/book/mybook');
+            res.redirect('/user/perInfo');
         });
     };
 
@@ -169,18 +175,56 @@ function BookController(){
                 return callback(err);
             }
             if(bookContent === null){
-                res.render('book/upbookContent',{
-                    id:req.params.id,
-                    user:req.session.user,
-                    error:'您还没有上传内容'
-                });
+                if(req.session.user == null){
+                    GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/upbookContent',{
+                            title:'上传书籍描述',
+                            id:req.params.id,
+                            error:'您还没有上传内容',
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            err:req.flash('error').toString()
+                        });
+                    }); 
+                }else{
+                    GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/upbookContent',{
+                            title:'上传书籍描述',
+                            user:user,
+                            id:req.params.id,
+                            error:'您还没有上传内容',
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            err:req.flash('error').toString()
+                        });
+                    }); 
+                }
             }
             else{
-                res.render('book/upbookContent',{
-                    id:req.params.id,
-                    user:req.session.user,
-                    bookContent:bookContent.contents
-                });
+                if(req.session.user == null){
+                    GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/upbookContent',{
+                            title:'上传书籍描述',
+                            id:req.params.id,
+                            bookContent:bookContent.contents,
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            error:req.flash('error').toString()
+                        });
+                    }); 
+                }else{
+                    GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/upbookContent',{
+                            title:'上传书籍描述',
+                            user:user,
+                            id:req.params.id,
+                            bookContent:bookContent.contents,
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            error:req.flash('error').toString()
+                        });
+                    }); 
+                }
             }
         }); 
     };
@@ -214,7 +258,7 @@ function BookController(){
                 return err;
             }
             req.flash('success','上传成功');
-            res.redirect('/book/mybook');
+            res.redirect('/user/perInfo');
         });
     };
 
@@ -253,13 +297,28 @@ function BookController(){
                 req.flash();
                 return callback(err);
             }
-            console.log(book);
-            res.render('book/bookContent',{
-                title:'书籍内容',
-                book:book,
-                user:req.session.user,
-                error:req.flash('error').toString()
-            });
+            if(req.session.user == null){
+                GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/bookContent',{
+                            title:'',
+                            book:book,
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            error:req.flash('error').toString()
+                        });
+                    }); 
+            }else{
+                GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/bookContent',{
+                            title:'书籍内容',
+                            user:user,
+                            book:book,
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            error:req.flash('error').toString()
+                        });
+                    }); 
+            }
         });       
     };
 

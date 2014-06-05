@@ -28,14 +28,6 @@ function CommentController(){
             if(err){
                 return console.log(err.message);
             }
-            for(var i = 0 ,j = bc.length; i < j; i++){
-                if(bc[i].userId.avatar.data == undefined) { 
-                    bc[i].userId.avatar.dataNull = null;
-                }else{
-                    bc[i].userId.avatar.dataStr =  bc[i].userId.avatar.data.toString('base64');
-                }
-            }
-            console.log(bc);
             if(req.session.user == null){
                 res.render('user/reviewer',{
                     title:'书评人',

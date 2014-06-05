@@ -33,6 +33,7 @@ function Book(book) {
     this.tags = book.tags;
     this.intro = book.intro;
     this.time = book.time;//添加一个用户ID
+    this.cover = book.cover;
 };//Book 构造函数，对新创建的对象进行初始化 
 
 
@@ -50,17 +51,18 @@ Book.prototype.save = function(callback) {
 	//要存入数据库的文档
     var temp = new mongoose.Types.ObjectId();
 	var book = {
-        _id:temp
-        ,publisher:this.publisher
-        ,userId:this.userId
-		,name_zh : this.name_zh
-		,time : time
-        ,tags:this.tags
-        ,intro:this.intro
-        ,want:0
-        ,reading:0
-        ,readed:0
-        ,bookContent:temp
+        _id:temp,
+        publisher:this.publisher,
+        userId:this.userId,
+		name_zh : this.name_zh,
+		time : time,
+        tags:this.tags,
+        intro:this.intro,
+        want:0,
+        reading:0,
+        readed:0,
+        bookContent:temp,
+        cover:this.cover
 	};
     var newBook = new bookModel(book);
 	
