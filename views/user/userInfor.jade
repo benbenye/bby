@@ -8,4 +8,5 @@ block content
 		-if (userInfor.bookId.length == 0)
 			p 没有上传过作品
 		-else
-			#{userInfor.bookId[0].name_zh}
+			h2 上传过的书籍 
+				.con #{userInfor.bookId[0].name_zh}

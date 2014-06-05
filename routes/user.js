@@ -60,6 +60,6 @@ module.exports = function(app){
     app.get('/images/avatar/:id', UserController.getUserAvatarByid);*/
 
     //用户个人页面
-    app.get('/user/:name', CheckController.checkNotLogin);
+    // app.get('/user/:name', CheckController.checkNotLogin);
     app.get('/user/:name', UserController.getUserInfor);
-};  
+};

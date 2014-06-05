@@ -298,15 +298,13 @@ function BookController(){
                 return callback(err);
             }
             if(req.session.user == null){
-                GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/bookContent',{
-                            title:'',
-                            book:book,
-                            success:req.flash('success').toString(),
-                            success_out:req.flash('success_out').toString(),
-                            error:req.flash('error').toString()
-                        });
-                    }); 
+                res.render('book/bookContent',{
+                    title:'',
+                    book:book,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString()
+                });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
                         res.render('book/bookContent',{
@@ -332,6 +330,7 @@ function BookController(){
             if(req.session.user == null){
                 res.render('book/bookDescribe',{
                     title:'上传书籍描述',
+                    book:book,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
                     error:req.flash('error').toString(),

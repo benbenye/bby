@@ -223,15 +223,30 @@ function UserController(){
     //个人页面
     this.getUserInfor = function(req, res){
         // User.get(),需要一个新的jade视图显示个人页面
-        User.get(req.session.user.name,function(err, userInfor){
+        User.get(req.params.name,function(err, userInfor){
             if(err){
                 return console.log(err.message);
             }
-            res.render('user/userInfor', {
-                title:userInfor.name+'的个人页面',
-                user:req.session.user,
-                userInfor:userInfor
-            });
+            if(req.session.user == null){
+                res.render('user/userInfor',{
+                    title:userInfor.name+'的个人页面',
+                    userInfor:userInfor,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                });
+            }else{
+                GetPerInfo(req.session.user.name, function (user) {
+                    res.render('user/userInfor',{
+                        title:userInfor.name+'的个人页面',
+                        user:user,
+                        userInfor:userInfor,
+                        success:req.flash('success').toString(),
+                        success_out:req.flash('success_out').toString(),
+                        error:req.flash('error').toString(),
+                    });
+                });
+            }
         });
     };
 }
