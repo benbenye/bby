@@ -116,7 +116,7 @@ Book.getOne = function(id, callback){
 };
 // 修改图书封面
 Book.editCover = function(id, cover, callback){
-	bookModel.findOne({_id:id}, { $set : { cover : cover }}, function(err, numeffect){
+	bookModel.update({_id:id}, { $set : { cover : cover }}, function(err, numeffect){
         if(err){
             return callback(err);
         }

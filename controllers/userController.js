@@ -136,7 +136,7 @@ function UserController(){
                     req.flash('err', err.message);
                 }
                 req.flash('success', '上传成功');
-                res.send({ok:numeffect});
+                res.send(userAvatar);
             });
     };
 

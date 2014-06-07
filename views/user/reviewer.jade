@@ -14,6 +14,11 @@ block content
 						.userInfo
 							a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
 							p 评论《#{bookComment[i].bookId.name_zh}》
-							p #{bookComment[i].comment.content}
+							-if(bookComment[i].comment.content.length >= 45)
+								p.commentContent(data-content="#{bookComment[i].comment.content}") #{bookComment[i].comment.content.substr(0,44)}...
+									span.more.btn.none 展开
+							-else
+								p.commentContent(data-content="#{bookComment[i].comment.content}") #{bookComment[i].comment.content}
 							p
 								!{bookComment[i].useful}有用 #{bookComment[i].datetime}
+		script(type='text/javascript',src='/javascripts/page/commitContent.js')

@@ -30,7 +30,6 @@
                 if(data.ok){
                     $('#formDiscribe').before('<div>' + name_zh + '</div>');
                     $('#formDiscribe').hide();
-                    alert('ok');
                 }
            }, "json");
     });
@@ -66,6 +65,8 @@
         xhr.open("post", FileController, true);
         xhr.onload = function () {
             $('.postuserAvatar').before('<div>修改成功</div>');
+            $('.avatarImg').detach();
+            $('#percentage').after("<img class='coverImg' src='data:"+JSON.parse(xhr.responseText).contentType+";base64,"+JSON.parse(xhr.responseText).data.toString('base64') +"' width='76' height='76'>");
         };
         xhr.upload.addEventListener("progress", progressFunction, false);
         xhr.send(form);
@@ -89,7 +90,7 @@
         xhr.onload = function () {
             $('#formCover').before('<div>修改成功</div>');
             $('.coverImg').detach();
-            $('#formCover').prepend("<img class='coverImg' src='/images/books/" + id + "?" + new Date().getTime() + "' width='110' height='146'>");
+            $('#formCover').prepend("<img class='coverImg' src='data:"+JSON.parse(xhr.responseText).contentType+";base64,"+JSON.parse(xhr.responseText).data.toString('base64') +"' width='110' height='146'>");
         };
         xhr.send(form);
     }); 

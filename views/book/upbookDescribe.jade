@@ -13,8 +13,9 @@ block content
 				textarea#intro(rows='10',cols='20',name='content')=book.intro
 				br
 				input#postDescribe(type='button',value='提交')
-			form#formCover(method='post',action='/book/upbookCover/#{book._id}')
-				img.coverImg(src='/images/books/#{book._id}',width='110',height='146')
+			form#formCover(method='post',action='/book/upbookCover/#{book._id}',enctype='multipart/form-data')
+				img.coverImg(src='data:#{book.cover.contentType};base64,#{book.cover.data.toString("base64")}',width='110',height='146')
+				input(type='hidden',name='id',value='#{book._id}')
 				label 封面：
 					input#cover(type='file',name='cover')
 				br

@@ -18,7 +18,11 @@
     $('#comment-btn').click(function(){
         showdialog();     //显示添加评论的窗口可拖拽的对话框
     });
-    $('#commit-btn').click(function(){sendContent();});   
+    $('#commit-btn').click(function(){sendContent();}); 
+
+    $('#close').click(function(){
+        closedialog();   //关闭评论窗口
+    });
     /*
     *
     */
@@ -39,7 +43,7 @@
             var comment = {title:title,content:content};
             $.get('/book/comment',{'bookId' : bookId, 'userId' : userId, 'comment' : comment},function(data){
                 if(data.ok == 1){
-                    alert("提交成功");
+                    closedialog();
                 }
             },'json');
         }
@@ -48,8 +52,34 @@
     *显示对话框，填写书评，登陆窗口。。。
     */
     function showdialog(){
-        $('.comment').show();
+        $('body').append($('<div class="fullBg" id="fullBg"></div>'));
+        $('#fullBg').append($('.comment').detach().show().addClass('showdialog'));
     }
 
-    //实现书评的添加修改删除，8点之前
+    function closedialog(){
+        $('body').append($('.comment').detach().removeClass('showdialog').hide());
+        $('#fullBg').remove(); 
+    }
+
+    /**
+    *书评人页面展开书评人的书评内容
+    */
+    $('.reviewer li').hover(function(){
+        $(this).find('.more').addClass('showmore').fadeIn();
+    },function(){
+        $(this).find('.more').removeClass('showmore').fadeOut();
+    });
+
+    $('.more').click(function(){
+        var content = $(this).parent('p').attr('data-content');
+        contentMore(content);
+    });
+
+    function contentMore(str){
+        $('body').append($('<div class="fullBg" id="fullBg"></div>'));
+        $('#fullBg').append($('<div class="moreBox showdialog"><div class="close" id="close">×</div>'+str+'</div>'));
+        $('#close').click(function(){closedialog();});
+    }
+
+
 });

@@ -116,10 +116,15 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
-            res.render('book/upbookDescribe',{
-                title:'上传书籍描述',
-                user:req.session.user,
-                book:book
+            GetPerInfo(req.session.user.name, function (user) {
+                res.render('book/upbookDescribe',{
+                    title:'上传书籍描述',
+                    user:user,
+                    book:book,
+                    success:req.flash('success').toString(),
+                    success_out:req.flash('success_out').toString(),
+                    error:req.flash('error').toString(),
+                });
             });
         });       
     };
@@ -144,12 +149,12 @@ function BookController(){
             cover = {data: fs.readFileSync(req.files.cover.path),
                     contentType: req.files.cover.type},
             id = req.body.id;
-        BookCover.edit(id, cover, function (err, cover) {
+        Book.editCover(id, cover, function (err, numeffect) {
             if (err) {
-                return callback(err);
+                return console.log(err.message);
             }
             req.flash('success', '修改成功');
-            res.send({ok:1});
+            res.send(cover);
         });
     };
 

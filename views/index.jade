@@ -18,9 +18,12 @@ block content
 					-if(books[index].bookContent)
 						li
 							img.cover(src='data:#books[index].cover.contentType;base64,#{books[index].cover.data.toString("base64")}')
-							h3.title
+							h3.title.overdot
 								a(href='/serial/#{books[index]._id}') #{books[index].name_zh}
 								-if(user && user.name == 'name')
 									a(href='') 修改新书信息[仅管理员可见]
-							.intro #{books[index].intro}
+							-if(books[index].intro.length >=20)
+								.intro(title='#{books[index].intro}') #{books[index].intro.substr(0,20)}...
+							-else
+								.intro(title='#{books[index].intro}') #{books[index].intro}
 							.time #{books[index].bookContent._time.minute}

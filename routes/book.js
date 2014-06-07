@@ -40,7 +40,7 @@ module.exports = function(app){
     // app.post('/book/upbookCover', BookController.postupbookCover);
 
     //查看\修改书籍描述
-    // app.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
+    app.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
     app.get('/book/upbookDescribe/:id', BookController.getupbookDecribeByid);
     
     //修改书籍描述
