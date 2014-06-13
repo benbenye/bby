@@ -1,4 +1,4 @@
-﻿//Created by yejing on 14-1-7.
+//Created by yejing on 14-1-7.
 
 extends ../layout
 block content
@@ -13,13 +13,13 @@ block content
 				-if(user.bookId.length)
 					ul
 						-for(var i = 0, j = user.bookId.length; i < j; i++)
-							li
+							li.mb10
+								span.mr10=i+1
 								a.mr10(href='/serial/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
 								a.mr10(href='/book/upbookDescribe/#{user.bookId[i]._id}',title='修改描述') 修改描述
-								a.mr10.deleteAll(href='/book/bookDescribe/delete/#{user.bookId[i]._id}',title='删除此书') 删除此书
 								a.mr10(href='/book/upbookContent/#{user.bookId[i]._id}',title='修改内容') 修改内容
 								a.mr10.deleteCon(href='/book/bookContent/delete/#{user.bookId[i]._id}',title='清空内容') 清空内容
-								a.mr10.deleteCon(href='/book/bookContent/add/#{user.bookId[i]._id}',title='追加内容') 追加内容还没实现？ 
+								a.mr10.deleteAll(href='/book/bookDescribe/delete/#{user.bookId[i]._id}',title='删除此书') ×
 				-else
 					p 暂时还没有上传书籍
 		.mywish
@@ -46,10 +46,7 @@ block content
 		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
 			progress#progressBar(value='0',max='100')
 			span#percentage
-			-if(user.avatar.data != undefined)
-				img.avatarImg(src='data:#{user.avatar.contentType};base64,#{user.avatar.data.toString("base64")}',width='76',height='76')
-			-else
-				img.avatarImg(src='/images/default/avatar.jpg',width='76',height='76')
+			img.avatarImg(src='data:#{user.avatar.contentType};base64,#{user.avatar.data.toString("base64")}',width='76',height='76')
 			br
 			label 头像：
 				input#userAvatar(type='file',name='user-avatar')

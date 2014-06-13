@@ -6,10 +6,14 @@ block content
 			h2.fb.f18#bookTitle(bookId='#{book._id}')=book.name_zh
 			p=book.tags
 			img.cover(src='data:#{book.cover.contentType};base64,#{book.cover.data.toString("base64")}')
+		-if(user != null)
 			p
-				a.mr10.no_unl#wish(href='javascript:void(0)') 想看
-				a.mr10.no_unl#readed(href='javascript:void(0)') 看过
-				a.mr10.no_unl#reading(href='javascript:void(0)') 正看
+				-if(user.want == 0 || !book._id in user.wish)
+					a.mr10.no_unl#wish(href='javascript:void(0)') 想看
+				-if(user.readed == 0 || !book._id in user.readed)
+					a.mr10.no_unl#readed(href='javascript:void(0)') 看过
+				-if(user.reading == 0 || !book._id in user.reading)
+					a.mr10.no_unl#reading(href='javascript:void(0)') 正看
 			a(href='/book/bookContent/#{book._id}') 阅读
 		-else if(error)
 			p=error

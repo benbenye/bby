@@ -50,6 +50,9 @@ a {
 	overflow:hidden;
 }
 
+/*baidu share style*/
+.bdsharebuttonbox{position: fixed; top: 0; right: 0;}
+
 /*头像尺寸*/
 .avatar{width: 76px; height: 76px; border: 0; vertical-align: top;}
 .avatar-120{width: 128px; height: 128px; border-radius: 50%; margin-bottom: 10px;border: 2px solid #95a153;padding: 5px;}

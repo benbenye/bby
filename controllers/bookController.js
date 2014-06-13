@@ -1,4 +1,4 @@
-﻿var BookController = new  BookController(),
+var BookController = new  BookController(),
     crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码  
     fs = require('fs'),
     GetPerInfo = require('../common/getPerInfo.js'),  

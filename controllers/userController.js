@@ -1,4 +1,4 @@
-﻿var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
+var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
     GetPerInfo = require('../common/getPerInfo.js'),  
     UserController = new  UserController(),
     User = require('../models/user.js'),
@@ -53,18 +53,8 @@ function UserController(){
            password_re = req.body.password_re;
        if(password != password_re){
            req.flash('error','两次密码不一致');
-                console.log('pushreaded')
            return res.redirect('/user/reg');
        }
-        var temp = req.body.email;
-           //对电子邮件的验证
-           var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-           if(!myreg.test(temp))
-           {
-                req.flash('error','邮箱不正确');
-                console.log('erremail')
-                return res.redirect('/user/reg');
-           }
        //md5
        var md5 = crypto.createHash('md5'),
            password = md5.update(password).digest('hex');
@@ -124,7 +114,6 @@ function UserController(){
             sex:req.body.user_sex
         });
         User.edit(req.session.user.name, newperInfo, function(err, numeffect){
-            //修改逻辑有问题
             //不能提供用户名的修改
             if(err){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);
