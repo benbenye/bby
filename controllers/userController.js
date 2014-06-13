@@ -53,8 +53,18 @@ function UserController(){
            password_re = req.body.password_re;
        if(password != password_re){
            req.flash('error','两次密码不一致');
+                console.log('pushreaded')
            return res.redirect('/user/reg');
        }
+        var temp = req.body.email;
+           //对电子邮件的验证
+           var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+           if(!myreg.test(temp))
+           {
+                req.flash('error','邮箱不正确');
+                console.log('erremail')
+                return res.redirect('/user/reg');
+           }
        //md5
        var md5 = crypto.createHash('md5'),
            password = md5.update(password).digest('hex');

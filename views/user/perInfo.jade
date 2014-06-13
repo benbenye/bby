@@ -46,7 +46,10 @@ block content
 		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
 			progress#progressBar(value='0',max='100')
 			span#percentage
-			img.avatarImg(src='data:#{user.avatar.contentType};base64,#{user.avatar.data.toString("base64")}',width='76',height='76')
+			-if(user.avatar.data != undefined)
+				img.avatarImg(src='data:#{user.avatar.contentType};base64,#{user.avatar.data.toString("base64")}',width='76',height='76')
+			-else
+				img.avatarImg(src='/images/default/avatar.jpg',width='76',height='76')
 			br
 			label 头像：
 				input#userAvatar(type='file',name='user-avatar')
