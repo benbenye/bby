@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="fea38011-9eab-43fd-927d-ff62b02c16ab" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="b6cef14f-405b-4b54-b736-cb599db11483" name="NodeJs">
+      <childLayers>
+        <layer Id="9324ae48-8327-4451-b74b-df6e8d36471e" name="V8" />
+        <layer Id="a2aca0e1-2d55-4057-a011-be6d436940b3" name="JavaScript" />
+      </childLayers>
+    </layer>
+    <layer Id="c50058a0-e222-40ac-a2d3-97e86f8145f1" name="OS——Linux、Windows或MacOSX" />
+    <layer Id="3d93c30e-46b1-4358-9d94-ef5afbd9c742" name="Express">
+      <childLayers>
+        <layer Id="42285813-b157-4fd3-b7ec-300e95600341" name="Model" />
+        <layer Id="330e9273-51bb-46d6-8031-c4f9d6f55301" name="Controller" />
+        <layer Id="9522ed08-6784-4ec7-8930-4ad4708b04bd" name="View" />
+      </childLayers>
+    </layer>
+    <layer Id="d6daccc1-e0f9-4a29-aba6-e0c11aa9ddcc" name="Mongoose" />
+    <layer Id="ae2b3b13-74a9-483e-8ec1-51cedec23e41" name="MongoDB" />
+    <layer Id="15456651-4df9-49ce-9109-90a435b79fb1" name="Jade">
+      <childLayers>
+        <layer Id="61529220-8ad2-432f-8be7-12f62b6b7723" name="html" />
+        <layer Id="acdf73be-a6b3-475e-8bd6-baddf5209685" name="CSS" />
+        <layer Id="a8a93499-8a9a-4998-9b9a-99ca52d5ad6a" name="客户端js" />
+      </childLayers>
+    </layer>
+  </layers>
+</layerModel>
