@@ -1,4 +1,4 @@
-﻿var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
+var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码
     GetPerInfo = require('../common/getPerInfo.js'),  
     UserController = new  UserController(),
     User = require('../models/user.js'),
@@ -124,7 +124,6 @@ function UserController(){
             sex:req.body.user_sex
         });
         User.edit(req.session.user.name, newperInfo, function(err, numeffect){
-            //修改逻辑有问题
             //不能提供用户名的修改
             if(err){
                 req.flash('error', 'qq'+ err.toString() + ',,' + err.message);

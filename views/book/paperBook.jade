@@ -24,12 +24,14 @@ block content
 						.releaseTime 出版年：#{paperBook[index].releaseTime}
 		script.
 			$('.delete').click(function(){
-				var bookId = $(this).attr('paper-id'),
+				if(window.confirm('delete?')){
+					var bookId = $(this).attr('paper-id'),
 					$delete = $(this);
-				$.get('/delete/'+bookId,{bookId:bookId},function(data){
-					if(data.ok){
-						alert('删除成功');
-						$delete.parent('li').detach();
-					}
-				},'json');
+					$.get('/delete/'+bookId,{bookId:bookId},function(data){
+						if(data.ok){
+							alert('删除成功');
+							$delete.parent('li').detach();
+						}
+					},'json');
+				}
 			});

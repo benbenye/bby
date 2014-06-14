@@ -1,4 +1,4 @@
-﻿var BookController = new  BookController(),
+var BookController = new  BookController(),
     crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码  
     fs = require('fs'),
     GetPerInfo = require('../common/getPerInfo.js'),  
@@ -282,7 +282,7 @@ function BookController(){
             if(err)
                 console.log(err);
             req.flash('success','追加成功');
-            res.redirect('/book/mybook');
+            res.redirect('/user/perInfo');
         });
     };
 
@@ -292,7 +292,7 @@ function BookController(){
                 return callback(err);
             }
             req.flash('success','内容成功清除');
-            res.redirect('/book/mybook');
+            res.redirect('/user/perInfo');
         });
     };
     
@@ -331,7 +331,6 @@ function BookController(){
                 req.flash('err').toString();
                 return console.log(err.message);
             }
-            console.log(book);
             if(req.session.user == null){
                 res.render('book/bookDescribe',{
                     title:'上传书籍描述',
@@ -368,7 +367,6 @@ function BookController(){
     this.getOnePagebyPage = function (req, res) {
         var page = req.params.page,
             id = req.params.id;
-        console.log(page);
         BookContent.getOnePage(id, page, function(err, pageContent){
             if(pageContent == null){
                 res.send({state:0});
@@ -391,10 +389,33 @@ function BookController(){
             if(pageContent == null){
                 res.send({state:0});
             }else{
-                res.render('book/bookContent',{
-                    title:'书籍内容',
-                    user:req.session.user
-                });  
+                Book.getOne(id,function(err,book){
+                    if(err){
+                        req.flash();
+                        return callback(err);
+                    }
+                    console.log(book);
+                    if(req.session.user == null){
+                        res.render('book/bookContent',{
+                            title:'书籍内容',
+                            book:book,
+                            success:req.flash('success').toString(),
+                            success_out:req.flash('success_out').toString(),
+                            error:req.flash('error').toString()
+                        });
+                    }else{
+                        GetPerInfo(req.session.user.name, function (user) {
+                            res.render('book/bookContent',{
+                                title:'书籍内容',
+                                user:user,
+                                book:book,
+                                success:req.flash('success').toString(),
+                                success_out:req.flash('success_out').toString(),
+                                error:req.flash('error').toString()
+                            });
+                        }); 
+                    }
+                });     
             }
         });
     }
