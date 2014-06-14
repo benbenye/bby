@@ -4,15 +4,17 @@ extends ../layout
 block content
 	.main-content
 		h2= title
+		-if(error)
+			p=error
 		form.form(method='post',action='/user/reg')
 			label 用户名：
 			input.selectize-input(name='name',value='name')
 			br
 			label 密码：
-			input.selectize-input(type='text',name='password',value='')
+			input.selectize-input(type='password',name='password',value='')
 			br
 			label 确认密码：
-			input.selectize-input(type='text',name='password_re',value='')
+			input.selectize-input(type='password',name='password_re',value='')
 			br
 			label 邮箱：
 			input.selectize-input(type='text',name='email',value='')
