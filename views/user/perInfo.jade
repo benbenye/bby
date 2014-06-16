@@ -3,88 +3,103 @@
 extends ../layout
 block content
 	.main-content
-		h2= title
+		h2.perInfo-title= title
 		-if(error)
 			h1=error
-		.mybook
-			.title 我上传的书
-				a(href='/book/upbook') +添加一本书
-			.content
-				-if(user.bookId.length)
-					ul
-						-for(var i = 0, j = user.bookId.length; i < j; i++)
-							li.mb10
-								span.mr10=i+1
-								a.mr10(href='/serial/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
-								a.mr10(href='/book/upbookDescribe/#{user.bookId[i]._id}',title='修改描述') 修改描述
-								a.mr10(href='/book/upbookContent/#{user.bookId[i]._id}',title='修改内容') 修改内容
-								a.mr10.deleteCon(href='/book/bookContent/delete/#{user.bookId[i]._id}',title='清空内容') 清空内容
-								a.mr10.deleteAll(href='/book/bookDescribe/delete/#{user.bookId[i]._id}',title='删除此书') ×
+		ul.perinfo-nav
+			li.sel(name='mybook') 我上传的书
+			li(name='mywish') 我希望读的书
+			li(name='myreaded') 我读过的书
+			li(name='myreading') 我正在读的书
+			li(name='Avatars') 修改头像
+			li(name='perInfo') 修改个人信息
+		.content-box
+			.mybook#mybook
+				.title 我上传的书
+					a(href='/book/upbook') +添加一本书
+				.content
+					-if(user.bookId.length)
+						ul
+							-for(var i = 0, j = user.bookId.length; i < j; i++)
+								li.mb10
+									span.mr10=i+1
+									a.book-title.overdot(href='/serial/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
+									a(href='/book/upbookDescribe/#{user.bookId[i]._id}',title='修改描述') 修改描述
+									a(href='/book/upbookContent/#{user.bookId[i]._id}',title='修改内容') 修改内容
+									a.deleteCon(href='/book/bookContent/delete/#{user.bookId[i]._id}',title='清空内容') 清空内容
+									a.deleteAll(href='/book/bookDescribe/delete/#{user.bookId[i]._id}',title='删除此书') ×
+					-else
+						p 暂时还没有上传书籍
+			.mywish#mywish.none
+				.title 我喜欢读的
+				-if(user.wish.length)
+				ul
+					-for(var i = 0, j = user.wish.length; i < j; i++)
+						li
+							a.mr10(href='/serial/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
+			.myreaded#myreaded.none
+				.title 我读过的书
+				-if(user.readed.length)
+				ul
+					-for(var i = 0, j = user.readed.length; i < j; i++)
+						li
+							a.mr10(href='/serial/#{user.readed[i]._id}',title='#{user.readed[i].name_zh}') #{user.readed[i].name_zh}
+			.myreading#myreading.none
+				.title 我正在读的
+				-if(user.reading.length)
+				ul
+					-for(var i = 0, j = user.reading.length; i < j; i++)
+						li
+							a.mr10(href='/serial/#{user.reading[i]._id}',title='#{user.reading[i].name_zh}') #{user.reading[i].name_zh}
+			form#Avatars.postuserAvatar.w200.none(method='post',action='/user/userAvatar',enctype='multipart/form-data')
+				-if(user.avatar.data != undefined)
+					img.avatarImg(src='data:#{user.avatar.contentType};base64,#{user.avatar.data.toString("base64")}',width='160',height='160')
 				-else
-					p 暂时还没有上传书籍
-		.mywish
-			.title 我喜欢读的
-			-if(user.wish.length)
-			ul
-				-for(var i = 0, j = user.wish.length; i < j; i++)
-					li
-						a.mr10(href='/serial/#{user.bookId[i]._id}',title='#{user.bookId[i].name_zh}') #{user.bookId[i].name_zh}
-		.myreaded
-			.title 我读过的书
-			-if(user.readed.length)
-			ul
-				-for(var i = 0, j = user.readed.length; i < j; i++)
-					li
-						a.mr10(href='/serial/#{user.readed[i]._id}',title='#{user.readed[i].name_zh}') #{user.readed[i].name_zh}
-		.myreading
-			.title 我正在读的
-			-if(user.reading.length)
-			ul
-				-for(var i = 0, j = user.reading.length; i < j; i++)
-					li
-						a.mr10(href='/serial/#{user.reading[i]._id}',title='#{user.reading[i].name_zh}') #{user.reading[i].name_zh}
-		form.postuserAvatar.w200.fl(method='post',action='/user/userAvatar',enctype='multipart/form-data')
-			progress#progressBar(value='0',max='100')
-			span#percentage
-			-if(user.avatar.data != undefined)
-				img.avatarImg(src='data:#{user.avatar.contentType};base64,#{user.avatar.data.toString("base64")}',width='76',height='76')
-			-else
-				img.avatarImg(src='/images/default/avatar.jpg',width='76',height='76')
-			br
-			label 头像：
-				input#userAvatar(type='file',name='user-avatar')
-				input#userId(type='hidden',name='#{user._id}')
-			br
-			input#postuserAvatar(type='button',value='提交')
-		form.perInfo.fl(method='post',action='/user/perInfo')
-			label 用户名：
-				input.user-name(name='name',value='#{user.name}',disabled='disabled')
-			br
-			label 邮箱：
-				input.user-email(type='text',name='email',value='#{user.email}')
-			br
-			label 性别：
-				-if(user.sex === '1')
-					input.user-sex(type='radio',name='sex',value='0')
-					|男
-					input.user-sex(type='radio',name='sex',value='1' checked='#{user.sex}')
-					|女
-					input.user-sex(type='radio',name='sex')
-					|保密
-				-else if(user.sex === '0')
-					input.user-sex(type='radio',name='sex',value='0' checked='checked')
-					|男
-					input.user-sex(type='radio',name='sex',value='1')
-					|女
-					input.user-sex(type='radio',name='sex')
-					|保密
-				-else
-					input.user-sex(type='radio',name='sex',value='0')
-					|男
-					input.user-sex(type='radio',name='sex',value='1')
-					|女
-					input.user-sex(type='radio',name='sex' checked = 'checked')
-					|保密
-			br
-			input#postperInfo(type='button',value='提交')
+					img.avatarImg(src='/images/default/avatar.jpg',width='76',height='76')
+				br
+				span#percentage
+				progress#progressBar.none(value='0',max='100')
+				p 上传头像：
+					input#userAvatar(type='file',name='user-avatar')
+					input#userId(type='hidden',name='#{user._id}')
+				input#postuserAvatar.btn.mt10(type='button',value='提交')
+			form.perInfo.none#perInfo(method='post',action='/user/perInfo')
+				label.mt10.db 用户名：
+					input.user-name(name='name',value='#{user.name}',disabled='disabled')
+				br
+				label.mt10.db 邮箱：
+					input.user-email(type='text',name='email',value='#{user.email}')
+				br
+				label.mt10.db 性别：
+					-if(user.sex === '1')
+						input.user-sex(type='radio',name='sex',value='0')
+						|男
+						input.user-sex(type='radio',name='sex',value='1' checked='#{user.sex}')
+						|女
+						input.user-sex(type='radio',name='sex')
+						|保密
+					-else if(user.sex === '0')
+						input.user-sex(type='radio',name='sex',value='0' checked='checked')
+						|男
+						input.user-sex(type='radio',name='sex',value='1')
+						|女
+						input.user-sex(type='radio',name='sex')
+						|保密
+					-else
+						input.user-sex(type='radio',name='sex',value='0')
+						|男
+						input.user-sex(type='radio',name='sex',value='1')
+						|女
+						input.user-sex(type='radio',name='sex' checked = 'checked')
+						|保密
+				br
+				input#postperInfo.btn.mt10(type='button',value='提交')
+		script.
+			$(document).ready(function(){
+				$('.perinfo-nav li').click(function(){
+					$(this).addClass('sel').siblings().removeClass('sel');
+					console.log($(this).attr('name'));
+					$('#'+$(this).attr('name')).show().siblings().hide();
+				});
+			});
 		script(src='/javascripts/page/page.js')

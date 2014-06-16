@@ -157,15 +157,16 @@ function UserController(){
             };
         User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
             if(err){
-        console.log(numeffect);
+                console.log(numeffect);
                 res.send({ok:0,err:err});
             }
             if(numeffect === 1){
-        console.log(numeffect);
-                res.send({ok:1});//插入成功
+                Book.editNum(newwish.wish, 'want', function(err,nume){
+                    res.send({ok:1});//插入成功
+                });
             }
-            });
-    };
+        });
+    }; 
 
     //添加看过
     this.getread = function(req, res){
@@ -178,9 +179,11 @@ function UserController(){
                 res.send({ok:0,err:err});
             }
             if(numeffect === 1){
-                res.send({ok:1});//插入成功
+                Book.editNum(newreaded.readed,'readed',function(err,nume){
+                    res.send({ok:1});//插入成功
+                });
             }
-            });
+        });
     };
 
     //添加在看
@@ -194,9 +197,11 @@ function UserController(){
                 res.send({ok:0,err:err});
             }
             if(numeffect === 1){
-                res.send({ok:1});//插入成功
+                Book.editNum(newreading.reading,'reading',function(err,nume){
+                    res.send({ok:1});//插入成功
+                });
             }
-            });
+        });
     };
 
     this.getpullwish = function(req, res){
@@ -246,6 +251,9 @@ function UserController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
+                    if(req.session.user.name == userInfor.name){
+                        res.redirect('/user/perInfo');
+                    }
                     res.render('user/userInfor',{
                         title:userInfor.name+'的个人页面',
                         user:user,

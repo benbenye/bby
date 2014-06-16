@@ -1,24 +1,24 @@
 extends ../layout
 block content	
 	.main-content
-		h2 书评人
+		h2.reviewer-title 书评人
 		ul.reviewer
 			-for (var i = bookComment.length - 1; i >= 0; --i)
 				-if(bookComment[i].bookId !== null)
-					li.mr10
+					li
 						a.avatar(href='/user/#{bookComment[i].userId.name}')
 							-if(bookComment[i].userId.avatar.data != undefined)
 								img(src='data:image/#{bookComment[i].userId.avatar.contentType};base64,#{bookComment[i].userId.avatar.data.toString("base64")}')
 							-else
 								img.fl.avatar(src='/images/default/avatar.jpg')
 						.userInfo
-							a(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
-							p 评论《#{bookComment[i].bookId.name_zh}》
+							a.mb10.name(href='/user/#{bookComment[i].userId.name}') #{bookComment[i].userId.name}
+							p.mb10 评论《#{bookComment[i].bookId.name_zh}》
 							-if(bookComment[i].comment.content.length >= 45)
-								p.commentContent(data-content="#{bookComment[i].comment.content}") #{bookComment[i].comment.content.substr(0,44)}...
+								p.mb10.commentContent(data-content="#{bookComment[i].comment.content}") #{bookComment[i].comment.content.substr(0,44)}...
 									span.more.btn.none 展开
 							-else
-								p.commentContent(data-content="#{bookComment[i].comment.content}") #{bookComment[i].comment.content}
+								p.mb10.commentContent(data-content="#{bookComment[i].comment.content}") #{bookComment[i].comment.content}
 							p
 								!{bookComment[i].useful}有用 #{bookComment[i].datetime}
 		script(type='text/javascript',src='/javascripts/page/commitContent.js')

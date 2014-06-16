@@ -34,7 +34,6 @@ function User(user) {
 	this.password = user.password;
 	this.email = user.email;
     this.sex = user.sex;
-    this.wish = user.wish;
 };//User 构造函数，对新创建的对象进行初始化 
 
 
@@ -46,7 +45,6 @@ User.prototype.save = function(callback){
 		name : this.name,
 		password : this.password,
 		email : this.email,
-    wish : this.wish
 	};
 
     var newUser = new userModel(user);

@@ -3,10 +3,50 @@
 extends ../layout
 block content
 	.main-content
-		h1= title
-		p Welcome to #{title}
-		-if (userInfor.bookId.length == 0)
-			p 没有上传过作品
-		-else
-			h2 上传过的书籍 
-				.con #{userInfor.bookId[0].name_zh}
+		h2.userInfor-title= title	
+		ul.perinfo-nav
+			li.sel(name='mybook') TA上传的书
+			li(name='mywish') TA希望读的书
+			li(name='myreaded') TA读过的书
+			li(name='myreading') TA正在读的书		
+		.content-box
+			.mybook#mybook
+				-if (userInfor.bookId.length == 0)
+					p TA没有上传过作品
+				-else
+					ul
+						-for(var i = 0, j = userInfor.bookId.length; i < j; i++)
+							li
+								a.mr10(href='/serial/#{userInfor.bookId[i]._id}',title='#{userInfor.bookId[i].name_zh}') #{userInfor.bookId[i].name_zh}
+			.mywish#mywish.none
+				-if(userInfor.wish.length)
+					ul
+						-for(var i = 0, j = userInfor.wish.length; i < j; i++)
+							li
+								a.mr10(href='/serial/#{userInfor.wish[i]._id}',title='#{userInfor.wish[i].name_zh}') #{userInfor.wish[i].name_zh}
+				-else
+					p TA还没有添加想看的书
+			.myreaded#myreaded.none
+				-if(userInfor.readed.length)
+					ul
+						-for(var i = 0, j = userInfor.readed.length; i < j; i++)
+							li
+								a.mr10(href='/serial/#{userInfor.readed[i]._id}',title='#{userInfor.readed[i].name_zh}') #{userInfor.readed[i].name_zh}
+				-else
+					p TA还没有添加看过的书
+			.myreading#myreading.none
+				-if(userInfor.reading.length)
+					ul
+						-for(var i = 0, j = userInfor.reading.length; i < j; i++)
+							li
+								a.mr10(href='/serial/#{userInfor.reading[i]._id}',title='#{userInfor.reading[i].name_zh}') #{userInfor.reading[i].name_zh}
+				-else
+					p TA还没有添加在看的书
+		script.
+			$(document).ready(function(){
+				$('.perinfo-nav li').click(function(){
+					$(this).addClass('sel').siblings().removeClass('sel');
+					console.log($(this).attr('name'));
+					$('#'+$(this).attr('name')).show().siblings().hide();
+				});
+			});

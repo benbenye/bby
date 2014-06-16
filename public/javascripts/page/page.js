@@ -66,8 +66,9 @@
         xhr.onload = function () {
             $('.postuserAvatar').before('<div>修改成功</div>');
             $('.avatarImg').detach();
-            $('#percentage').after("<img class='coverImg' src='data:"+JSON.parse(xhr.responseText).contentType+";base64,"+JSON.parse(xhr.responseText).data.toString('base64') +"' width='76' height='76'>");
+            $('#percentage').before("<img class='coverImg' src='data:"+JSON.parse(xhr.responseText).contentType+";base64,"+JSON.parse(xhr.responseText).data.toString('base64') +"' width='160' height='160'>");
         };
+        $('#progressBar').show();
         xhr.upload.addEventListener("progress", progressFunction, false);
         xhr.send(form);
     });

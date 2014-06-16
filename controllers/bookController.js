@@ -370,13 +370,23 @@ function BookController(){
         BookContent.getOnePage(id, page, function(err, pageContent){
             if(pageContent == null){
                 res.send({state:0});
-            }else{
-                res.render('book/editPage',{
-                    id:id,
-                    user:req.session.user,
-                    page:page,
-                    content:pageContent.contents[page-1].content
-                });  
+            }else{                
+                if(req.session.user == null){
+                    res.render('book/editPage',{
+                        id:id,
+                        page:page,
+                        content:pageContent.contents[page-1].content
+                    });
+                }else{
+                    GetPerInfo(req.session.user.name, function (user) {
+                        res.render('book/editPage',{
+                            id:id,
+                            user:user,
+                            page:page,
+                            content:pageContent.contents[page-1].content
+                        });
+                    });
+                }
             }
         });
     }
@@ -394,7 +404,6 @@ function BookController(){
                         req.flash();
                         return callback(err);
                     }
-                    console.log(book);
                     if(req.session.user == null){
                         res.render('book/bookContent',{
                             title:'书籍内容',
@@ -513,16 +522,24 @@ function BookController(){
             if(err){
                 return console.log(err.message);
             }
-            console.log(paperBook);
-            GetPerInfo(req.session.user.name, function (user) {
+            if(req.session.user == null){
                 res.render('book/paperBookCont',{
-                    user:user,
                     paperBook:paperBook,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
                     error:req.flash('error').toString(),
                 });
-            });
+            }else{
+                GetPerInfo(req.session.user.name, function (user) {
+                    res.render('book/paperBookCont',{
+                        user:user,
+                        paperBook:paperBook,
+                        success:req.flash('success').toString(),
+                        success_out:req.flash('success_out').toString(),
+                        error:req.flash('error').toString(),
+                    });
+                });
+            }
         });
     };
 }

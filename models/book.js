@@ -103,6 +103,21 @@ Book.getMywish= function(mywishBook, callback){
         callback(null, book);//book数组
     });
 };
+// 修改想看的书籍数量
+Book.editNum = function(id, obj, callback){
+    // bookModel.findOne({_id:id},function(err,book){
+    //     var want = book.want + 1;
+    var objs = '{"'+obj+'":"1"}';
+    objs = JSON.parse(objs);
+        bookModel.update({_id:id},{$inc:objs},function(err, numeffect){
+            if(err){
+                return callback(err);
+            }
+            callback(null, numeffect);
+        });
+    // });
+   
+};
 //读取文章及其相关信息
 Book.getOne = function(id, callback){
 	bookModel.findOne({_id:id})

@@ -15,10 +15,13 @@
             _route = '/user/'+_followName;
         $.get(_route,{bookId:bookId},function(data){
             if(data.ok === 1){
-                $('#'+_followName).attr({id:'wished'}).siblings().detach();
-                $('<span>+1</span>').appendTo("#"+_followName);
+                var num = $('#'+_followName +' span').text();
+                num = parseInt(num)+1;
+                $('#'+_followName +' span').text(num);
+                var str = $('#'+_followName).text();
+                $('#'+_followName).hide().after('<span class="mr10 disable">'+str+'</span>').remove();
             }else if(data.ok === 0){
-                alert('您已经添加过这本书了'+data.err.err);
+                alert(data.err.err);
                 }
         });
     }

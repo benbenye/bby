@@ -2,20 +2,26 @@ doctype html
 html
 	include head
 	body
-		.bdsharebuttonbox
+		.bdsharebuttonbox.pc
 			a.bds_more(href='#',data-cmd="more")
 			a.bds_qzone(href='#',data-cmd="qzone",title="分享到QQ空间")
 			a.bds_tsina(href='#',data-cmd="tsina",title="分享到新浪微博")
 			a.bds_tqq(href='#',data-cmd="tqq",title="分享到腾讯微博")
 			a.bds_renren(href='#',data-cmd="renren",title="分享到人人网")
 			a.bds_weixin(href='#',data-cmd="weixin",title="分享到微信")
+		.bdsharebuttonbox#phone.none
+			a.bds_qzone(href='#',data-cmd="qzone",title="分享到QQ空间")
+			a.bds_tsina(href='#',data-cmd="tsina",title="分享到新浪微博")
+		.phone-btn
 		.left-content
 			.perinfo.tc.mt30.mb30
+				a(href='/user/perinfo')
+					-if(user != null)
+						-if(user.avatar.data == undefined)
+							img.avatar-120(src='/images/default/avatar.jpg')
+						-else
+							img.avatar-120(src='data:image/#{user.avatar.type};base64,#{user.avatar.dataStr}')
 				-if(user != null)
-					-if(user.avatar.data == undefined)
-						img.avatar-120(src='/images/default/avatar.jpg')
-					-else
-						img.avatar-120(src='data:image/#{user.avatar.type};base64,#{user.avatar.dataStr}')
 					p.username #{user.name}
 			ul.nav
 				li
@@ -34,6 +40,30 @@ html
 						a.no_unl(href='/user/login') 登录
 					li
 						a.no_unl(href='/user/reg') 注册
+		script.
+			var scale = 1.0, ratio = 1,postid=0;
+			(function() {
+				if (window.devicePixelRatio === 2 && window.navigator.appVersion.match(/iphone/gi)) {
+					scale = 0.9;ratio = 2;
+				}
+				if (window.devicePixelRatio === 1.5){
+					scale = 0.9;
+				}
+				var text = '<meta name="viewport" content="initial-scale=' + scale + ', maximum-scale=' + scale +', minimum-scale=' + scale + ', user-scalable=yes,width=344" />';
+				document.write(text);
+			})();
+			$(document).ready(function(){				
+				$('.phone-btn').click(function(){
+					$('.left-content').slideToggle();
+				});
+				$(window).scroll(function(){
+					if($(window).scrollTop() > 150){
+						$('#phone').css({position:'fixed',top:'0',left:'0',zIndex:4}).show().addClass('top-animate phone-style');
+					}else{
+						$('#phone').removeClass('top-animate phone-style');
+					}
+				});
+			});
 		script.
 			window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
 		block content

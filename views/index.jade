@@ -11,13 +11,14 @@ block content
 				p=success_out
 			-if(error)
 				p=error
-		h2 最新连载
+		h2.serial-title 最新连载
 		div.bd
 			ul.serial
 				-for(var index = books.length - 1; index >= 0; --index)
 					-if(books[index].bookContent)
 						li
-							img.cover(src='data:image/#{books[index].cover.contentType};base64,#{books[index].cover.data.toString("base64")}')
+							.coverImg
+								img.cover(src='data:#{books[index].cover.contentType};base64,#{books[index].cover.data.toString("base64")}')
 							h3.title.overdot
 								a(href='/serial/#{books[index]._id}') #{books[index].name_zh}
 								-if(user && user.name == 'name')

@@ -1,21 +1,32 @@
 extends ../layout
 block content
 	.main-content
-		h2=name
 		-if(book)
-			h2.fb.f18#bookTitle(bookId='#{book._id}')=book.name_zh
-			p=book.tags
+			h3.fb.f18#bookTitle(bookId='#{book._id}')=book.name_zh
+			p.tags 标签：
+				-for(var i = 0, j = book.tags.length; i < j; i++)
+					span #{book.tags[i]}
 			img.cover(src='data:#{book.cover.contentType};base64,#{book.cover.data.toString("base64")}')
 		-if(user != null)
 			p
-				-if(user.want == 0 || !book._id in user.wish)
-					a.mr10.no_unl#wish(href='javascript:void(0)') 想看
-				-if(user.readed == 0 || !book._id in user.readed)
-					a.mr10.no_unl#readed(href='javascript:void(0)') 看过
-				-if(user.reading == 0 || !book._id in user.reading)
-					a.mr10.no_unl#reading(href='javascript:void(0)') 正看
-			a(href='/book/bookContent/#{book._id}') 阅读
+				-if(user.wish.length === 0 || !user.wish.some(function(e){return e._id.toString() == book._id.toString()}))
+					a.mr10.no_unl#wish(href='javascript:void(0)') 想看 
+						span #{book.want}
+				-else
+					span.mr10.disable 想看 #{book.want}
+				-if(user.readed.length == 0 || !user.readed.some(function(e){return e._id.toString() == book._id.toString()}))
+					a.mr10.no_unl#readed(href='javascript:void(0)') 看过 
+						span #{book.readed}
+				-else
+					span.mr10.disable 看过 #{book.readed}
+				-if(user.reading.length == 0 || !user.reading.some(function(e){return e._id.toString() == book._id.toString()}))
+					a.mr10.no_unl#reading(href='javascript:void(0)') 正看 
+						span #{book.reading}
+				-else
+					span.mr10.disable 正看 #{book.reading}
 		-else if(error)
 			p=error
+		div.mt30
+			a.btn(href='/book/bookContent/#{book._id}') 阅读
 		link(rel='stylesheet', href='/stylesheets/common/common.css')
 		script(src='/javascripts/page/collect_page.js')

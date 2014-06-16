@@ -10,9 +10,11 @@ block content
 					-if(user && user.name == 'name')
 						.btn.delete(paper-id="#{paperBook[index]._id}") ×
 					-if(paperBook[index].cover.data == undefined)
-						img.cover(src='/images/default/avatar.jpg')
+						.paperCoverImg
+							img.paperCover(src='/images/default/avatar.jpg')
 					-else
-						img.cover(src='data:#{paperBook[index].cover.contentType};base64,#{paperBook[index].cover.data.toString("base64")}')
+						.paperCoverImg
+							img.paperCover(src='data:#{paperBook[index].cover.contentType};base64,#{paperBook[index].cover.data.toString("base64")}')
 					.info
 						h3.title
 							a(href='/paperbook/#{paperBook[index]._id}') #{paperBook[index].name_zh}
