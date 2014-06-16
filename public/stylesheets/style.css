@@ -90,6 +90,11 @@ a {
 .serial li .intro{color: #666;}
 .serial li .time{color: #999;}
 
+.page-content{min-height: 500px;}
+.page-control{margin-top: 30px;}
+.page-control li{display: inline-block;width: 20px;cursor: pointer; height: 20px; border-radius: 50%; border:1px solid #ccc;background:rgb(236, 227, 209); text-align: center; margin-right: 10px;}
+.page-control li.sel{background: rgb(240, 184, 71);}
+
 
 /*reviewer list*/
 .reviewer li{position: relative; width: 400px; height: 150px; display: inline-block; *display: inline; *zoom: 1; vertical-align: top;
@@ -231,11 +236,11 @@ animation:bounceInDown .4s 0s ease both;
 	.mybook .content  ul li a{display: inline-block; margin-right: 5px; vertical-align: top;}
 	.mybook .content .book-title{max-width: 90px; }
 
-	.moreBox{width: 80%; margin-left: -170px;}
+	.moreBox,.comment{width: 80%; margin-left: -170px;}
 
 	/*share*/
 	.pc{display: none;}
 	.phone-style{width: 100%; background: rgba(0,0,0,.5);}
-	.phone-style .bds_qzone{background-image: url(/images/share-btn.png);background-repeat: no-repeat;background-position: 0 0!important;}
-	.phone-style .bds_tsina{background-image: url(/images/share-btn.png);background-repeat: no-repeat;background-position: -150px 0!important;}
+	.phone-style .bds_qzone{background-image: url(/images/share-btn1.png);background-repeat: no-repeat;background-position: 0 0!important; background-size: contain; width: 154px; height: 47px;}
+	.phone-style .bds_tsina{background-image: url(/images/share-btn.png);background-repeat: no-repeat;background-position: 0px 0!important; background-size: contain; width: 154px; height: 47px; float: right;}
 }

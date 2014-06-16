@@ -6,10 +6,18 @@ block content
 				h3.mb20
 					-if(user != null)
 						a#comment-btn.btn(href='javascript:;') 我要写书评
-				-for(var i = 0; i < book.bookContent.contents.length; ++i)
-					.page(data-page=i+1) !{book.bookContent.contents[i].content}
+				.page-content
+					.page(data-page=1) !{book.bookContent.contents[0].content}
 						-if(user != null && user.name == book.publisher)
-							a(href='/book/upbookContent/'+book._id+'/'+(i+1)) 修改本页
+							a(href='/book/upbookContent/'+book._id+'/1') 修改本页
+					-for(var i = 1; i < book.bookContent.contents.length; ++i)
+						.page.none(data-page=i+1) !{book.bookContent.contents[i].content}
+							-if(user != null && user.name == book.publisher)
+								a(href='/book/upbookContent/'+book._id+'/'+(i+1)) 修改本页
+				ul.page-control.mt20
+					li.sel 1		
+					-for(var i = 1; i < book.bookContent.contents.length; ++i)
+						li=i+1
 			-else if(user != null)
 					p 这本书还没有内容
 				-else
@@ -35,12 +43,20 @@ block content
 				if($(document).scrollTop()>80){
 					$('#comment-btn').css({
 						position :'fixed',
-						top : '5px',
-						right : '30px',
+						top : '75px',
+						right : '5px',
 						zIndex : 2
 					}).addClass('top-animate');
 				}else{
 					$('#comment-btn').css({position:'static'}).removeClass('top-animate');
 				}
+			});
+			$(document).ready(function(){
+				$('.page-control li').click(function(){
+					var num = $(this).index();
+					console.log(num);
+					$(this).addClass('sel').siblings().removeClass('sel');
+					$('.page:eq('+num+')').show().siblings().hide();
+				});
 			});
 		script(type='text/javascript',src='/javascripts/page/commitContent.js')

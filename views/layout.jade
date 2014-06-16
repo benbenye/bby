@@ -15,14 +15,16 @@ html
 		.phone-btn
 		.left-content
 			.perinfo.tc.mt30.mb30
-				a(href='/user/perinfo')
-					-if(user != null)
+				-if(user != null)
+					a(href='/user/perinfo')
 						-if(user.avatar.data == undefined)
 							img.avatar-120(src='/images/default/avatar.jpg')
 						-else
 							img.avatar-120(src='data:image/#{user.avatar.type};base64,#{user.avatar.dataStr}')
-				-if(user != null)
 					p.username #{user.name}
+				-else
+					img.avatar-120(src='/images/logo.jpg')
+					p.username 笨笨书屋
 			ul.nav
 				li
 					a.no_unl(href='/') 新书速递
@@ -57,10 +59,12 @@ html
 					$('.left-content').slideToggle();
 				});
 				$(window).scroll(function(){
-					if($(window).scrollTop() > 150){
-						$('#phone').css({position:'fixed',top:'0',left:'0',zIndex:4}).show().addClass('top-animate phone-style');
-					}else{
-						$('#phone').removeClass('top-animate phone-style');
+					if($('.pc:hidden').length){
+						if($(window).scrollTop() > 150){
+							$('#phone').css({position:'fixed',top:'0',left:'0',zIndex:4}).show().addClass('top-animate phone-style');
+						}else{
+							$('#phone').hide().removeClass('top-animate phone-style');
+						}
 					}
 				});
 			});
