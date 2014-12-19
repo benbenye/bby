@@ -1,0 +1,54 @@
+extends ../layout
+
+block content	
+	link(rel='stylesheet', href='/stylesheets/common/mobile-game-movie.css')
+	script(src='/javascripts/game/main-movie.js')
+	script(data-main="scripts/main", src="scripts/require.js")
+	section.main-content
+		section#sec1.sec-con
+			h3.game-title
+				img(src="/images/game/movie/title.png",width="100%")
+			div.intro-title
+				p.intro-p
+					|已看过
+					span 0
+					|部电影
+			div.play
+				img#start(src="/images/game/movie/start.png",width="40%")
+			div.show-off
+				#show-off-btn 炫耀一下
+		section#sec2.sec-con.dn
+			#game-ing
+				.menu
+					.back#go-back &lt;
+					.menu-title
+						|已看过
+						span 0
+						|部影片
+					.money
+						|0
+				img.still(src="/images/game/movie/still-example.jpg",width="100%")
+				.skip-help-prompt
+					.game-btn.skip 跳过
+					.game-btn.help 求助
+					.game-btn.prompt 赚金币
+				.answer-the-region
+					ul
+						li
+						li
+						li
+				.answer-choices
+					ul
+		section#sec4.sec-con.dn
+			#show-movie
+				h3.t1
+					|第
+					span 0
+					|部
+				h3.t2 《宝贝宝贝》
+				p.p1 更优秀的错误处理更多取代脚本的标记,仍处于完善之中
+				.nextQuestion 下一部
+		section#sec3.sec-con.dn
+			#game-end 游戏结束
+				.restart 重新开始游戏
+		

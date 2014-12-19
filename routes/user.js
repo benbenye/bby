@@ -62,4 +62,7 @@ module.exports = function(app){
     //用户个人页面
     // app.get('/user/:name', CheckController.checkNotLogin);
     app.get('/user/:name', UserController.getUserInfor);
+
+    // game
+    app.get('/game/movie',UserController.getGameMovie);
 };

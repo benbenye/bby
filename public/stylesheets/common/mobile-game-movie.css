@@ -1,0 +1,61 @@
+html{width: 100%;height: 100%;font-size: 15px;background: orange; line-height: 1.5;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-text-size-adjust:none;}
+body{padding: 0;margin: 0;width: 100%;color: #333;background: #f2f2f2; overflow-x: hidden;word-break:break-all;word-wrap:break-word;}
+ul,li{list-style:none;margin:0;padding:0;}
+h1,h2,h3,h4,h5,p{margin:0;font-style: normal;font-weight: normal;}
+h2,h4{font-weight: bold;font-size: 16px;padding: 1.8em 0 0.5em 0;}
+img{border:0;vertical-align: top;}
+input,img{vertical-align:middle;margin: 0;}
+input,textarea{font-size:1.2em;}
+input:focus{outline: 0;}
+.input-error{background: #FEE!important;border: 1px solid #FFB5B5!important;}
+a{text-decoration: none;}
+::-webkit-input-placeholder{color:#d3d3d3;font-size: 18px;}
+.abs{display: block;position: absolute;top: 0;right: 0;bottom: 0;left: 0;margin: auto;}
+.clearfix{*zoom: 1;}
+.clearfix:before,.clearfix:after {display: table;line-height: 0;content: "";}
+.clearfix:after {clear: both;}
+.cw{width: 320px;overflow:hidden;margin-left: auto;margin-right: auto;}
+.fl{float: left;}
+.fr{float: right;}
+.dn{display: none;}
+.inb{display: inline-block;*display: inline;zoom: 1;vertical-align: top;}
+.inbm{display: inline-block;*display: inline;zoom: 1;vertical-align: middle;}
+.vt{vertical-align: top;}
+.tl{text-align: left;}
+.tc{text-align: center;}
+.dn{display: none;}
+
+.main-content{margin: 0; position: absolute; width: 100%; height: 100%; background-color: #272727;}
+.sec-con{width: 100%; height: 100%; overflow: hidden;}
+
+#sec1 .game-title,#sec1 .intro-title{text-align: center; margin-top: 10px;}
+#sec1 .play,#sec1 .show-off{text-align: center; margin-top: 40px;}
+#sec1 .intro-title .intro-p{font-size: 22px; color: #fff; letter-spacing: 3px;}
+#sec1 .intro-title .intro-p span{color: #ffd201; margin-left: 3px; margin-right: 3px;}
+#sec1 #show-off-btn{width: 120px; height: 40px; background-color: #e52928; color: #fff; text-align: center; border-bottom: 3px solid #a31d1a; border-radius: 4px; font-size: 22px; margin-left: auto; margin-right: auto;}
+
+#sec2{text-align: center;}
+#sec2 .menu{color: #fff; font-size: 20px;padding-top: 5px; padding-bottom: 5px;}
+#sec2 .menu .back{display: inline-block; vertical-align: middle; width: 20%;}
+#sec2 .menu .menu-title{display: inline-block;vertical-align: middle; width: 60%;}
+#sec2 .menu .menu-title span{ color: #ffd201;}
+#sec2 .menu .money{display: inline-block; vertical-align: middle;font-size: 16px; background-image: url(/images/game/movie/money.png); background-repeat: no-repeat; background-size: 20px; background-position: 5px 1px; padding-left: 30px;}
+#sec2 #game-ing{margin-left: auto; margin-right: auto;}
+#sec2 .still{margin-bottom: 20px;}
+#sec2 .game-btn{display: inline-block; width: 28%; margin-left: 1%; margin-right: 1%;  border-radius: 4px; background-color: #e52928; color: #fff; border-bottom: 3px solid #a31d1a; text-align: center; height: 36px; font-size: 20px;background-image: url(/images/game/movie/movie-icon.png); background-size: 20px; background-repeat: no-repeat;}
+#sec2 .skip{background-position: 5px 10px;}
+#sec2 .help{background-position: 5px -33px;}
+#sec2 .prompt{background-position: 5px -81px; text-indent: 30px;}
+#sec2 .answer-the-region{margin-top: 20px; margin-bottom: 20px;}
+#sec2 .answer-choices{width: 320px; margin-left: auto; margin-right: auto;}
+#sec2 .answer-the-region ul li,#sec2 .answer-choices ul li{display: inline-block; vertical-align: top; width: 34px;height: 31px; vertical-align: top; margin-left: 2px; margin-right: 1px; margin-top: 1px; background: #fff; font-size: 20px; border-radius: 4px; border-bottom: 3px solid #ccc;}
+#sec2 .answer-choices ul li.al-add{background: none; color: #fee; visibility: hidden;}
+#sec2 .answer-the-region ul li.no-click{background: none;}
+#sec2 .answer-the-region.wrong-tip{color: red;}
+
+#sec4{position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: rgba(0,0,0,.5); text-align: center; color: #fff;}
+#sec4 #show-movie .t1{font-size: 24px; letter-spacing: 3px; margin-top: 45px;}
+#sec4 #show-movie .t1 span{color: #ffd201; margin-left: 2px; margin-right: 2px;}
+#sec4 #show-movie .t2{font-size: 26px;}
+#sec4 #show-movie .p1{width: 320px; margin-left: auto; margin-right: auto; margin-top: 70px;}
+#sec4 .nextQuestion{width: 120px; height: 40px; background: #2ec66e; border-bottom: 3px solid #218f4f; margin-top: 100px; font-size: 22px; text-align: center;border-radius: 4px; margin-left: auto; margin-right: auto;}

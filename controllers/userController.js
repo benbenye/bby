@@ -50,11 +50,11 @@ function UserController(){
 
     this.postreg = function(req, res){
        var password = req.body.password,
-           password_re = req.body.password_re;
+            password_re = req.body.password_re;
        if(password != password_re){
-           req.flash('error','两次密码不一致');
-                console.log('pushreaded')
-           return res.redirect('/user/reg');
+            req.flash('error','两次密码不一致');
+            console.log('pushreaded');
+            return res.redirect('/user/reg');
        }
         var temp = req.body.email;
            //对电子邮件的验证
@@ -79,6 +79,7 @@ function UserController(){
         User.get(newUser.name,function(err,user){
             if(user){
                 req.flash('error','用户已经存在');
+                console.log('用户已经存在');
                 return res.redirect('/user/reg');
             }
             newUser.save(function(err,user){
@@ -264,6 +265,14 @@ function UserController(){
                     });
                 });
             }
+        });
+    };
+
+    this.getGameMovie = function(req, res){
+        // movie game
+        res.render('game/movie',{
+            title:'电影超人',
+            success:req.flash('success').toString()
         });
     };
 }
