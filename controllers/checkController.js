@@ -1,4 +1,4 @@
-﻿var CheckController = new  CheckController();
+var CheckController = new  CheckController();
 
 function CheckController(){
     this.checkNotLogin = function checkNotLogin(req, res, next){

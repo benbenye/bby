@@ -10,7 +10,8 @@ var express = require('express'),
     mongodb = require('mongodb'),
     MongoStore = require('connect-mongo')(express),
     //settings = require('./settings'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    io = require('socket.io')(http);
 
 var app = express();
 
@@ -47,4 +48,7 @@ app.get('/users', user.list);*/
 routes(app);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+io.on('connected', function(socket){
+  console.log('a user connected');
 });

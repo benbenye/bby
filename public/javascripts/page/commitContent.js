@@ -1,4 +1,4 @@
-﻿$(document).ready(function(){
+$(document).ready(function(){
     /**
     *上传书籍内容
     */

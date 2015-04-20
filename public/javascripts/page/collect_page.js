@@ -1,4 +1,4 @@
-﻿$(document).ready(function(){
+$(document).ready(function(){
 
     $('#wish').click(function(){
        pushFollow($('#bookTitle').attr('bookId'),'wish');

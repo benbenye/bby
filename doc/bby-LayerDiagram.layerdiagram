@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="fea38011-9eab-43fd-927d-ff62b02c16ab" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
   <layers>
     <layer Id="b6cef14f-405b-4b54-b736-cb599db11483" name="NodeJs">
