@@ -15,7 +15,9 @@ var express = require('express'),
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+// app.set('port', process.env.VMC_APP_PORT || 3000);
+var port = (process.env.VMC_APP_PORT || 3000);
+var host = (process.env.VCAP_APP_HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));//设置views文件夹为存放试图文件的目录，_dirname为全局变量，存储当前正在执行的脚本所在的目录
 app.set('view engine', 'jade');
 
@@ -33,7 +35,7 @@ app.use(express.session({
     cookie :{maxAge:1000*60*6024*30},
     store:new MongoStore({
         db:'session',//把会话存储到数据库中避免丢失
-        url:'mongodb://127.0.0.1:27017/session'
+        url:'mongodb://'+MOPAAS_MONGODB26404_USERNAME+':'+MOPAAS_MONGODB26404_PASSWORD+'@'+MOPAAS_MONGODB26404_HOST+':'+MOPAAS_MONGODB26404_PORT+'/sessoin'
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,7 +48,7 @@ if ('development' == app.get('env')) {
 /*app.get('/', routes.index);
 app.get('/users', user.list);*/
 routes(app);
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), host, function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 io.on('connected', function(socket){
