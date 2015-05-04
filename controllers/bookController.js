@@ -1,4 +1,4 @@
-var BookController = new  BookController(),
+    var BookController = new  BookController(),
     crypto = require('crypto'),//crypto 是node的一个核心模块，我们使用他生成散列值加密密码  
     fs = require('fs'),
     GetPerInfo = require('../common/getPerInfo.js'),  
@@ -19,7 +19,7 @@ function BookController(){
             }
             if(req.session.user == null){
                 res.render('index',{
-                    title:'主页',
+                    title:'最新连载',
                     books:book,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
@@ -28,7 +28,7 @@ function BookController(){
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
                     res.render('index',{
-                        title:'主页',
+                        title:'最新连载',
                         user:user,
                         books:book,
                         success:req.flash('success').toString(),
