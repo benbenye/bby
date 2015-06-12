@@ -2,8 +2,8 @@ extends ../layout
 block content
 	.main-content
 		h2 #{title}
-			-if(user && user.name == 'name')
-				a(href='/getuppaperBook') 新书上传地址[仅管理员可见]
+		-if(user && user.name == 'name')
+			a(href='/getuppaperBook') 新书上传地址[仅管理员可见]
 		ul.paperBook
 			-for(var index = paperBook.length - 1; index >= 0; --index)
 				li

@@ -81,14 +81,16 @@ a {
 /*main content*/
 .main-content{margin-left: 250px;}
 
+/* mybook */
+.mybook .content  ul li a{display: inline-block; margin-right: 15px; vertical-align: top;}
+.mybook .content .book-title{width: 200px; }
 /*book List*/
 .serial{font-size: 14px; margin-right: -50px;}
-.serial li{display: inline-block; *display: inline; *zoom: 1; width: 164px; margin-right: 40px; vertical-align: top; margin-bottom: 30px; font-size: 12px; border-radius: 4px;
-	background: #ececec; min-height: 290px; border-bottom: 2px solid #e0e0e0;}
-.serial li .title{font-size: 16px;}
+.serial li{display: inline-block; *display: inline; *zoom: 1; width: 164px; margin-right: 40px; vertical-align: top; margin-bottom: 30px; font-size: 12px; min-height: 290px;}
+.serial li .title{font-size: 16px; padding: 10px;}
 .serial li .title a:hover{color: #fff; background: #0590C7;}
-.serial li .intro{color: #666;}
-.serial li .time{color: #999;}
+.serial li .intro{color: #666; padding-left: 10px; padding-right: 10px; padding-bottom: 10px;}
+.serial li .time{color: #999; padding-left: 10px; padding-right: 10px; padding-bottom: 10px;}
 
 .page-content{min-height: 500px;}
 .page-control{margin-top: 30px;}
@@ -97,12 +99,9 @@ a {
 
 
 /*reviewer list*/
-.reviewer li{position: relative; width: 400px; height: 150px; display: inline-block; *display: inline; *zoom: 1; vertical-align: top;
+.reviewer li{position: relative; width: 400px; display: inline-block; *display: inline; *zoom: 1; vertical-align: top;
 	margin-right: 20px;
 	padding: 10px;
-	border-bottom: 2px solid #e0e0e0;
-	border-radius: 4px;
-	background: #ececec;
 	margin-bottom: 30px;}
 .reviewer li a.avatar{position: absolute;}
 .reviewer li a img{width: 96px; height: 96px; vertical-align: top;}

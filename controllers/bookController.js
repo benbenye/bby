@@ -446,6 +446,7 @@ function BookController(){
 
     //图书上传
     this.uppaperBook = function (req, res){
+        console.log(req.files);
         var paperCover = {
                 data: fs.readFileSync(req.files.cover.path),
                 contentType: req.files.cover.type
