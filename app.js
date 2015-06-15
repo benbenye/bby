@@ -7,6 +7,7 @@ var express = require('express'),
     connect = require('connect'),
     methodOverride = require('method-override'),
     bodyParser = require('body-parser'),
+    multer = require('multer'),
     cookieParser = require('cookie-parser'),
     http = require('http'),
     path = require('path'),
@@ -27,8 +28,9 @@ app.set('view engine', 'jade');
 
 app.use(flash());
 app.use(bodyParser.urlencoded());
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(bodyParser.json());
+app.use(multer()); 
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cookieParser());
 app.use(session({

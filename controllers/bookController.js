@@ -446,34 +446,35 @@ function BookController(){
 
     //图书上传
     this.uppaperBook = function (req, res){
-        console.log(req.files);
-        var paperCover = {
-                data: fs.readFileSync(req.files.cover.path),
-                contentType: req.files.cover.type
-            };
-        var newpaperBook = new PaperBook({
-            publisher : req.session.user.userId,
-            press : req.body.press,
-            name_zh : req.body.name_zh,
-            ISBN : req.body.ISBN,
-            author : req.body.author,
-            translator : req.body.translator,
-            tags : req.body.tags.split(','),
-            authorIntro : req.body.authorIntro,
-            contIntro : req.body.contIntro,
-            releaseTime : req.body.releaseTime,
-            pages : req.body.pages,
-            price : req.body.price,
-            layout : req.body.layout,
-            cover : paperCover 
-        });
+        var form = new multiparty.Form();
 
-        newpaperBook.save(function(err, paperBook){
-            if(err){
-                return console.log(err.message);
+            var paperCover = {
+                data: fs.readFileSync(req.files.cover.path),
+                contentType: req.files.cover.mimetype
             }
-            res.redirect('/');
-        });
+            var newpaperBook = new PaperBook({
+                publisher : req.session.user.userId,
+                press : req.body.press,
+                name_zh : req.body.name_zh,
+                ISBN : req.body.ISBN,
+                author : req.body.author,
+                translator : req.body.translator,
+                tags : req.body.tags.split(','),
+                authorIntro : req.body.authorIntro,
+                contIntro : req.body.contIntro,
+                releaseTime : req.body.releaseTime,
+                pages : req.body.pages,
+                price : req.body.price,
+                layout : req.body.layout,
+                cover : paperCover 
+            });
+
+            newpaperBook.save(function(err, paperBook){
+                if(err){
+                    return console.log(err.message);
+                }
+                res.redirect('/');
+            });
     };
 
     //修改图书
