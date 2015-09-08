@@ -8,7 +8,8 @@
     BookContent = require('../models/bookContent.js'),
     BookCover = require('../models/bookCover.js'),
     BookComment = require('../models/bookComment.js'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    gm = require('gm');
 
 function BookController(){
     this.getindex = function(req, res){
