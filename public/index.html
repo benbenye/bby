@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>笨笨书屋</title>
+	<script src="/lib/avalon/avalon.js"></script>
+	<script src="/lib/avalon/mmRequest.js"></script>
+</head>
+<body>
+	<script>
+require(['./mmRequest'], function(avalon) {
+	var vm = avalon.define({
+		$id: "main-content",
+		title:'',
+		success:'',
+		paperBook:[]
+   });
+
+	avalon.getJSON( "/index",function(data){
+   for(var i in data){
+     if(vm.hasOwnProperty(i)){
+        vm[i] = data[i]
+     }
+   }
+   // avalon.scan();
+  });
+ })
+
+
+	</script>
+	<div ms-controller="main-content">点我加载点数据-avalon.getJSON{{title}}</div>
+</body>
+</html>

@@ -10,7 +10,7 @@ var book = express.Router();
 
 
     //新书速递,实体书 进入首页
-    book.get('/', BookController.getpaperbook);
+    book.get('/index', BookController.getpaperbook);
 
     // 进入后台上传页面
     book.get('/getuppaperBook', CheckController.checkNotLogin);
