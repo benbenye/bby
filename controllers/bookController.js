@@ -19,7 +19,7 @@ function BookController(){
                 return callback(err);
             }
             if(req.session.user == null){
-                res.send({
+                res.json({
                     title:'最新连载',
                     books:book,
                     success:req.flash('success').toString(),
@@ -28,7 +28,7 @@ function BookController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                    res.send({
+                    res.json({
                         title:'最新连载',
                         user:user,
                         books:book,
@@ -498,17 +498,18 @@ function BookController(){
             }
             if(req.session.user == null){
                 // res.render('book/paperBook',{
-                res.send({
+                res.json({
                     title:'新书速递',
                     paperBook:paperBook,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
                     error:req.flash('error').toString(),
                 });
+
             }else{
                GetPerInfo(req.session.user.name, function (user) {
                    // res.render('book/paperBook',{
-                   res.send({
+                   res.json({
                        title:'新书速递',
                        user:user,
                        paperBook:paperBook,

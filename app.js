@@ -43,9 +43,9 @@ app.use(session({
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(book);
-app.use(comment);
-app.use(user);
+// app.use(book);
+// app.use(comment);
+// app.use(user);
 
 // development only
 if ('development' == app.get('env')) {

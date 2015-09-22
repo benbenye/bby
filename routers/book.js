@@ -23,7 +23,7 @@ var book = express.Router();
     book.get('/delete/:id', BookController.removepaperBook);
 
     //最新连载
-    book.get('/book/serial', BookController.getindex);
+    // book.get('/book/serial', BookController.getindex);
 
     /*
     *我上传过的书

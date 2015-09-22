@@ -24,11 +24,15 @@ var paperbookSchema = new paperbookSchema({
   pages:Number,//页数
   price:Number,//定价
   layout:String,//装帧
-  cover:{ data: Buffer, contentType: String }//封皮
+  cover:{ data: Buffer, contentType: String },//封皮，
+  imgSrc:String
 },{
     collection:'paperbooks'
 });
-
+// paperbookSchema.path('cover.data').get(function (v) {
+//   console.log(v)
+//   return v.toString('base64');
+// });
 var paperbookModel = mongoose.model('PaperBook', paperbookSchema);// all environments
 function PaperBook(paperBook) {
     this.publisher = paperBook.publisher;
@@ -100,6 +104,9 @@ PaperBook.getAllList = function(callback){
         if(err){
             return callback(err);
         }
+        paperBook.forEach(function(o){
+          o.imgSrc = o.cover.data.toString('base64');
+        });
         callback(null, paperBook);//paperbook数组
     });
 };
