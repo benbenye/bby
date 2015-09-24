@@ -23,7 +23,7 @@ var book = express.Router();
     book.get('/delete/:id', BookController.removepaperBook);
 
     //最新连载
-    // book.get('/book/serial', BookController.getindex);
+    book.get('/book/serial', BookController.getindex);
 
     /*
     *我上传过的书
@@ -82,17 +82,14 @@ var book = express.Router();
     book.get('/book/bookContent/delete/:id', BookController.getbookContentDeleteByid);
      
     //查看书籍内容(无需登录验证)
-    // book.get('/book/bookContent/:id', CheckController.checkNotLogin);
     book.get('/book/bookContent/:id', BookController.getbookContentByid);
     
     //查看书籍描述(无需登录验证)
-    // book.get('/serial/:id', CheckController.checkNotLogin);
     book.get('/serial/:id', BookController.getbookByid);
 
     //查看paperbook(无需登录验证)
-    // book.get('/paperbook/:id', CheckController.checkNotLogin);
     book.get('/paperbook/:id', BookController.getpaperbookByid);
-
+    
     //请求图书封皮
     // book.get('/images/books/:id', BookController.getbookCoverByid);
 module.exports = book;

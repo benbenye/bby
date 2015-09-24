@@ -529,7 +529,8 @@ function BookController(){
                 return console.log(err.message);
             }
             if(req.session.user == null){
-                res.render('book/paperBookCont',{
+                // res.render('book/paperBookCont',{
+                res.json({
                     paperBook:paperBook,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
@@ -537,7 +538,8 @@ function BookController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                    res.render('book/paperBookCont',{
+                    // res.render('book/paperBookCont',{
+                    res.json({
                         user:user,
                         paperBook:paperBook,
                         success:req.flash('success').toString(),
