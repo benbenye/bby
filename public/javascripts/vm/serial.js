@@ -6,7 +6,7 @@ define(['../avalon/mmRequest'],function (avalon){
 			title:'',
 			success:'',
 			paperBook:[]
-   });
+   })
 	}
 })
 

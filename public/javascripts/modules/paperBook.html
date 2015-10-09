@@ -1,0 +1,21 @@
+<section class="main-content" ms-controller="main-content">
+	<h2>{{ title }}</h2>
+	<a ms-if="user && user.name == 'name'" href='/getuppaperBook'> 新书上传地址[仅管理员可见]</a>
+
+	<ul class="paperBook">
+		<li ms-repeat="paperBook">
+			<div class="btn delete" ms-attr-paper-id="{{el._id}}">&times;</div>
+			<div class="paperCoverImg" ms-if="el.cover.data == undefined"><img src="/images/default/avatar.jpg" alt="默认封面" class="paperCover"></div>
+			<div class="paperCoverImg" ms-if="el.cover.data != undefined"><img class="paperCover" ms-src="data:{{el.cover.contentType}};base64,{{el.imgSrc}}" ms-attr-alt="el.name_zh"></div>
+			<div class="info">
+				<h3 class="title">
+					<a ms-href="#!/paperbook/{{el._id}}" target="_self"> {{el.name_zh}}</a>
+					<a ms-if="user != undefined && user.name == 'name'" ms-href="/edit/{{el._id}}">修改新书信息[仅管理员可见]</a>
+				</h3>
+				<div class="author overdot">作者：{{el.author}}</div>
+				<div class="press">出版社：{{el.press}}</div>
+				<div class="releaseTime">出版时间：{{el.releaseTime}}</div>
+			</div>
+		</li>
+	</ul>
+</section>
