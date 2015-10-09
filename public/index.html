@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="fragment" content="!" />
 	<title>笨笨书屋</title>
-	<script src="/lib/avalon/avalon.js"></script>
-	<script src="/lib/avalon/mmRequest.js"></script>
-	<script src="/lib/avalon/mmRouter.js"></script>
-	<script src="/lib/routers/index.js"></script>
+	<script src="/javascripts/avalon/avalon.js"></script>
+	<script src="/javascripts/avalon/mmRequest.js"></script>
+	<script src="/javascripts/avalon/mmRouter.js"></script>
+	<script src="/javascripts/routers/index.js"></script>
 	<script src="/javascripts/page/jquery-1.11.1.js"></script>
 	<script src="/javascripts/page/selectize.js"></script>
 	<script src="/javascripts/page/confirm_page.js"></script>
@@ -18,12 +18,27 @@
 </head>
 <body>
 	<script>
-require(['./mmRequest'], function(avalon) {
+	require.config({
+	    baseUrl: "./javascripts"
+	});
+	avalon.templateCache['aaa.html'] = '<strong>sdfs</strong>';
+	avalon.templateCache['bbb.html'] = '<em>sdfsfdaswe</em>';
+require(['./avalon/mmRequest'], function(avalon) {
 	var vm = avalon.define({
 		$id: "main-content",
+		aaa:'aaa.html',
 		title:'',
 		success:'',
-		paperBook:[]
+		paperBook:[],
+		change:function(){
+			vm.aaa = vm.aaa === 'aaa.html' ? 'bbb.html' : 'aaa.html'
+		},
+		adjust:function(tmpl){
+			return tmpl + " "+(new Date - 0);
+		},
+		render: function(){
+			console.log('render');
+		}
    });
 
 	avalon.getJSON( "/index",function(data){
@@ -57,6 +72,11 @@ require(['./mmRequest'], function(avalon) {
 				</div>
 			</li>
 		</ul>
+
+		<div ms-include-src="aaa" data-include-loaded="adjust"></div>
+		<div ms-include-src="'lib/modules/index.html'" data-include-rendered="render"></div>
+		<button type="button" ms-click="change">点击</button>
+
 	</section>
 </body>
 </html>
