@@ -9,7 +9,7 @@
 			<div class="paperCoverImg" ms-if="el.cover.data != undefined"><img class="paperCover" ms-src="data:{{el.cover.contentType}};base64,{{el.imgSrc}}" ms-attr-alt="el.name_zh"></div>
 			<div class="info">
 				<h3 class="title">
-					<a ms-href="#!/paperbook/{{el._id}}" target="_self"> {{el.name_zh}}</a>
+					<a ms-href="'#!/paperbook/'+el._id" target="_self"> {{el.name_zh}}</a>
 					<a ms-if="user != undefined && user.name == 'name'" ms-href="/edit/{{el._id}}">修改新书信息[仅管理员可见]</a>
 				</h3>
 				<div class="author overdot">作者：{{el.author}}</div>

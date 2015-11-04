@@ -1,0 +1,9 @@
+<section class="main-content" ms-controller="paperBook-detail">
+	<h3 class="fb f18" id="bookTitle" bookId="{{paperBookDetail.paperBook._id}}">{{paperBookDetail.paperBook.name_zh}}</h3>
+	<p class="tags">标签：
+		<span ms-repeat="tags">
+			{{el}}
+		</span>
+	</p>
+	<img class="paperCover" ms-src="data:{{paperBookDetail.paperBook.cover.contentType}};base64,{{paperBookDetail.paperBook.imgSrc}}" ms-attr-alt="paperBookDetail.paperBook.name_zh">
+</div>
