@@ -17,7 +17,8 @@ var express = require('express'),
     errorhandler = require('errorhandler'),
     book = require('./routers/book'),
     comment = require('./routers/comment'),
-    user = require('./routers/user');
+    user = require('./routers/user'),
+    notFound = require('./routers/404');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(book);
 app.use(comment);
 app.use(user);
+app.use(notFound);
 
 // development only
 if ('development' == app.get('env')) {

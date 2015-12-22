@@ -19,7 +19,8 @@ function BookController(){
                 return callback(err);
             }
             if(req.session.user == null){
-                res.render('index',{
+                // res.render('index',{
+                res.json({
                     title:'最新连载',
                     books:book,
                     success:req.flash('success').toString(),
@@ -28,7 +29,8 @@ function BookController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                    res.render('index',{
+                    // res.render('index',{
+                    res.json({
                         title:'最新连载',
                         user:user,
                         books:book,
@@ -47,7 +49,8 @@ function BookController(){
                 // res.flash();
                 return console.log(err.message);
             }
-            res.render('book/mybook',{
+            // res.render('book/mybook',{
+            res.json({
                 title:'书籍页面',
                 user:req.session.user,
                 book:book,
@@ -58,7 +61,8 @@ function BookController(){
 
     this.getupbook = function(req, res){ 
         GetPerInfo(req.session.user.name, function (user) {
-            res.render('book/upbook',{
+            // res.render('book/upbook',{
+            res.json({
                 title:'上传书籍描述',
                 user:user,
                 success:req.flash('success').toString(),
@@ -118,7 +122,8 @@ function BookController(){
                 return callback(err);
             }
             GetPerInfo(req.session.user.name, function (user) {
-                res.render('book/upbookDescribe',{
+                // res.render('book/upbookDescribe',{
+                res.json({
                     title:'上传书籍描述',
                     user:user,
                     book:book,
@@ -183,7 +188,8 @@ function BookController(){
             if(bookContent === null){
                 if(req.session.user == null){
                     GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/upbookContent',{
+                        // res.render('book/upbookContent',{
+                        res.json({
                             title:'上传书籍描述',
                             id:req.params.id,
                             error:'您还没有上传内容',
@@ -194,7 +200,8 @@ function BookController(){
                     }); 
                 }else{
                     GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/upbookContent',{
+                        // res.render('book/upbookContent',{
+                        res.json({
                             title:'上传书籍描述',
                             user:user,
                             id:req.params.id,
@@ -209,7 +216,8 @@ function BookController(){
             else{
                 if(req.session.user == null){
                     GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/upbookContent',{
+                        // res.render('book/upbookContent',{
+                        res.json({
                             title:'上传书籍描述',
                             id:req.params.id,
                             bookContent:bookContent.contents,
@@ -220,7 +228,8 @@ function BookController(){
                     }); 
                 }else{
                     GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/upbookContent',{
+                        // res.render('book/upbookContent',{
+                        res.json({
                             title:'上传书籍描述',
                             user:user,
                             id:req.params.id,
@@ -304,7 +313,8 @@ function BookController(){
                 return callback(err);
             }
             if(req.session.user == null){
-                res.render('book/bookContent',{
+                // res.render('book/bookContent',{
+                res.json({
                     title:'',
                     book:book,
                     success:req.flash('success').toString(),
@@ -313,7 +323,8 @@ function BookController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/bookContent',{
+                        // res.render('book/bookContent',{
+                        res.json({
                             title:'书籍内容',
                             user:user,
                             book:book,
@@ -333,7 +344,8 @@ function BookController(){
                 return console.log(err.message);
             }
             if(req.session.user == null){
-                res.render('book/bookDescribe',{
+                // res.render('book/bookDescribe',{
+                res.json({
                     title:'上传书籍描述',
                     book:book,
                     success:req.flash('success').toString(),
@@ -342,7 +354,8 @@ function BookController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                    res.render('book/bookDescribe',{
+                    // res.render('book/bookDescribe',{
+                    res.json({
                         title:'书籍页面',
                         user:user,
                         book:book,
@@ -373,14 +386,16 @@ function BookController(){
                 res.send({state:0});
             }else{                
                 if(req.session.user == null){
-                    res.render('book/editPage',{
+                    // res.render('book/editPage',{
+                    res.json({
                         id:id,
                         page:page,
                         content:pageContent.contents[page-1].content
                     });
                 }else{
                     GetPerInfo(req.session.user.name, function (user) {
-                        res.render('book/editPage',{
+                        // res.render('book/editPage',{
+                        res.json({
                             id:id,
                             user:user,
                             page:page,
@@ -406,7 +421,8 @@ function BookController(){
                         return callback(err);
                     }
                     if(req.session.user == null){
-                        res.render('book/bookContent',{
+                        // res.render('book/bookContent',{
+                        res.json({
                             title:'书籍内容',
                             book:book,
                             success:req.flash('success').toString(),
@@ -415,7 +431,8 @@ function BookController(){
                         });
                     }else{
                         GetPerInfo(req.session.user.name, function (user) {
-                            res.render('book/bookContent',{
+                            // res.render('book/bookContent',{
+                            res.json({
                                 title:'书籍内容',
                                 user:user,
                                 book:book,
@@ -435,7 +452,8 @@ function BookController(){
     //
     this.getuppaperBook = function(req, res){
         GetPerInfo(req.session.user.name, function (user) {
-            res.render('book/uppaperBook',{
+            // res.render('book/uppaperBook',{
+            res.json({
                 title:'上传新书',
                 user:user,
                 success:req.flash('success').toString(),
@@ -497,7 +515,8 @@ function BookController(){
                 return console.log(err.message);
             }
             if(req.session.user == null){
-                res.render('book/paperBook',{
+                // res.render('book/paperBook',{
+                res.json({
                     title:'新书速递',
                     paperBook:paperBook,
                     success:req.flash('success').toString(),
@@ -506,7 +525,8 @@ function BookController(){
                 });
             }else{
                GetPerInfo(req.session.user.name, function (user) {
-                   res.render('book/paperBook',{
+                   // res.render('book/paperBook',{
+                res.json({
                        title:'新书速递',
                        user:user,
                        paperBook:paperBook,
@@ -526,7 +546,8 @@ function BookController(){
                 return console.log(err.message);
             }
             if(req.session.user == null){
-                res.render('book/paperBookCont',{
+                // res.render('book/paperBookCont',{
+                res.json({
                     paperBook:paperBook,
                     success:req.flash('success').toString(),
                     success_out:req.flash('success_out').toString(),
@@ -534,7 +555,8 @@ function BookController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                    res.render('book/paperBookCont',{
+                    // res.render('book/paperBookCont',{
+                    res.json({
                         user:user,
                         paperBook:paperBook,
                         success:req.flash('success').toString(),

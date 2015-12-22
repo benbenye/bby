@@ -7,7 +7,8 @@ var crypto = require('crypto'),//crypto 是node的一个核心模块，我们使
 
 function UserController(){
     this.getlogin = function(req, res){
-        res.render('user/login',{
+        // res.render('user/login',{
+        res.json({
             title:'登录',
             error:req.flash('error').toString()
         });
@@ -41,7 +42,8 @@ function UserController(){
     };
 
     this.getreg = function(req, res){
-        res.render('user/reg',{
+        // res.render('user/reg',{
+        res.json({
             title:'注册',
             success:req.flash('success').toString(),
             user:req.session.user
@@ -96,7 +98,8 @@ function UserController(){
 
     this.getperInfo = function(req, res){
         GetPerInfo(req.session.user.name, function (user) {
-            res.render('user/perInfo',{
+            // res.render('user/perInfo',{
+            res.json({
                 title:'个人中心',
                 user:user,
                 success:req.flash('success').toString(),
@@ -220,13 +223,14 @@ function UserController(){
             });
         };
     
-/*    this.getmywish = function(req, res){
+    this.getmywish = function(req, res){
         User.get(req.session.user.name,function(err, user){
             if(err){
                 return console.log(err.message);
             }
             Book.getMywish(user.wish,function(err, mywishBook){                
-                res.render('book/mywish',{
+                // res.render('book/mywish',{
+                res.json({
                     title:'我想看的书',
                     user:req.session.user,
                     mywishBook : mywishBook
@@ -234,7 +238,7 @@ function UserController(){
                 });
             });
         };
-*/
+
     //个人页面
     this.getUserInfor = function(req, res){
         // User.get(),需要一个新的jade视图显示个人页面
@@ -243,7 +247,8 @@ function UserController(){
                 return console.log(err.message);
             }
             if(req.session.user == null){
-                res.render('user/userInfor',{
+                // res.render('user/userInfor',{
+                res.json({
                     title:userInfor.name+'的个人页面',
                     userInfor:userInfor,
                     success:req.flash('success').toString(),
@@ -255,7 +260,8 @@ function UserController(){
                     if(req.session.user.name == userInfor.name){
                         res.redirect('/user/perInfo');
                     }
-                    res.render('user/userInfor',{
+                    // res.render('user/userInfor',{
+                    res.json({
                         title:userInfor.name+'的个人页面',
                         user:user,
                         userInfor:userInfor,
@@ -270,7 +276,8 @@ function UserController(){
 
     this.getGameMovie = function(req, res){
         // movie game
-        res.render('game/movie',{
+        // res.render('game/movie',{
+        res.json({
             title:'电影超人',
             success:req.flash('success').toString()
         });

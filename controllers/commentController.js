@@ -29,7 +29,8 @@ function CommentController(){
                 return console.log(err.message);
             }
             if(req.session.user == null){
-                res.render('user/reviewer',{
+                // res.render('user/reviewer',{
+                res.json({
                     title:'书评人',
                     bookComment:bc,
                     success:req.flash('success').toString(),
@@ -38,7 +39,8 @@ function CommentController(){
                 });
             }else{
                 GetPerInfo(req.session.user.name, function (user) {
-                    res.render('user/reviewer',{
+                    // res.render('user/reviewer',{
+                    res.json({
                         title:'书评人',
                         bookComment:bc,
                         user:user,
