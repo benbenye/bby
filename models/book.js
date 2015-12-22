@@ -19,7 +19,8 @@ var bookSchema = new bookSchema({
   reading:Number,//正在读的人数
   readed:Number,//读过的人数
   bookContent:{type:ObjectId,ref:'BookContent'},
-  cover:{ data: Buffer, contentType: String }//封皮
+  cover:{ data: Buffer, contentType: String },//封皮
+  coverStr:String
 },{
     collection:'books'
 });
@@ -81,7 +82,9 @@ Book.getAllList = function(callback){
         if(err){
             return callback(err);
         }
-        console.log(book);
+        book.forEach(function(o){
+         o.imgSrc = o.cover.data.toString('base64');
+       });
         callback(null, book);//book数组
     });
 };
@@ -91,6 +94,9 @@ Book.getList = function(name, callback){
         if(err){
             return callback(err);
         }
+         book.forEach(function(o){
+          o.imgSrc = o.cover.data.toString('base64');
+        });
         callback(null, book);//book数组
     });
 };
@@ -100,6 +106,9 @@ Book.getMywish= function(mywishBook, callback){
         if(err){
             return callback(err);
         }
+         book.forEach(function(o){
+          o.imgSrc = o.cover.data.toString('base64');
+        });
         callback(null, book);//book数组
     });
 };
@@ -126,6 +135,9 @@ Book.getOne = function(id, callback){
         if(err){
             return callback(err);
         }
+        book.forEach(function(o){
+         o.imgSrc = o.cover.data.toString('base64');
+       });
         callback(null, book);
     });
 };

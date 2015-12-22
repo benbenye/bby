@@ -24,7 +24,8 @@ var paperbookSchema = new paperbookSchema({
   pages:Number,//页数
   price:Number,//定价
   layout:String,//装帧
-  cover:{ data: Buffer, contentType: String }//封皮
+  cover:{ data: Buffer, contentType: String },//封皮
+  coverStr:String
 },{
     collection:'paperbooks'
 });
@@ -100,6 +101,9 @@ PaperBook.getAllList = function(callback){
         if(err){
             return callback(err);
         }
+        paperBook.forEach(function(o){
+         o.imgSrc = o.cover.data.toString('base64');
+       });
         callback(null, paperBook);//paperbook数组
     });
 };

@@ -2,97 +2,45 @@
 /*
  * GET books listing.
  */
-var BookController = require('../controllers/bookController.js'),
-    CheckController = require('../controllers/checkController.js'),
+var Book = require('../controllers/bookController.js'),
+    Check = require('../controllers/checkController.js'),
     express = require('express');
 
 var book = express.Router();
 
 
     //新书速递,实体书 进入首页
-    book.get('/', BookController.getpaperbook);
+    book.get('/api/index', Book.getpaperbook);
+    book.get('/api/getuppaperBook', Check.checkNotLogin, Book.getuppaperBook);// 进入后台上传页面
+    book.post('/api/uppaperBook', Check.checkNotLogin, Book.uppaperBook);// 提交paperbook内容
+    book.get('/api/delete/:id', Check.checkNotLogin, Book.removepaperBook);// 删除一本paperbook
+    book.get('/api/book/serial', Book.getindex);//最新连载
 
-    // 进入后台上传页面
-    book.get('/getuppaperBook', CheckController.checkNotLogin);
-    book.get('/getuppaperBook', BookController.getuppaperBook);
-    // 提交paperbook内容
-    book.post('/uppaperBook', CheckController.checkNotLogin);
-    book.post('/uppaperBook', BookController.uppaperBook);
-    // 删除一本paperbook
-    book.get('/delete/:id', CheckController.checkNotLogin);
-    book.get('/delete/:id', BookController.removepaperBook);
-
-    //最新连载
-    book.get('/book/serial', BookController.getindex);
-
-    /*
-    *我上传过的书
-    */
-    // book.get('/book/mybook',  CheckController.checkNotLogin);
-    // book.get('/book/mybook',BookController.getmybook);
+    // book.get('/api/book/mybook',  Check.checkNotLogin,Book.getmybook);我上传过的书
     
     //新建书籍描述
-    book.get('/book/upbook', CheckController.checkNotLogin);
-    book.get('/book/upbook', BookController.getupbook);
+    book.get('/api/book/upbook', Check.checkNotLogin, Book.getupbook);
+    book.post('/api/book/upbook', Check.checkNotLogin, Book.postupbook);
+
+    // book.post('/api/book/upbookCover', Check.checkNotLogin, Book.postupbookCover);
     
-    book.post('/book/upbook', CheckController.checkNotLogin);
-    book.post('/book/upbook', BookController.postupbook);
+    book.get('/api/book/upbookDescribe/:id', Check.checkNotLogin, Book.getupbookDecribeByid);//查看\修改书籍描述
+    book.post('/api/book/upbookDescribe/:id', Check.checkNotLogin, Book.postupbookDecribeByid);//修改书籍描述
+    book.post('/api/book/upbookCover/:id', Check.checkNotLogin, Book.postupbookCoverByid);//修改书籍封皮
 
-    // book.post('/book/upbookCover', CheckController.checkNotLogin);
-    // book.post('/book/upbookCover', BookController.postupbookCover);
+    book.get('/api/book/bookDescribe/delete/:id',  Check.checkNotLogin, Book.getbookDescribeDeleteByid);//清空书籍描述
 
-    //查看\修改书籍描述
-    book.get('/book/upbookDescribe/:id', CheckController.checkNotLogin);
-    book.get('/book/upbookDescribe/:id', BookController.getupbookDecribeByid);
+    book.get('/api/book/upbookContent/:id/:page',  Check.checkNotLogin, Book.getOnePagebyPage);//查看书籍单页内容
+    book.post('/api/book/upbookContent/:id/:page',  Check.checkNotLogin, Book.postOnePage);//修改书籍单页内容
+    book.get('/api/book/upbookContent/:id',  Check.checkNotLogin, Book.getupbookContentByid);//查看书籍内容
+    book.post('/api/book/upbookContent/:id', Check.checkNotLogin, Book.postupbookContentById);//上传/修改书籍内容
+    book.post('/api/book/additionContents/:id', Check.checkNotLogin, Book.postadditionContentsById);//追加书籍内容
+    book.get('/api/book/bookContent/delete/:id',  Check.checkNotLogin, Book.getbookContentDeleteByid);//清空书籍内容
+    book.get('/api/book/bookContent/:id', Book.getbookContentByid);//查看书籍内容(无需登录验证)
+
     
-    //修改书籍描述
-    book.post('/book/upbookDescribe/:id', CheckController.checkNotLogin);
-    book.post('/book/upbookDescribe/:id', BookController.postupbookDecribeByid);
-    
-    //修改书籍封皮
-    book.post('/book/upbookCover/:id', CheckController.checkNotLogin);
-    book.post('/book/upbookCover/:id', BookController.postupbookCoverByid);
+    book.get('/api/serial/:id', Book.getbookByid);//查看书籍描述(无需登录验证)
+    book.get('/api/paperbook/:id', Book.getpaperbookByid);//查看paperbook(无需登录验证)
 
-    //清空书籍描述
-    book.get('/book/bookDescribe/delete/:id',  CheckController.checkNotLogin);
-    book.get('/book/bookDescribe/delete/:id', BookController.getbookDescribeDeleteByid);
-
-    //查看书籍单页内容
-    book.get('/book/upbookContent/:id/:page',  CheckController.checkNotLogin);
-    book.get('/book/upbookContent/:id/:page', BookController.getOnePagebyPage);
-
-    //修改书籍单页内容
-    book.post('/book/upbookContent/:id/:page',  CheckController.checkNotLogin);
-    book.post('/book/upbookContent/:id/:page', BookController.postOnePage);
-
-    //查看书籍内容
-    book.get('/book/upbookContent/:id',  CheckController.checkNotLogin);
-    book.get('/book/upbookContent/:id', BookController.getupbookContentByid);
-    
-    //上传/修改书籍内容
-    book.post('/book/upbookContent/:id', CheckController.checkNotLogin);
-    book.post('/book/upbookContent/:id', BookController.postupbookContentById);
-    
-    //追加书籍内容
-    book.post('/book/additionContents/:id', CheckController.checkNotLogin);
-    book.post('/book/additionContents/:id', BookController.postadditionContentsById);
-
-    //清空书籍内容
-    book.get('/book/bookContent/delete/:id',  CheckController.checkNotLogin);
-    book.get('/book/bookContent/delete/:id', BookController.getbookContentDeleteByid);
-     
-    //查看书籍内容(无需登录验证)
-    // book.get('/book/bookContent/:id', CheckController.checkNotLogin);
-    book.get('/book/bookContent/:id', BookController.getbookContentByid);
-    
-    //查看书籍描述(无需登录验证)
-    // book.get('/serial/:id', CheckController.checkNotLogin);
-    book.get('/serial/:id', BookController.getbookByid);
-
-    //查看paperbook(无需登录验证)
-    // book.get('/paperbook/:id', CheckController.checkNotLogin);
-    book.get('/paperbook/:id', BookController.getpaperbookByid);
-
-    //请求图书封皮
-    // book.get('/images/books/:id', BookController.getbookCoverByid);
+    // book.get('/api/images/books/:id', Book.getbookCoverByid);//请求图书封皮
 module.exports = book;

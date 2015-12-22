@@ -44,6 +44,7 @@ app.use(session({
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(book);
 app.use(comment);
 app.use(user);

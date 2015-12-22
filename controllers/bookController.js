@@ -18,6 +18,7 @@ function BookController(){
                 res.flash();
                 return callback(err);
             }
+            console.log('getindex')
             if(req.session.user == null){
                 // res.render('index',{
                 res.json({
@@ -514,6 +515,7 @@ function BookController(){
             if(err){
                 return console.log(err.message);
             }
+            console.log('getpaperbook')
             if(req.session.user == null){
                 // res.render('book/paperBook',{
                 res.json({

@@ -1,0 +1,18 @@
+<div class="main-content" >
+	<h2 class="">{{paperBook.title}}</h2>
+	<div class="bd">
+		<ul class="paperBook">
+			<li *ngFor="#book of paperBook.paperBook">
+				<div class="paperCoverImg">
+					<img src="data:{{book.cover.contentType}};base64,{{book.imgSrc}}" class="paperCover">
+				</div>
+				<div class="info">
+					<h3 class="title"><a href="/paperbook/{{book._id}}">{{book.name_zh}}</a></h3>
+					<div class="author overdot">作者：{{book.author}}</div>
+					<div class="press">出版社：{{book.press}}</div>
+					<div class="releaseTime">出版年：{{book.releaseTime}}</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

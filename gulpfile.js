@@ -4,7 +4,8 @@ var gulp = require('gulp'),
 	cssMin = require('gulp-minify-css'),
 	cssPreFix = require('gulp-css-prefix'),
 	imgMin = require('gulp-imagemin'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	typescript = require('gulp-typescript');
 
 gulp.task('cssMin', function(){
 	gulp.src('./public/styleSheets/*.css')
@@ -27,5 +28,13 @@ gulp.task('cssPreFix', function(){
 	gulp.src('./public/styleSheets/*.css')
 	.pipe(cssPreFix('bby-'))
 	.pipe(gulp.dest('./dest/styleSheets/style.bby.css'));
+});
+
+gulp.task('ts', function() {
+	var tsProject = typescript.createProject('tsconfig.json');
+	var tsResult = tsProject.src('./app/**/*') // instead of gulp.src(...) 
+		.pipe(typescript(tsProject));
+	
+	return tsResult.js.pipe(gulp.dest('./public'));
 });
 gulp.task('default',['cssMin','cssPreFix','imgMin','compressJs']);
