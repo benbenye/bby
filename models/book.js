@@ -19,7 +19,8 @@ var bookSchema = new bookSchema({
   reading:Number,//正在读的人数
   readed:Number,//读过的人数
   bookContent:{type:ObjectId,ref:'BookContent'},
-  cover:{ data: Buffer, contentType: String }//封皮
+  cover:{ data: Buffer, contentType: String },//封皮
+  coverName:String
 },{
     collection:'books'
 });
