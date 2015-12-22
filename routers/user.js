@@ -2,67 +2,50 @@
 /*
  * GET users listing.
  */
-var UserController = require('../controllers/userController.js'),
+var User = require('../controllers/userController.js'),
     express = require('express'),
-    CheckController = require('../controllers/checkController.js');
+    Check = require('../controllers/checkController.js');
 var user = express.Router();
 
     //登录页面
-    user.get('/user/login', CheckController.checkLogin);
-    user.get('/user/login', UserController.getlogin);
-    
-    user.post('/user/login', CheckController.checkLogin);
-    user.post('/user/login', UserController.postlogin);
+    user.get('/api/user/login', Check.checkLogin, User.getlogin);
+    user.post('/api/user/login', Check.checkLogin, User.postlogin);
 
     //注册页面
-    user.get('/user/reg', CheckController.checkLogin);
-    user.get('/user/reg', UserController.getreg); 
-
-    user.post('/user/reg', CheckController.checkLogin);
-    user.post('/user/reg', UserController.postreg);
+    user.get('/api/user/reg', Check.checkLogin, User.getreg);
+    user.post('/api/user/reg', Check.checkLogin, User.postreg);
     
     //退出
-    user.get('/user/logout',  CheckController.checkNotLogin);
-    user.get('/user/logout', UserController.getlogout);
+    user.get('/api/user/logout', Check.checkNotLogin, User.getlogout);
 
     //个人中心
-    user.get('/user/perInfo', CheckController.checkNotLogin);
-    user.get('/user/perInfo', UserController.getperInfo);
+    user.get('/api/user/perInfo', Check.checkNotLogin, User.getperInfo);
 
-    user.post('/user/perInfo', CheckController.checkNotLogin);
-    user.post('/user/perInfo', UserController.postperInfo);
+    user.post('/api/user/perInfo', Check.checkNotLogin, User.postperInfo);
 
-    user.post('/user/userAvatar', CheckController.checkNotLogin);
-    user.post('/user/userAvatar', UserController.postuserAvatar);
+    user.post('/api/user/userAvatar', Check.checkNotLogin, User.postuserAvatar);
 
     //添加想看图书
-    user.get('/user/wish', CheckController.checkNotLogin);
-    user.get('/user/wish', UserController.getwish);
+    user.get('/api/user/wish', Check.checkNotLogin, User.getwish);
 
     //添加看过图书
-    user.get('/user/readed', CheckController.checkNotLogin);
-    user.get('/user/readed', UserController.getread);
+    user.get('/api/user/readed', Check.checkNotLogin, User.getread);
 
     //添加在看图书
-    user.get('/user/reading', CheckController.checkNotLogin);
-    user.get('/user/reading', UserController.getreading);
+    user.get('/api/user/reading', Check.checkNotLogin, User.getreading);
 
     //删除想看图书
-    user.get('/user/pullwish', CheckController.checkNotLogin);
-    user.get('/user/pullwish', UserController.getpullwish);
+    user.get('/api/user/pullwish', Check.checkNotLogin, User.getpullwish);
     
     //我想读的书
-/*    user.get('/user/mywish', CheckController.checkNotLogin);
-    user.get('/user/mywish', UserController.getmywish);*/
+    // user.get('/api/user/mywish', Check.checkNotLogin, User.getmywish);
 
     //读取用户头像
-    /*user.get('/images/avatar/:id', CheckController.checkNotLogin);
-    user.get('/images/avatar/:id', UserController.getUserAvatarByid);*/
+    // user.get('/api/images/avatar/:id', Check.checkNotLogin, User.getUserAvatarByid);
 
     //用户个人页面
-    // user.get('/user/:name', CheckController.checkNotLogin);
-    user.get('/user/:name', UserController.getUserInfor);
+    user.get('/api/user/:name', Check.checkNotLogin, User.getUserInfor);
 
     // game
-    user.get('/game/movie',UserController.getGameMovie);
+    user.get('/api/game/movie',User.getGameMovie);
 module.exports = user;

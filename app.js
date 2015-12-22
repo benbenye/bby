@@ -1,24 +1,20 @@
-/**
- * Module dependencies.
- */
-
 var express = require('express'),
-    session = require('express-session'),
-    connect = require('connect'),
-    methodOverride = require('method-override'),
-    bodyParser = require('body-parser'),
-    multer = require('multer'),
-    cookieParser = require('cookie-parser'),
-    http = require('http'),
-    path = require('path'),
-    favicon = require('serve-favicon'),
-    MongoStore = require('connect-mongo')(session),
-    flash = require('connect-flash'),
-    errorhandler = require('errorhandler'),
-    book = require('./routers/book'),
-    comment = require('./routers/comment'),
-    user = require('./routers/user'),
-    notFound = require('./routers/404');
+	session = require('express-session'),
+	connect = require('connect'),
+	methodOverride = require('method-override'),
+	bodyParser = require('body-parser'),
+	multer = require('multer'),
+	cookieParser = require('cookie-parser'),
+	http = require('http'),
+	path = require('path'),
+	favicon = require('serve-favicon'),
+	MongoStore = require('connect-mongo')(session),
+	flash = require('connect-flash'),
+	errorhandler = require('errorhandler'),
+	book = require('./routers/book'),
+	comment = require('./routers/comment'),
+	user = require('./routers/user'),
+	notFound = require('./routers/404');
 
 var app = express();
 
@@ -35,13 +31,13 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cookieParser());
 app.use(session({
-    secret:'bby',//防止篡改cookies
-    //key:settings.db,
-    cookie :{maxAge:1000*60*6024*30},
-    store:new MongoStore({
-        db:'session',//把会话存储到数据库中避免丢失
-        url:'mongodb://127.0.0.1/sessoin'
-    })
+	secret:'bby',//防止篡改cookies
+	//key:settings.db,
+	cookie :{maxAge:1000*60*6024*30},
+	store:new MongoStore({
+		db:'session',//把会话存储到数据库中避免丢失
+		url:'mongodb://127.0.0.1/sessoin'
+	})
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
