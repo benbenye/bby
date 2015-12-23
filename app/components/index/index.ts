@@ -10,7 +10,7 @@ import {RouterOutlet, RouterLink} from 'angular2/router';
   bindings: [HTTP_BINDINGS]
 })
 export class IndexCmp {
-  paperBook: any;
+  paperBook={title:'sd'};
   constructor(http: Http) {
       http.get('/api/index')
       .subscribe(res => {
