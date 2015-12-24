@@ -1,0 +1,16 @@
+<div class="main-content" >
+	<h2 class="serial-title">{{book.title}}</h2>
+	<div class="bd">
+		<ul class="serial">
+			<li *ngFor="#book of book.books">
+				<div class="coverImg">
+					<img src="data:{{book.cover.contentType}};base64,{{book.imgSrc}}" class="cover">
+				</div>
+				<h3 class="title overdot"><a href="">{{book.name_zh}}</a></h3>
+				<div class="info" title="{{book.intro}}">
+					{{book.intro | subStr}}
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

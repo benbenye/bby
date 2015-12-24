@@ -2,6 +2,8 @@
 
   <head>
     <title>Angular 2 QuickStart</title>
+    <script src="/javascripts/page/jquery-1.11.1.js"></script>
+    <script src="/javascripts/page/countDown.js"></script>
     <link rel="stylesheet" href="/stylesheets/base/base.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
@@ -33,6 +35,27 @@
   <!-- 3. Display the application -->
   <body>
     <app>Loading...</app>
+    <div class="timer" style="margin-left:250px;"></div>
+    <script>
+      
+      var curTime = (new Date()).getTime()/1000
+      // curTime = 1451577600
+      var date = {};
+    var timer = setInterval(function(){
+      date = new CountDown({
+        tarTime:1452528000,
+        curTime:curTime++,
+        format:'dd-hh-mi-se'
+      });
+      if(date.invalid){
+        $('.timer').text(date.dd+'天'+date.hh+'小时'+date.mi+'分钟'+date.se+'秒')
+      }else{
+        $('.timer').text('已过期');
+        clearInterval(timer)
+      }
+    },1000);
+
+    </script>
   </body>
 
 </html>

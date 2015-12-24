@@ -1,8 +1,9 @@
 import {Component, ViewEncapsulation} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink} from 'angular2/router';
-// import {HTTP_PROVIDERS} from 'http/http';
+import {HTTP_PROVIDERS} from 'angular2/http';
 
-import {IndexCmp} from '../index/index';
+import {Book} from '../../routers/book'
+// import {IndexCmp} from '../index/index';
 // import {BookCmp} from '../serial/book';
 // import {ReviewerCmp} from '../reviewer/reviewer';
 // import {LoginCmp} from '../login/login';
@@ -11,6 +12,7 @@ import {IndexCmp} from '../index/index';
 @Component({
 		selector: 'app',
 		templateUrl: './modules/left.html',
+		providers: [HTTP_PROVIDERS],
 		// template: '<h1>My First Angular 2 App</h1>'
 		// styleUrls: ['./components/app/app.css'],
 		encapsulation: ViewEncapsulation.None,
@@ -18,14 +20,9 @@ import {IndexCmp} from '../index/index';
 
 })
 @RouteConfig(
-		[
-        { path: '/', component: IndexCmp, as: 'Index' }
-        // { path: '/serial', component: BookCmp, as: 'Serial' },
-        // { path: '/reviewer', component: ReviewerCmp, as: 'Reviewer' },
-        // { path: '/login', component: LoginCmp, as: 'Login' }
-        // { path: '/register', component: registerCmp, as: 'Register' }
-		]
+		(new Book()).routerConfig
 )
 export class AppCmp {
-	paperBook={title:'sdd'}
+	constructor(){
+	}
 }
