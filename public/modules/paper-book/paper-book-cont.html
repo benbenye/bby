@@ -1,0 +1,16 @@
+<div class="main-content">
+	<h3 class="fb f18" id="bookTitle" bookId="{{book._id}}">{{book.name_zh}}</h3>
+	<p class="tags">标签：
+		<span *ngFor="#tag of book.tags">{{tag}}</span>
+	</p>
+	<img src="data:{{book.cover.contentType}};base64,{{book.cover.data}}" alt="{{book.name_zh}}" class="cover">
+	<p>
+		<a href="javascript:void(0)" class="mr10 no_unl" id="wish">想看<span id="">{{book.want}}</span></a>
+		<a href="javascript:void(0)" class="mr10 no_unl" id="readed">看过<span id="">{{book.readed}}</span></a>
+		<a href="javascript:void(0)" class="mr10 no_unl" id="reading">正看<span>{{book.reading}}</span></a>
+		<span class="mr10 disable">正看{{book.reading}}</span>
+	</p>
+	<div class="mt30"><a href="/book/bookContent/{{book._id}}" class="btn">阅读</a></div>
+	<link rel="stylesheet'," href="/stylesheets/common/common.css">
+	<script src="/javascripts/page/collect_page.js"></script>
+</div>
