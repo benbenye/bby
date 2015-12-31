@@ -3,11 +3,13 @@ import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink} from 'angular2
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {Book} from '../../routers/book'
-// import {IndexCmp} from '../index/index';
+import {User} from '../../routers/user';
 // import {BookCmp} from '../serial/book';
 // import {ReviewerCmp} from '../reviewer/reviewer';
 // import {LoginCmp} from '../login/login';
 // import {registerCmp} from '../register/register';
+let routers = [];
+routers = (<any[]>Book).concat(User)
 
 @Component({
 		selector: 'app',
@@ -20,7 +22,7 @@ import {Book} from '../../routers/book'
 
 })
 @RouteConfig(
-		(new Book()).routerConfig
+	routers
 )
 export class AppCmp {
 	constructor(){
