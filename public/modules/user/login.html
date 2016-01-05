@@ -1,10 +1,17 @@
-<div class="main-content">
+<div *ngIf='login.err' class="main-content">
+	{{login.err.text}}
+</div>
+<div *ngIf='!login.err' class="main-content">
 	<h3>{{login.title}}</h3>
-	<form action="" class="form" method="post">
-		<label for=""><input type="text" name="name" palceholder="用户名" class="selectize-input"></label>
+	<form [hidden]='submited' (ngSubmit)="onSubmit()" #loginForm="ngForm" class="form">
+		<label for="name">用户名：</label><input type="text" class="selectize-input" required [(ngModel)]="model.name.value" ngControl="name" #name='ngForm'>
+		 <div [hidden]="name.valid" class="alert alert-danger">Name is required</div>
+		 <div *ngIf='!model.name.valid'>用户名错误</div>
 		<br>
-		<label for=""><input type="password'," class="selectize-input" name="password',placeholder='密码"></label>
+		<label for="password">密码：</label><input type="password" class="selectize-input" required [(ngModel)]="model.password.value" ngControl="password" #password='ngForm' placeholder="密码">
+		 <div [hidden]="password.valid" class="alert alert-danger">password is required</div>
+		 <div *ngIf='!model.password.valid'>密码错误</div>
 		<br>
-		<input type="submit',value='立即登录" class="btn login">
+		<input type="submit" value="立即登录" class="btn login" [disabled]='invalid'>
 	</form>
 </div>
