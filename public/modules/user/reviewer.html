@@ -1,0 +1,19 @@
+<div class="main-content">
+	<h2 class="reviewer-title">{{rv.title}}</h2>
+	<ul class="reviewer">
+		<li *ngFor="#bc of rv.bookComment">
+			<a href="/user/{{bc.userId.name}}" class="avatar">
+				<img *ngIf="!bc.userId.img" src="/images/default/avatar.jpg" alt="{{bc.userId.name}}" class="fl avatar">
+				<img *ngIf="bc.userId.img" src="*" alt="{{bc.userId.name}}" class="fl avatar">
+			</a>
+			<div class="userInfo">
+				<a href="/user/cb.userId.name" class="name">{{bc.userId.name}}</a>
+				<div>评论
+					<a href="">《{{bc.bookId.name_zh}}》</a>
+					<p class="commentContent">{{bc.comment.content}}</p>
+				</div>
+				<div>{{bc.userful}} 有用 {{bc.datetime}}</div>
+			</div>
+		</li>
+	</ul>
+</div>

@@ -5,11 +5,13 @@
 		<p class="username" *ngIf="!user.err">{{user.user.name}}</p>
 	</div>
 	<ul class="nav">
-    <li><a [routerLink]="['/Index']" class="no_unl">新书速递</a></li>
+    <!-- <li><a [routerLink]="['/Index']" class="no_unl">新书速递</a></li> -->
     <li><a [routerLink]="['/Serial']" class="no_unl">最新连载</a></li>
+    <li><a [routerLink]="['/Reviewer']" class="no_nul">评书人</a></li>
     <li *ngIf="user.err"><a [routerLink]="['/Login']" class="no_unl">登录</a></li>
     <li *ngIf="!user.err"><a [routerLink]="['/Perinfo']" class="no_unl">个人中心</a></li>
     <li *ngIf="!user.err"><a (click)='logout()' class="no_unl">退出</a></li>
 	</ul>
 </div>
+<!-- <login (every-second)="everySecond()"></login> -->
 <router-outlet></router-outlet>

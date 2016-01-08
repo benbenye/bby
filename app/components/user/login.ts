@@ -1,4 +1,4 @@
-import {Component, PLATFORM_DIRECTIVES, Pipe} from 'angular2/core';
+import {Component, PLATFORM_DIRECTIVES, Pipe, Directive, Output, EventEmitter} from 'angular2/core';
 import {Http, HTTP_PROVIDERS, HTTP_BINDINGS,Headers} from 'angular2/http';
 import {RouterOutlet, RouterLink, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
@@ -24,13 +24,16 @@ export class LoginCmp {
   http: any;
   router: any;
   invalid = false;
+  @Output('everySecond') everySecond: EventEmitter<any> = new EventEmitter();
   constructor(http: Http,router:Router) {
     this.http = http;
     this.router = router;
     http.get('/api/user/login')
       .subscribe(res => {
         this.login = res.json();
+
       });
+    
   }
 
   onSubmit(){
@@ -52,6 +55,7 @@ export class LoginCmp {
             this.model.password.valid = false;
           }
         }else{
+          setInterval(() => this.everySecond.emit(null), 1000);
           this.router.navigate(['Index'])
         }
       });

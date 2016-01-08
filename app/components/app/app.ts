@@ -4,7 +4,7 @@ import {HTTP_PROVIDERS,Http} from 'angular2/http';
 
 import {Book} from '../../routers/book'
 import {User} from '../../routers/user';
-// import {BookCmp} from '../serial/book';
+import {LoginCmp} from '../user/login';
 // import {ReviewerCmp} from '../reviewer/reviewer';
 // import {LoginCmp} from '../login/login';
 // import {registerCmp} from '../register/register';
@@ -15,7 +15,8 @@ let routers = (<any[]>Book).concat(User)
 		templateUrl: './modules/left.html',
 		providers: [HTTP_PROVIDERS],
 		// encapsulation: ViewEncapsulation.None,
-		directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES]
+		directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES, 
+			LoginCmp]
 })
 @RouteConfig(
 	routers
@@ -28,6 +29,7 @@ export class AppCmp {
 	http: any;
 	logoutres: any;
 	router: any;
+	everySecond() { console.log('second'); }
 	constructor(http:Http, router: Router){
 		this.router = router;
 		this.http = http;
