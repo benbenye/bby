@@ -1,26 +1,30 @@
 <html>
 
   <head>
+  <base href="/">
     <title>Angular 2 QuickStart</title>
     <script src="/javascripts/page/jquery-1.11.1.js"></script>
     <script src="/javascripts/page/countDown.js"></script>
     <link rel="stylesheet" href="/stylesheets/base/base.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
-
     <!-- 1. Load libraries -->
+    <script src="/es6-shim/es6-shim.js"></script>
     <script src="/angular2/bundles/angular2-polyfills.js"></script>
     <script src="/systemjs/dist/system.src.js"></script>
+    <script src="/typescript/lib/typescript.js"></script>
     <script src="/rxjs/bundles/Rx.js"></script>
     <script src="/angular2/bundles/angular2.dev.js"></script>
     <script src="/angular2/bundles/router.dev.js"></script>
-    <script src="/angular2/bundles/http.dev.js"></script>
+    <script src="/angular2/bundles/http.js"></script>
 
     <!-- 2. Configure SystemJS -->
     <script>
       System.config({
+        transpiler: 'typescript', 
+        typescriptOptions: { emitDecoratorMetadata: true }, 
         packages: {        
           app: {
-            format: 'register',
+            format: 'register', 
             defaultExtension: 'js'
           }
         }
@@ -30,7 +34,6 @@
     </script>
 
   </head>
-  <base href="/">
 
   <!-- 3. Display the application -->
   <body>

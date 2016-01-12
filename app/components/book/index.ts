@@ -11,7 +11,6 @@ import {getPerInfo} from  '../user/getPerInfo'
 })
 
 export class IndexCmp {
-  @Input() user: any;
   paperBook = {};
   constructor(http: Http) {
     http.get('/api/index')
@@ -19,5 +18,4 @@ export class IndexCmp {
         this.paperBook = res.json();
       });
   }
-
 }
