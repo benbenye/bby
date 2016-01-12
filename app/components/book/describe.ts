@@ -11,11 +11,12 @@ import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink, Router, RouteP
 
 export class DescribeCmp {
   describe = {};
+  user = {};
   constructor(http: Http, _router: Router, _routeParams: RouteParams) {
-
     http.get('/api/paperbook/' + _routeParams.get('id'))
       .subscribe(res => {
-        this.describe = res.json();
+        this.describe = res.json().paperBook;
+        this.user = res.json().user || {};
       });
   }
 

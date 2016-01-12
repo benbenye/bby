@@ -52,10 +52,10 @@ var book = express.Router();
 	// book.get('/api/book/bookContent/:id', Check.checkNotLogin, Book.getbookContentByid);无需登录验证)
 	
 //查看书籍描述(无需登录验证)
-	// book.get('/api/serial/:id', Check.checkNotLogin, Book.getbookByid);
+	book.get('/api/serial/:id', Book.getbookByid);
 
 	//查看paperbook(无需登录验证)
-	book.get('/api/paperbook/:id', Check.checkNotLogin, Book.getpaperbookByid);
+	book.get('/api/paperbook/:id', Book.getpaperbookByid);
 	
 	//请求图书封皮
 	// book.get('/api/images/books/:id', Book.getbookCoverByid);

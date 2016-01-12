@@ -1,16 +1,18 @@
-<div class="main-content" >
-	<h2 class="serial-title">{{book.title}}</h2>
-	<div class="bd">
-		<ul class="serial">
-			<li *ngFor="#book of book.books">
-				<div class="coverImg">
-					<img src="data:{{book.cover.contentType}};base64,{{book.imgSrc}}" class="cover">
-				</div>
-				<h3 class="title overdot"><a href="">{{book.name_zh}}</a></h3>
-				<div class="info" title="{{book.intro}}">
-					{{book.intro}}
-				</div>
-			</li>
-		</ul>
+
+
+<div *ngIf="book" class="main-content">
+	<h3 class="fb f18" id="{{book._id}}">{{book.name_zh}}</h3>
+	<p class="tags">标签：
+		<span *ngFor="#tag of book.tags">{{tag}}</span>
+	</p>
+	<div *ngIf="user">
+	<!-- 判断规则需要细化一下，jade有js语法，ng2要看情况了 -->
+		<a *ngIf="!user.wish" href="" class="mr10 no_nul" id="wish">想看<span>{{book.want}}</span></a>
+		<span class="mr10 disable">想看 {{book.want}}</span>
+		<a *ngIf="!user.readed" href="" class="mr10 no_nul" id="readed">想看<span>{{book.readed}}</span></a>
+		<span class="mr10 disable">看过 {{book.readed}}</span>
+		<a *ngIf="!user.reading" href="" class="mr10 no_nul" id="reading">想看<span>{{book.reading}}</span></a>
+		<span class="mr10 disable">正看 {{book.reading}}</span>
 	</div>
+	<div class="mt30"><a href="" class="btn">阅读</a></div>
 </div>

@@ -12,9 +12,8 @@ import {DescribeCmp} from  '../book/describe'
 
 @RouteConfig(
   [
-    { path: '/', component: IndexCmp, as: 'Ss', useAsDefault: true },
     { path: '/:id', component: DescribeCmp, as: 'Book' }
   ]
 )
 
-export class Center { }
+export class BookCenter { }

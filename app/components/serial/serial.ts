@@ -1,6 +1,6 @@
 import {Component, PLATFORM_DIRECTIVES,Pipe} from 'angular2/core';
 import {Http, HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http';
-import {RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouterOutlet, RouterLink, ROUTER_DIRECTIVES, Router, RouteParams} from 'angular2/router';
 
 @Component({
   selector: 'book',
@@ -13,11 +13,12 @@ import {RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
 
 export class SerialCmp {
   book = {};
- 
-  constructor(http: Http) {
-      http.get('/api/book/serial')
+  user = {}; 
+  constructor(http: Http, _router: Router, _routeParams: RouteParams) {
+    http.get('/api/serial/' + _routeParams.get('id'))
       .subscribe(res => {
-        this.book = res.json();
+        this.book = res.json().book;
+        this.user = res.json().user || {};
       });
   }
 

@@ -135,9 +135,7 @@ Book.getOne = function(id, callback){
         if(err){
             return callback(err);
         }
-        book.forEach(function(o){
-         o.imgSrc = o.cover.data.toString('base64');
-       });
+         book.imgSrc = book.cover.data.toString('base64');
         callback(null, book);
     });
 };

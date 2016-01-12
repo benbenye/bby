@@ -1,3 +1,94 @@
 <div class="main-content">
-	{{perinfor.title}}
+	<h2 class="perInfo-title">{{perinfor.title}}</h2>
+	<ul class="perinfo-nav">
+		<li>我上传的书</li>
+		<li>我希望读的书</li>
+		<li>我读过的书</li>
+		<li>我正在读的书	</li>
+		<li>修改头像</li>
+		<li>修改个人信息</li>
+	</ul>
+	<div class="content-box">
+		<div class="mybook" id="book">
+			<div class="title">我上传的书<a href="">+添加一本书</a></div>
+			<div class="content" *ngIf="perinfor.bookId">
+				<ul>
+					<li *ngFor="#iBook of perinfor.bookId,#i=index" class="mb10">
+						<span class="mr10">i+1</span>
+						<a href="/serial/{{iBook._id}}" class="book-title overdot">{{iBook.name_zh}}</a>
+						<a href="/book/upbookDescribe/{{iBook._id}}">修改描述</a>
+						<a href="/book/upbookContent/{{iBook._id}}">修改内容</a>
+						<a href="/book/bookContent/delete/{{iBook._id}}" class="deleteCon">清空内容</a>
+						<a href="/book/bookDescribe/delete/{{iBook._id}}" class="deleteAll">删除此书</a>
+					</li>
+				</ul>
+			</div>
+			<p *ngIf="!perinfor.bookId">暂时还没有上传书籍</p>
+		</div>
+		<div class="mywish none" id="mywish">
+			<div class="title">我喜欢读的</div>
+			<ul *ngIf="perinfor.wish">
+				<li *ngFor="#iWish of perinfor.wish">
+					<a href="" class="mr10">{{perinfor.bookId[index].name_zh}}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="myreaded none" id="myreaded">
+			<div class="title">我读过的书</div>
+			<ul *ngIf="perinfor.readed">
+				<li *ngFor="#ireaded of perinfor.readed">
+					<a href="" class="mr10">{{perinfor.readed[index].name_zh}}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="myreading none" id="myreading">
+			<div class="title">我正在读的书</div>
+			<ul *ngIf="perinfor.reading">
+				<li *ngFor="#ireading of perinfor.reading">
+					<a href="" class="mr10">{{perinfor.reading[index].name_zh}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<form action="" id="Avatars" class="postuserAvatar w200 none" method="post',action='/user/userAvatar',enctype='multipart/form-data">
+		<img *ngIf="perinfor.avatar" src="" alt="" class="avatarImg">
+		<img *ngIf="!perinfor.avatar" src="/images/default/avatar.jpg" alt="" class="avatarImg" width='76' height='76'>
+		<br>
+		<span class="percentage"></span>
+		<progress id="progressBar" class="none" value="0" max="100"></progress>
+		<p>上传头像
+			<input type="file" id="userAvatar" name="user-avatar">
+			<input type="hidden" name="{{perinfor._id}}" id="userId">
+		</p>
+		<input type="button" value="提交" id="postuserAvatar" class="btn mt10">
+	</form>
+
+	<form action="" class="perInfo none" id="perInfo" method="post',action='/user/perInfo">
+		<label for="" class="mt10 db">用户名：<input type="text" class="user-name" name="name',value='#{perinfor.name}',disabled='disabled"></label>
+		<br>
+		<label for="" class="mt10 db">邮箱：<input type="text',name='email',value='#{perinfor.email}" class="user-email"></label>
+		<br>
+		<label for="" class="mt10 db" *ngIf="perinfor.sex == 1">性别：
+			<input type="radio',name='sex',value='0" class="user-sex">	男
+			<input type="radio',name='sex',value='1" class="user-sex" checked="{{perinfor.sex}}">女
+			<input type="radio',name='sex" class="user-sex">保密
+		</label>
+		<label for="" class="mt10 db" *ngIf="perinfor.sex == 0">性别：
+			<input type="radio',name='sex',value='0" class="user-sex" checked="{{perinfor.sex}}">	男
+			<input type="radio',name='sex',value='1" class="user-sex">女
+			<input type="radio',name='sex" class="user-sex">保密
+		</label>
+		<br>
+		<input type="button',value='提交" id="postperInfo" class="btn mt10">
+	</form>
 </div>
+<script>
+	$(document).ready(function(){
+		$('.perinfo-nav li').click(function(){
+			$(this).addClass('sel').siblings().removeClass('sel');
+			console.log($(this).attr('name'));
+			$('#'+$(this).attr('name')).show().siblings().hide();
+		});
+	});
+</script>

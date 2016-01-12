@@ -1,0 +1,25 @@
+<div class="main-content">
+	<h1 class="title">{{describe.name_zh}}</h1>
+	<div class="paperBookCont">
+		<div class="paperBookIntro">
+			<div class="author">作者：{{describe.author}}</div>
+			<div class="translator" *ngIf="describe.translator">译者：{{describe.translator}}</div>
+			<div class="press">出版社：{{describe.press}}</div>
+			<div class="releaseTime">出版年：{{describe.releaseTime}}</div>
+			<div class="price">定价：{{describe.price}}</div>
+			<div class="layout">装帧：{{describe.layout}}</div>
+			<div class="isbn">ISBN：{{describe.ISBN}}</div>
+		</div>
+	</div>
+	<div class="paperBookContIntro">
+		<h3 class="title">作者简介</h3>
+		<div class="authorIntro">
+			{{describe.authorIntro}}
+		</div>
+		<h3 class="title">内容简介</h3>
+		<div class="contIntro">{{describe.contIntro}}</div>
+	</div>
+	<div class="tags">标签：
+		<span *ngFor="#tag of describe.tags">{{tag}}</span>
+	</div>
+</div>
