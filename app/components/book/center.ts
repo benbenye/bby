@@ -3,6 +3,7 @@ import {Http, HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http';
 import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink} from 'angular2/router';
 import {IndexCmp} from  '../book/index'
 import {DescribeCmp} from  '../book/describe'
+// import {BookService} from  '../book/book-service'
 
 @Component({
   providers: [HTTP_PROVIDERS],

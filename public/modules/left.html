@@ -13,5 +13,5 @@
     <li *ngIf="!user.err"><a (click)='logout()' class="no_unl">退出</a></li>
 	</ul>
 </div>
-<!-- <login (every-second)="everySecond()"></login> -->
+<login-cmp (every-second)="everySecond()"></login-cmp>
 <router-outlet></router-outlet>

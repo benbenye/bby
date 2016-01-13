@@ -18,4 +18,7 @@ export class PerinfoCmp {
       });
   }
 
+  switchNav(v){
+    console.log(v)
+  }
 }

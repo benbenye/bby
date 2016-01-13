@@ -1,6 +1,8 @@
-import {Component, ViewEncapsulation} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink, Router} from 'angular2/router';
-import {HTTP_PROVIDERS,Http} from 'angular2/http';
+import {Component, PLATFORM_DIRECTIVES, Input, bind, Injector} from 'angular2/core';
+import {Http, HTTP_PROVIDERS, HTTP_BINDINGS, Response} from 'angular2/http';
+import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink, Router, OnActivate,
+ComponentInstruction,
+APP_BASE_HREF} from 'angular2/router';
 
 import {Book} from '../../routers/book'
 import {User} from '../../routers/user';
@@ -10,6 +12,10 @@ import {LoginCmp} from '../user/login';
 // import {registerCmp} from '../register/register';
 let routers = (<any[]>Book).concat(User)
 
+var injector = Injector.resolveAndCreate([
+  HTTP_BINDINGS
+]);
+var http = injector.get(Http);
 @Component({
 		selector: 'app',
 		templateUrl: './modules/left.html',
@@ -21,7 +27,7 @@ let routers = (<any[]>Book).concat(User)
 @RouteConfig(
 	routers
 )
-export class AppCmp {
+export class AppCmp{
 	user = {err:{
 		text:'未接受到数据',
 		field:'notgetData'
@@ -29,7 +35,7 @@ export class AppCmp {
 	http: any;
 	logoutres: any;
 	router: any;
-	everySecond() { console.log('second'); }
+	log: any;
 	constructor(http:Http, router: Router){
 		this.router = router;
 		this.http = http;
@@ -42,6 +48,11 @@ export class AppCmp {
 		this.http.get('/api/user/logout')
 			.subscribe(res => {
 				this.logoutres = res.json()
+
+				http.get('/api/user/perInfo')
+				.subscribe(res=>{
+					this.user = res.json();
+				})
 				if (!this.logoutres.err) this.router.navigate(['Index']);
 			})
 	}

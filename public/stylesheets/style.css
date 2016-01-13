@@ -75,6 +75,7 @@ a {
 .nav{width: 180px; margin-right: auto; margin-left: auto;}
 .nav li{width: 178px; text-align: center; border-radius: 17px; margin-bottom: 20px; height: 30px; background: #5c5852;border-bottom: 1px solid #423f3a;background: rgba(255,255,255,0.1);border-bottom: 1px solid rgba(0,0,0,0.4);line-height: 30px;white-space: nowrap;}
 .nav li:hover{background: #95A153;}
+.nav li a.router-link-active{background: #95A153; border-radius: 17px;}
 .nav li a{display: block; color: #fff;}
 
 /*main content*/
