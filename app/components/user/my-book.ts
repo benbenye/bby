@@ -15,6 +15,7 @@ export class MyBookCmp {
     http.get('/api/user/perInfo')
       .subscribe(res => {
         this.perinfor = res.json();
+        console.log(this.perinfor.user.bookId)
       });
   }
 
@@ -22,3 +23,4 @@ export class MyBookCmp {
     console.log(v)
   }
 }
+console.log(MyBookCmp)

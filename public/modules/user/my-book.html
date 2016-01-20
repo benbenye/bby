@@ -1,9 +1,9 @@
 <div class="mybook" id="book">
 			<div class="title">我上传的书<a href="">+添加一本书</a></div>
-			<div class="content" *ngIf="perinfor.bookId">
+			<div class="content" *ngIf="perinfor.user">
 				<ul>
-					<li *ngFor="#iBook of perinfor.bookId,#i=index" class="mb10">
-						<span class="mr10">i+1</span>
+					<li *ngFor="#iBook of perinfor.user.bookId,#i=index" class="mb10">
+						<span class="mr10">{{i+1}}</span>
 						<a href="/serial/{{iBook._id}}" class="book-title overdot">{{iBook.name_zh}}</a>
 						<a href="/book/upbookDescribe/{{iBook._id}}">修改描述</a>
 						<a href="/book/upbookContent/{{iBook._id}}">修改内容</a>
@@ -12,5 +12,5 @@
 					</li>
 				</ul>
 			</div>
-			<p *ngIf="!perinfor.bookId">暂时还没有上传书籍</p>
+			<p *ngIf="!perinfor.user">暂时还没有上传书籍</p>
 		</div>

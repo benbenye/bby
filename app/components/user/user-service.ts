@@ -9,13 +9,12 @@ var injector = Injector.resolveAndCreate([
 ]);
 var http = injector.get(Http);
 
-export var currentUser: Observable<any>;
-// currentUser = {
-//   error: {
-//     text: '未接受到数据',
-//     field: 'notgetData'
-//   }
-// };
+export var currentUser: any= {
+  error: {
+    text: '未接受到数据',
+    field: 'notgetData'
+  }
+};
 
 http.get('/api/user/perInfo').subscribe(res=> {
   currentUser = res.json();

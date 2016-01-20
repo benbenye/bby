@@ -25,7 +25,8 @@ export class AppCmp{
 	logoutres: any;
 	router: any;
 
-	constructor(http:Http, router: Router){
+	constructor(http: Http, router: Router) {
+					console.log(this.currentUser)
 		this.router = router;
 		this.http = http;
 		http.get('/api/user/perInfo')
