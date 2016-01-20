@@ -1,4 +1,4 @@
-import {Component, PLATFORM_DIRECTIVES, Input, bind, Injector} from 'angular2/core';
+import {Component, PLATFORM_DIRECTIVES, Input, bind, Injector, OnInit} from 'angular2/core';
 import {Http, HTTP_PROVIDERS, HTTP_BINDINGS, Response} from 'angular2/http';
 import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink, Router, OnActivate,
 ComponentInstruction,
@@ -6,42 +6,31 @@ APP_BASE_HREF} from 'angular2/router';
 
 import {Book} from '../../routers/book'
 import {User} from '../../routers/user';
-import {LoginCmp} from '../user/login';
-// import {ReviewerCmp} from '../reviewer/reviewer';
-// import {LoginCmp} from '../login/login';
-// import {registerCmp} from '../register/register';
+import {currentUser} from '../user/user-service';
+
 let routers = (<any[]>Book).concat(User)
 
-var injector = Injector.resolveAndCreate([
-  HTTP_BINDINGS
-]);
-var http = injector.get(Http);
 @Component({
 		selector: 'app',
 		templateUrl: './modules/left.html',
 		providers: [HTTP_PROVIDERS],
-		// encapsulation: ViewEncapsulation.None,
-		directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES, 
-			LoginCmp]
+		directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES]
 })
 @RouteConfig(
 	routers
 )
 export class AppCmp{
-	user = {err:{
-		text:'未接受到数据',
-		field:'notgetData'
-	}};
+	currentUser = currentUser;
 	http: any;
 	logoutres: any;
 	router: any;
-	log: any;
+
 	constructor(http:Http, router: Router){
 		this.router = router;
 		this.http = http;
 		http.get('/api/user/perInfo')
 			.subscribe(res => {
-				this.user = res.json()
+				this.currentUser = res.json()
 			})
 	}
 	logout(){
@@ -49,10 +38,16 @@ export class AppCmp{
 			.subscribe(res => {
 				this.logoutres = res.json()
 
-				http.get('/api/user/perInfo')
-				.subscribe(res=>{
-					this.user = res.json();
+				this.http.get('/api/user/perInfo')
+					.subscribe(res=> {
+						var s = res.json();
+            for (var i in s) {
+              this.currentUser[i] = s[i];
+              currentUser[i] = s[i];
+            }
 				})
+					console.log(this.currentUser)
+					console.log(currentUser);
 				if (!this.logoutres.err) this.router.navigate(['Index']);
 			})
 	}

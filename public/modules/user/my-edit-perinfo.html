@@ -1,0 +1,25 @@
+<form action="" class="perInfo" id="perInfo" method="post',action='/user/perInfo">
+		<label for="" class="mt10 db">用户名：<input type="text" class="user-name" name="name',value='#{perinfor.name}',disabled='disabled"></label>
+		<br>
+		<label for="" class="mt10 db">邮箱：<input type="text',name='email',value='#{perinfor.email}" class="user-email"></label>
+		<br>
+		<label for="" class="mt10 db" [ngSwitch]="perinfor.sex">性别：
+			<template [ngSwitchWhen]="1">
+				<input type="radio" name="sex" value="0" class="user-sex">	男
+				<input type="radio" name="sex" value="1" class="user-sex" checked="{{perinfor.sex}}">女
+				<input type="radio" name="sex" class="user-sex">保密
+			</template>
+			<template [ngSwitchWhen]="0">
+				<input type="radio" name="sex" value="0" class="user-sex" checked="{{perinfor.sex}}">	男
+				<input type="radio" name="sex" value="1" class="user-sex">女
+				<input type="radio" name="sex" class="user-sex">保密
+			</template>
+			<template ngSwitchDefault>
+				<input type="radio" name="sex" value="0" class="user-sex">	男
+				<input type="radio" name="sex" value="1" class="user-sex">女
+				<input type="radio" name="sex" class="user-sex" checked="{{perinfor.sex}}">保密
+			</template>
+		</label>
+		<br>
+		<input type="button" value="提交" id="postperInfo" class="btn mt10">
+	</form>

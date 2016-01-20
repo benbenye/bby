@@ -1,0 +1,13 @@
+
+	<form action="" id="Avatars" class="postuserAvatar w200" method="post',action='/user/userAvatar',enctype='multipart/form-data">
+		<img *ngIf="perinfor.avatar" src="" alt="" class="avatarImg">
+		<img *ngIf="!perinfor.avatar" src="/images/default/avatar.jpg" alt="" class="avatarImg" width='76' height='76'>
+		<br>
+		<span class="percentage"></span>
+		<progress id="progressBar" class="none" value="0" max="100"></progress>
+		<p>上传头像
+			<input type="file" id="userAvatar" name="user-avatar">
+			<input type="hidden" name="{{perinfor._id}}" id="userId">
+		</p>
+		<input type="button" value="提交" id="postuserAvatar" class="btn mt10">
+	</form>

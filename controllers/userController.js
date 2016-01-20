@@ -49,7 +49,7 @@ function UserController(){
 			}           
 			req.session.user = user;
 				return res.json({
-					err:null
+					error:null
 				})
 		});
 	};
@@ -115,9 +115,7 @@ function UserController(){
 			res.json({
 				title:'个人中心',
 				user:user,
-				success:req.flash('success').toString(),
-				success_out:req.flash('success_out').toString(),
-				error:req.flash('error').toString(),
+				error:null
 			});
 		});
 	};
@@ -175,7 +173,7 @@ function UserController(){
 		User.pushwish(newwish.name, newwish.wish, function(err, numeffect){
 			if(err){
 				console.log(numeffect);
-				res.send({ok:0,err:err});
+				res.send({ok:0,error:err});
 			}
 			if(numeffect === 1){
 				Book.editNum(newwish.wish, 'want', function(err,nume){
@@ -193,7 +191,7 @@ function UserController(){
 			};
 		User.pushreaded(newreaded.name, newreaded.readed, function(err, numeffect){
 			if(err){
-				res.send({ok:0,err:err});
+				res.send({ok:0,error:err});
 			}
 			if(numeffect === 1){
 				Book.editNum(newreaded.readed,'readed',function(err,nume){
@@ -211,7 +209,7 @@ function UserController(){
 			};
 		User.pushreading(newreading.name, newreading.reading, function(err, numeffect){
 			if(err){
-				res.send({ok:0,err:err});
+				res.send({ok:0,error:err});
 			}
 			if(numeffect === 1){
 				Book.editNum(newreading.reading,'reading',function(err,nume){
@@ -266,7 +264,7 @@ function UserController(){
 					userInfor:userInfor,
 					success:req.flash('success').toString(),
 					success_out:req.flash('success_out').toString(),
-					error:req.flash('error').toString(),
+					error:null
 				});
 			}else{
 				GetPerInfo(req.session.user.name, function (user) {
@@ -280,7 +278,7 @@ function UserController(){
 						userInfor:userInfor,
 						success:req.flash('success').toString(),
 						success_out:req.flash('success_out').toString(),
-						error:req.flash('error').toString(),
+						error:null
 					});
 				});
 			}

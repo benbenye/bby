@@ -1,0 +1,8 @@
+<div class="myreading" id="myreading">
+			<div class="title">我正在读的书</div>
+			<ul *ngIf="perinfor.reading">
+				<li *ngFor="#ireading of perinfor.reading">
+					<a href="" class="mr10">{{perinfor.reading[index].name_zh}}</a>
+				</li>
+			</ul>
+		</div>

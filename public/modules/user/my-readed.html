@@ -1,0 +1,8 @@
+<div class="myreaded" id="myreaded">
+			<div class="title">我读过的书</div>
+			<ul *ngIf="perinfor.readed">
+				<li *ngFor="#ireaded of perinfor.readed">
+					<a href="" class="mr10">{{perinfor.readed[index].name_zh}}</a>
+				</li>
+			</ul>
+		</div>

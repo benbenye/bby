@@ -3,6 +3,7 @@ import {Http, HTTP_PROVIDERS, HTTP_BINDINGS, Response} from 'angular2/http';
 import {RouteConfig, ROUTER_DIRECTIVES, RouterOutlet, RouterLink, Router, OnActivate,
 ComponentInstruction,
 APP_BASE_HREF} from 'angular2/router';
+
 @Component({
   selector: 'index',
   providers: [HTTP_PROVIDERS],

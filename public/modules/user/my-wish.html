@@ -1,0 +1,8 @@
+<div class="mywish" id="mywish">
+			<div class="title">我喜欢读的</div>
+			<ul *ngIf="perinfor.wish">
+				<li *ngFor="#iWish of perinfor.wish">
+					<a href="" class="mr10">{{perinfor.bookId[index].name_zh}}</a>
+				</li>
+			</ul>
+		</div>
