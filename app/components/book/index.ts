@@ -14,7 +14,9 @@ APP_BASE_HREF} from 'angular2/router';
 export class IndexCmp implements OnActivate {
   paperBook = {};
   log: string;
-  constructor(http: Http) {
+  router: any;
+  constructor(http: Http,router:Router) {
+    this.router = router;
     http.get('/api/index')
       .subscribe(res => {
         this.paperBook = res.json();
@@ -23,5 +25,9 @@ export class IndexCmp implements OnActivate {
   routerOnActivate(next: ComponentInstruction, prev: ComponentInstruction) {
     this.log = `Finished navigating from "${prev ? prev.urlPath : 'null'}" to "${next.urlPath}"`;
     console.log(this.log)
+  }
+
+  gotoDescribe(id){
+    this.router.navigate(['Book', { id: id }])
   }
 }

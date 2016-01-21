@@ -10,6 +10,12 @@ a {
 .none{
 	display: none;
 }
+.imitate-href{
+	color: #00b7ff;
+}
+.imitate-href:hover{
+	cursor: pointer;	
+}
 .main-content h2{
 	margin-bottom: 30px; height: 56px; background-image: url(/images/title.png); background-repeat: no-repeat; text-indent: -9999px;
 }

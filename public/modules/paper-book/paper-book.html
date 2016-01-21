@@ -7,7 +7,7 @@
 					<img src="data:{{book.cover.contentType}};base64,{{book.imgSrc}}" class="paperCover">
 				</div>
 				<div class="info">
-					<h3 class="title"><a href="/book/{{book._id}}">{{book.name_zh}}</a></h3>
+					<h3 class="title imitate-href" id="{{book._id}}" (click)="gotoDescribe($event.target.id)">{{book.name_zh}}</h3>
 					<div class="author overdot">作者：{{book.author}}</div>
 					<div class="press">出版社：{{book.press}}</div>
 					<div class="releaseTime">出版年：{{book.releaseTime}}</div>
@@ -15,5 +15,4 @@
 			</li>
 		</ul>
 	</div>
-
-<router-outlet></router-outlet>
+</div>
