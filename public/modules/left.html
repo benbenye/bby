@@ -2,7 +2,7 @@
 	<div class="perinfo tc mt30 mb30">
 		<img src="/images/logo.jpg" class="avatar-120">
 		<p class="username" *ngIf="currentUser.error">笨笨书屋</p>
-		<p class="username" *ngIf="!currentUser.error">{{currentUser?.user?.name}}</p>
+		<p class="username" *ngIf="!currentUser.error">{{currentUser?.userInfor?.name}}</p>
 	</div>
 	<ul class="nav">
     <li><a [routerLink]="['/Index']" class="no_unl">新书速递</a></li>
@@ -13,6 +13,6 @@
     <li *ngIf="!currentUser.error"><a (click)='logout()' class="no_unl">退出</a></li>
 	</ul>
 </div>
-{{currentUser?.user?.name}}
+{{currentUser?.userInfor?.name}}
 {{currentUser?.error?.text}}
 <router-outlet></router-outlet>

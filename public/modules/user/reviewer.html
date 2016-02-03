@@ -7,10 +7,10 @@
 				<img *ngIf="bc.userId.img" src="*" alt="{{bc.userId.name}}" class="fl avatar">
 			</a>
 			<div class="userInfo">
-				<a href="/user/cb.userId.name" class="name">{{bc.userId.name}}</a>
+				<a id="{{bc?.userId?.name}}" (click)="gotoUser($event.target.id)" class="name">{{bc.userId.name}}</a>
 				<div>评论
 					<a href="">《{{bc.bookId.name_zh}}》</a>
-					<p class="commentContent">{{bc.comment.content}}</p>
+					<p class="commentContent">{{bc.comment.content | cutString:23}}</p>
 				</div>
 				<div>{{bc.userful}} 有用 {{bc.datetime}}</div>
 			</div>

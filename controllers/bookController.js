@@ -479,6 +479,36 @@ function BookController(){
 				console.log('ok')
 				return
 			});
+		
+		// 测试 七牛上传图片接口
+		/*var strategy = {
+			scope : 'yhez:sunflower.jpg',
+			deadline : 1454342400,
+			returnBody : '{
+			  "name": $(fname),
+			  "size": $(fsize),
+			  "w": $(imageInfo.width),
+			  "h": $(imageInfo.height),
+			  "hash": $(etag)
+			}'
+		}
+		var secretKey = 'KPwlHVbgLLw6AZY8YOpHY0Ax98t3Fa--FmS-TkNN'
+		var AK = 'On66KxRqsh6aoYYLtOta-CmTh2wp7F2ATljhmvOl'
+		var putPolicy = JSON.stringify(strategy);
+		function urlsafe_base64_encode(sign){
+			var _sign = sign.toString('base64');
+			var reg = /\+/g;
+			var reg1 = /\//g;
+			_sign.replace(reg,'-');
+			_sign.replace(reg1,'_');
+			return _sign+='=';
+		}
+		var signSK = crypto.createHmac('sha1', secretKey).digest().toString('base64');
+		putPolicy = urlsafe_base64_encode(putPolicy);
+		signSK = urlsafe_base64_encode(signSK);
+
+		var uploadToken = AK + ':' +signSK +':'+putPolicy;
+		console.log(uploadToken);*/
 
 		
 		var newpaperBook = new PaperBook({

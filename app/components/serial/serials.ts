@@ -1,15 +1,15 @@
 import {Component, PLATFORM_DIRECTIVES,Pipe} from 'angular2/core';
 import {Http, HTTP_PROVIDERS, HTTP_BINDINGS} from 'angular2/http';
 import {RouterOutlet, RouterLink, ROUTER_DIRECTIVES,Router} from 'angular2/router';
+import {CutStringPipe} from '../pipes/cut-string';
 
 @Component({
   selector: 'book',
   providers: [HTTP_PROVIDERS],
   templateUrl: './modules/serial/serials.html',
-  bindings: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES]
+  bindings: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES],
+  pipes: [CutStringPipe]
 })
-
-@Pipe({ name: 'subStr' })
 
 export class SerialsCmp {
   book = {};
@@ -22,9 +22,6 @@ export class SerialsCmp {
           });
   } 
 
-  transform(str) {
-    return str.length > 20 ? str.substr(0, 17) + '...' : str;
-  }
   gotoSerial(id){
     this.router.navigate(['Serial', { id: id }])
   }

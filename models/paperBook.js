@@ -25,7 +25,7 @@ var paperbookSchema = new paperbookSchema({
   price:Number,//定价
   layout:String,//装帧
   cover:{ data: Buffer, contentType: String },//封皮
-  coverStr:String
+  imgSrc:String
 },{
     collection:'paperbooks'
 });

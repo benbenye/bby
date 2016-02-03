@@ -114,7 +114,7 @@ function UserController(){
 			// res.render('user/perInfo',{
 			res.json({
 				title:'个人中心',
-				user:user,
+				userInfor:user,
 				error:null
 			});
 		});
@@ -267,20 +267,26 @@ function UserController(){
 					error:null
 				});
 			}else{
-				GetPerInfo(req.session.user.name, function (user) {
+				// GetPerInfo(req.session.user.name, function (user) {
 					if(req.session.user.name == userInfor.name){
-						res.redirect('/user/perInfo');
+						// res.redirect('/user/perInfo');
+						return res.json({
+							error:{
+								field:'sameUser',
+								text:'我的个人页面'
+							}
+						})
 					}
 					// res.render('user/userInfor',{
 					res.json({
 						title:userInfor.name+'的个人页面',
-						user:user,
+						user:req.session.user,
 						userInfor:userInfor,
 						success:req.flash('success').toString(),
 						success_out:req.flash('success_out').toString(),
 						error:null
 					});
-				});
+				// });
 			}
 		});
 	};

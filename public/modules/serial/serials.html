@@ -8,7 +8,7 @@
 				</div>
 				<h3 class="title overdot imitate-href" id="{{book._id}}" (click)="gotoSerial($event.target.id)">{{book.name_zh}}</h3>
 				<div class="info" title="{{book.intro}}">
-					{{book.intro}}
+					{{book.intro | cutString}}
 				</div>
 			</li>
 		</ul>

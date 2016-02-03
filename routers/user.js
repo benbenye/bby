@@ -44,7 +44,7 @@ var user = express.Router();
     // user.get('/api/images/avatar/:id', Check.checkNotLogin, User.getUserAvatarByid);
 
     //用户个人页面
-    user.get('/api/user/:name', Check.checkNotLogin, User.getUserInfor);
+    user.get('/api/user/:name', User.getUserInfor);
 
     // game
     user.get('/api/game/movie',User.getGameMovie);
