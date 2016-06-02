@@ -85,7 +85,6 @@ Book.getAllList = function(callback){
         book.forEach(function(o){
          o.imgSrc = o.cover.data.toString('base64');
        });
-        console.log(book[0].imgSrc)
         callback(null, book);//book数组
     });
 };

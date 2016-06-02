@@ -17,9 +17,8 @@ var express = require('express'),
 	notFound = require('./routers/404');
 
 var app = express();
-
-app.set('port', process.env.VMC_APP_PORT || 3000);
-var host = (process.env.VCAP_APP_HOST || 'localhost');
+app.set('port', process.env.PORT || 3000);
+var host = (process.env.HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));//设置views文件夹为存放试图文件的目录，_dirname为全局变量，存储当前正在执行的脚本所在的目录
 app.set('view engine', 'jade');
 
@@ -36,7 +35,7 @@ app.use(session({
 	cookie :{maxAge:1000*60*6024*30},
 	store:new MongoStore({
 		db:'session',//把会话存储到数据库中避免丢失
-		url:'mongodb://127.0.0.1/sessoin'
+		url:'mongodb://bby:benbenye130315@ds021343.mlab.com:21343/session'
 	})
 }));
 app.use(express.static(path.join(__dirname, 'public')));

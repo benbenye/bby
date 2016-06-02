@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/stylesheets/common/common.css">
 <div class="main-content" >
 	<h2 class="">{{paperBook.title}}</h2>
+	<a (click)="gotoUpBook()">新书上传【仅管理员可见】</a>
 	<div class="bd">
 		<ul class="paperBook">
 			<li *ngFor="#book of paperBook.paperBook">

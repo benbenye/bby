@@ -26,6 +26,7 @@
     "express-session": "^1.12.1",
     "fs": "0.0.2",
     "gm": "^1.18.1",
+    "gulp-typescript": "^2.10.0",
     "hooks-fixed": "^1.0.1",
     "jade": "^1.10.0",
     "kareem": "^1.0.1",
