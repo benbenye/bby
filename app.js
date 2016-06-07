@@ -13,8 +13,8 @@ var express = require('express'),
 	errorhandler = require('errorhandler'),
 	book = require('./routers/book'),
 	comment = require('./routers/comment'),
-	user = require('./routers/user'),
-	notFound = require('./routers/404');
+	user = require('./routers/user');
+	//notFound = require('./routers/404');
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
@@ -25,7 +25,7 @@ app.set('view engine', 'jade');
 app.use(flash());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-app.use(multer()); 
+app.use(multer());
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cookieParser());
@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(book);
 app.use(comment);
 app.use(user);
-app.use(notFound);
+//app.use(notFound);
 
 // development only
 if ('development' == app.get('env')) {
