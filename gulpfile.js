@@ -13,7 +13,7 @@ gulp.task('cssMin', function(){
 });
 
 gulp.task('imgMin', function(){
-	gulp.src('./public/images/*.png')
+	gulp.src('./public/aa/**/*.png')
 	.pipe(imgMin())
 	.pipe(gulp.dest('./dest/images'));
 });
