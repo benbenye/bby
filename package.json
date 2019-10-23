@@ -25,7 +25,7 @@
     "kareem": "^1.0.1",
     "method-override": "^2.3.3",
     "mongodb": "^2.0.33",
-    "mongoose": "^4.0.5",
+    "mongoose": "^5.7.6",
     "mpath": "^0.2.1",
     "mpromise": "^0.5.5",
     "mquery": "^1.6.0",
